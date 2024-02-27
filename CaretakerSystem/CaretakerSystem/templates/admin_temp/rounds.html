@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+{% extends "admin_temp/capacity.html" %}
+{% load static %}
+{% block content %}
+
+        <!-- END SIDEBAR-->
+        <div class="content-wrapper">
+            <!-- START PAGE CONTENT-->
+            <div class="page-heading">
+                <div style="padding-top:10px;padding-bottom: 0px;">
+                    
+                    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                        <a class="navbar-brand" href="/admin-panel/index/" style="color:skyblue;">Dashboard</a>
+                        
+                        <span>/</span>
+                        <a class="nav-link" href="#" style="color:skyblue;">Plan </a>
+                        <span>/</span>
+                        <a class="nav-link" href="#" style="color:#c5c5c5;">Rounds</a>
+                      </nav>
+                </div>
+            </div>
+
+            
+           
+            <style>
+                .button-container {
+                    display: flex;
+                    justify-content: space-between;
+                    padding: 10px;
+                    border-radius: 5px;
+                    max-width: 100%;
+                    margin: auto;
+                    background-color: #c8c8c8;
+                }
+            
+                .button-container button {
+                    padding: 10px;
+                    margin-right: 10px; /* Add margin between buttons */
+                    background-color: #337ab7;
+                    color: white;
+                    border: none;
+                    border-radius: 4px;
+                    cursor: pointer;
+                }
+            
+                .dropdown {
+                    margin-left: auto;
+                }
+            
+                .dropdown select {
+                    padding: 10px;
+                }
+
+
+
+                .datepicker-container {
+                    display: inline-block;
+                  }
+              
+                  .datepicker-container input {
+                    padding: 5px;
+                    font-size: 16px;
+                    border: 1px solid #ccc;
+                    border-radius: 3px;
+                  }
+
+
+
+                #myForm {
+                    display: none; /* Hide the form by default */
+                    max-width: 500px;
+                    position: relative;
+                    padding: 20px;
+                  }
+              
+                input {
+                    width: 100%;
+                    padding: 8px;
+                    margin-bottom: 16px;
+                    box-sizing: border-box;
+                }
+              
+                #Done {
+                    padding: 10px;
+                    background-color: #4CAF50;
+                    color: white;
+                    border: none;
+                    cursor: pointer;
+                  }
+
+                  .close-btn {
+                    position: absolute;
+                    top: 5px;
+                    right: 5px;
+                    background-color: #ffffff;
+                  }
+            </style>
+
+
+
+
+            <div class="button-container">
+                <button>Monday 19/02</button>
+                <button>Tuesday 20/02</button>
+                <button>Wednesday 21/02</button>
+                <button>Thursday 22/02</button>
+                <button>Friday 23/02</button>
+                <button>Saturday 24/02</button>
+                <button>Sunday 25/02</button>
+                
+                
+                
+                <div class="dropdown">                       
+                <button class="btn btn-primary" type="submit"><strong><i class="fa fa-random"></i> Auto Plan</strong></button>                        
+                </div>
+              </div>
+
+
+
+            <div class="page-content fade-in-up">
+                <div class="ibox">
+                    <div class="ibox-head" style="background-color:#06abd8;">
+                        <div class="ibox-title">Visits not on rounds on <div class="datepicker-container"><input id="customDateInput" value="23/02/2024"></div></div>
+                        <button id="showFormButton" style="background:#767676;color: #fff;"><i class="fa fa-sliders"></i></button>
+
+                        <form id="myForm" style="background-color: #ccc;">
+                            <p><strong>Filter Visits</strong></p>
+
+                            <input type="text" id="name" name="name" placeholder="Choose a region">
+
+                            
+                            <input type="email" id="email" name="email" placeholder="Filter by Service User">
+
+                            
+                            <input type="email" id="email" name="email" placeholder="Select Visit Types">
+
+                            
+                            <input type="email" id="email" name="email" placeholder="Select Postcodes">
+
+                            <label for="email">Filter times 12:27am to 12:00am</label>
+                            <div class="slider-container">
+                                <label for="rangeSlider">Select a Value:</label>
+                                <input type="range" id="rangeSlider" name="rangeSlider" min="0" max="100" value="50">
+                                <p>Selected Value: <span id="selectedValue">50</span></p>
+                              </div>
+                            
+                              <script>
+                                const rangeSlider = document.getElementById('rangeSlider');
+                                const selectedValue = document.getElementById('selectedValue');
+                            
+                                rangeSlider.addEventListener('input', function() {
+                                  selectedValue.textContent = this.value;
+                                });
+                              </script>
+                            <button type="submit" id="Done">Submit</button>
+                            <button class="close-btn" id="closeFormButton"><i class="fa fa-close"></i></button>
+                        </form>
+                    </div>
+                    
+                        <table class="table table-striped table-bordered table-hover" id="example-table" cellspacing="0" width="100%" style="background-color: #7a7a7a;color: white;">
+                            <thead>
+                                <tr>
+                                    <th><input type="checkbox"></th>
+                                    <th>Service User</th>
+                                    <th>Planned Start
+                                        (Earliest-Latest)</th>
+                                    <th>Duration</th>
+                                    <th>Type</th>
+                                    <th>Postcode</th>                                    
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <th><input type="checkbox"></th>
+                                    <th>Service User</th>
+                                    <th>Planned Start
+                                        (Earliest-Latest)</th>
+                                    <th>Duration</th>
+                                    <th>Type</th>
+                                    <th>Postcode</th>   
+                                </tr>
+                            </tfoot>
+                            <tbody>
+                                {% for user, details in mapped %}
+                                <tr>
+                                    <td><input type="checkbox"></td>
+                                    <td>{{ user.staff_id }}</td>
+                                    <td>{{ user.first_name }} {{ user.last_name }}</td>
+                                    <td></td>
+                                    <td>
+                                        {% if user.is_active == True %}
+                                        Active
+                                        {% elif user.is_active == False %}
+                                        Inactive
+                                        {% endif %}
+                                    </td>
+                                    <td></td>
+                                    <td>
+                                        <span><a href="{% url 'staff_updt' id=user.id empid=details.employment_id eadid=details.equality_and_diversity_id regid=details.regions_id bkid=details.bank_details_id %}" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil color-muted m-r-5"></i> </a> | 
+                                            {% comment %} <a href="{% url 'staff_del' id=user.id empid=details.employment_id eadid=details.equality_and_diversity_id regid=details.regions_id bkid=details.bank_details_id %}" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash-o color-danger"></i></a></span>  {% endcomment %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    
+                </div>
+                
+            </div>
+
+            
+            <script>
+                $(function() {
+                  $("#customDateInput").datepicker({
+                    dateFormat: 'dd/mm/yy'
+                  });
+                });
+              </script>
+
+              <script>
+                document.getElementById('showFormButton').addEventListener('click', function() {
+                  document.getElementById('myForm').style.display = 'block';
+                  this.style.display = 'none'; // Hide the button
+                });
+
+                document.getElementById('closeFormButton').addEventListener('click', function(event) {
+                    event.preventDefault(); // Prevent the default form submission behavior
+                    document.getElementById('myForm').style.display = 'none';
+                    document.getElementById('showFormButton').style.display = 'block'; // Show the "Show Form" button
+                  });
+              </script>
+            <!-- END PAGE CONTENT-->
+
+{% endblock content %}
+

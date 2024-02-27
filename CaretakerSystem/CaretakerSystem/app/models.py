@@ -68,3 +68,34 @@ class BankDetails(models.Model):
     account_info = models.JSONField(default=list, null=True)
     
 
+class ContactInformation(models.Model):
+    detail_of = models.ForeignKey(User, on_delete=models.CASCADE)
+    email = models.EmailField(max_length=254)
+    telephone = models.CharField(max_length=150, null=True)
+    type_of =  models.CharField(max_length=12, null=True)
+    mobile = models.CharField(max_length=12, null=True)
+    
+class AddressInformation(models.Model):
+    detail_of = models.ForeignKey(User, on_delete=models.CASCADE)
+    address_line1 = models.CharField(max_length=250, null=True)
+    address_line2 = models.CharField(max_length=250, null=True)
+    town_city = models.CharField(max_length=150, null=True)
+    country = models.CharField(max_length=150, null=True)
+    post_code = models.CharField(max_length=150, null=True)
+
+
+def filepath_certificate(request, filename):
+    old_filename = filename
+    timeNow = datetime.datetime.now().strftime('%Y%m%d%H:%M:%S')
+    filename = "%s%s" % (timeNow, old_filename)
+    return os.path.join('certificate/', filename)
+
+class Qualification(models.Model):
+    detail_of = models.ForeignKey(User, on_delete=models.CASCADE)
+    add_skills = models.CharField(max_length=150, null=True)
+    license_no = models.CharField(max_length=150, null=True)
+    planned_date = models.DateField(null=True)
+    acquired_date = models.DateField(null=True)
+    expires_date = models.DateField(null=True)
+    pais = models.CharField(max_length=150, null=True)
+    uplod_certificate = models.FileField(upload_to=filepath_certificate, null=True)

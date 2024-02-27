@@ -2359,7 +2359,7 @@ smaller than 560
   background-color: #f7f8f8 !important; }
 
 .bg-ebony-800 {
-  background-color: #253544 !important; }
+  background-color: #ffffff !important; }
 
 .bg-ebony-700 {
   background-color: #2b3c4e !important; }
@@ -3364,7 +3364,7 @@ body.has-backdrop .backdrop {
       color: #fff; }
 
 .page-sidebar {
-  background-color: #253544; }
+  background-color: #ffffff; }
   .page-sidebar .admin-block .admin-info {
     color: #fff; }
     .page-sidebar .admin-block .admin-info small {
@@ -3393,7 +3393,7 @@ body.has-backdrop .backdrop {
   color: #fff; }
 
 .sidebar-mini .side-menu > li:hover .nav-2-level {
-  background-color: #253544; }
+  background-color: #ffffff !important; }
 
 .header .page-brand {
   color: #fff;
@@ -3544,3 +3544,39 @@ table.dataTable {
 .border{
   color:#11bfda;
 }
+
+
+
+.button-container {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      max-width: 500px;
+      margin: auto;
+    }
+
+    .button-container button {
+      padding: 10px;
+      margin-right: 10px; /* Add margin between buttons */
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .dropdown {
+      margin-left: auto;
+    }
+
+    .dropdown select {
+      padding: 10px;
+    }
+
+
+
+
+
+    

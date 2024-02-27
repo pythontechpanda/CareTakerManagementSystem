@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+{% extends "admin_temp/capacity.html" %}
+{% load static %}
+{% block content %}
+
+        <!-- END SIDEBAR-->
+        <div class="content-wrapper">
+            <!-- START PAGE CONTENT-->
+            <div class="page-heading">
+                <div style="padding-top:10px;padding-bottom: 0px;">
+                    
+                    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                        <a class="navbar-brand" href="/admin-panel/index/" style="color:skyblue;">Dashboard</a>
+                        
+                        <span>/</span>
+                        <a class="nav-link" href="#" style="color:skyblue;">Plan </a>
+                        <span>/</span>
+                        <a class="nav-link" href="#" style="color:#c5c5c5;">Planned Monthly Hours Comparison</a>
+                      </nav>
+                </div>
+            </div>
+
+            
+           
+            <style>
+                table {
+                    border-collapse: collapse;
+                    width: 100%;
+                }
+        
+                tr, th {
+                    border: 1px solid orange; /* Change to your preferred orange color */
+                    
+                }
+                tr, td {
+                    
+                    padding: 8px;
+                }
+        
+                th {
+                    background-color: #ffffff;
+                }
+        
+                .blank-cell {
+                    background-color: transparent;
+                    border: none;
+                }
+                .table tbody tr{
+                    font-size: 12px;
+                    table-style:striptags;
+                }
+                .table tbody tr:hover {
+                    background-color: #B3FF00; /* Change this to the desired green color */                    
+                }
+
+
+                #additionalFunctionalityContainer {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                }
+        
+                #additionalFunctionality {
+                    display: none;
+                    padding: 2px;
+                    border-radius: 5px;
+                    margin-top: 0px;
+                    text-align: left;
+                }
+        
+                #searchField {
+                    padding: 0px;
+                    margin-right: 0px;
+                    text-align: left;
+                }
+        
+                #searchButton,
+                #copyClipboardButton,
+                .dropdown-toggle {
+                    padding: 0px;
+                    margin-right: 0px;
+                    cursor: pointer;
+                }
+        
+                .dropdown {
+                    display: inline-block;
+                }
+        
+                .dropdown-menu {
+                    min-width: 100%;
+                    position: absolute;
+                }   
+                
+                tfoot th {
+                    background-color: 2px silid #e6e6e6; /* Change to your preferred background color for the footer row */
+                }
+            </style>
+
+
+
+
+            <div class="page-content fade-in-up">
+                
+                    <center>
+                    <div class="box" id="dateSelectionBox">
+                        <p>Planned Monthly Hours Comparison</p>
+                       
+                    </div>
+                    <center>
+                    <br>
+
+
+                    
+
+                    <div class="" >
+                        
+                       <div style="text-align:left;padding-left:10px;padding-top:0px;"> <i class="fa fa-play" onclick="toggleAdditionalFunctionality()"></i></div>
+
+                       <div id="additionalFunctionality" style="display: none;">
+                        <input type="text" id="searchField" placeholder="Search...">
+                        <button id="searchButton" onclick="performSearch()"><i class="fa fa-search"></i></button>
+                        <button id="copyClipboardButton" onclick="copyToClipboard()"><i class="fa fa-copy"></i></button>
+                        <div class="dropdown">
+                            <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-download"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="#">Excel</a>
+                                <a class="dropdown-item" href="#">PDF</a>
+                                <a class="dropdown-item" href="#">CVS</a>
+                            </div>
+                        </div>
+                    </div>
+
+                       <script>
+                        // Your existing scripts
+                
+                        // Add any additional scripts for the new functionality
+                        function toggleAdditionalFunctionality() {
+                            const additionalFunctionality = document.getElementById('additionalFunctionality');
+                            additionalFunctionality.style.display = additionalFunctionality.style.display === 'none' ? 'block' : 'none';
+                        }
+                
+                        function performSearch() {
+                            // Add logic for search functionality
+                        }
+                
+                        function copyToClipboard() {
+                            // Add logic for copying to clipboard
+                        }
+                
+                        function runReport() {
+                            // Add logic for running the report
+                        }
+                    </script>
+                    <br><br>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th colspan="4" ></th>
+                                <th colspan="8">Months</th>
+                            </tr>
+                            <tr>
+                              <!-- Add more months as needed -->
+                              <th colspan="4"></th>
+                                <th>202309</th>
+                                <th>202310</th>
+                                <th>202311</th>
+                                <th>202312</th>
+                                <th>202313</th>
+                                <th>202314</th>
+                            </tr>
+                            <tr>
+                                <th>Firstname</th>
+                                <th>Surname</th>
+                                <th>SSRef</th>
+                                <th>Service Start</th>
+                                <th>Regular Weekly Hours</th>
+                                <!-- Add more sub-headers as needed -->
+                                <th>Regular Weekly Hours</th>
+                                <th>Regular Weekly Hours</th>
+                                <th>Regular Weekly Hours</th>
+                                <th>Regular Weekly Hours</th>
+                                <th>Regular Weekly Hours</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>Timothy Alan</td>
+                                <td>SMITH</td>
+                                <td>195</td>
+                                <td>2021-02-16</td>
+                                <td class="month-value">84.00</td>
+                                <td class="month-value">84.00</td>
+                                <td class="month-value">84.00</td>
+                                <td class="month-value">84.00</td>
+                                <td class="month-value">84.00</td>
+                                <td class="month-value">84.00</td>
+                            </tr>
+                            <tr>
+                                <td>Timothy Alan</td>
+                                <td>SMITH</td>
+                                <td>195</td>
+                                <td>2021-02-16</td>
+                                <td class="month-value">22.00</td>
+                                <td class="month-value">84.00</td>
+                                <td class="month-value">84.00</td>
+                                <td class="month-value">84.00</td>
+                                <td class="month-value">84.00</td>
+                                <td class="month-value">84.00</td>
+                            </tr>
+                            <tr>
+                                <td>Timothy Alan</td>
+                                <td>SMITH</td>
+                                <td>195</td>
+                                <td>2021-02-16</td>
+                                <td class="month-value">84.00</td>
+                                <td class="month-value">84.00</td>
+                                <td class="month-value">80.00</td>
+                                <td class="month-value">84.00</td>
+                                <td class="month-value">84.00</td>
+                                <td class="month-value">84.00</td>
+                            </tr>
+                        </tbody>
+                        
+
+
+                        <tfoot id="calculationRow">
+                            <tr>
+                                <th colspan="4"></th>
+                                <th id="totalMonth1">0.00</th>
+                                <th id="totalMonth2">0.00</th>
+                                <th id="totalMonth3">0.00</th>
+                                <th id="totalMonth4">0.00</th>
+                                <th id="totalMonth5">0.00</th>
+                                <th id="totalMonth6">0.00</th>
+                            </tr>
+                        </tfoot>
+
+
+
+                    </table>
+                    
+                </div>
+            </div>
+            
+
+
+            <!-- Your existing HTML code -->
+
+<script>
+    // Get the current date in the format "YYYY-MM-DD"
+    function getCurrentDate() {
+        const today = new Date();
+        const year = today.getFullYear();
+        let month = today.getMonth() + 1;
+        let day = today.getDate();
+
+        // Add leading zero for single-digit months and days
+        month = month < 10 ? `0${month}` : month;
+        day = day < 10 ? `0${day}` : day;
+
+        return `${year}-${month}-${day}`;
+    }
+
+    // Set the input field value to the current date
+    const customDateInput = document.getElementById('customDateInput');
+    customDateInput.value = getCurrentDate();
+
+    // Define the runReport function
+    function runReport() {
+        // Hide the date selection box
+        const dateSelectionBox = document.getElementById('dateSelectionBox');
+        dateSelectionBox.style.display = 'none';
+
+        // Show the data table container
+        const dataTableContainer = document.getElementById('dataTableContainer');
+        dataTableContainer.style.display = 'block';
+    }
+</script>
+
+
+
+<script>
+    // Add your dynamic calculation logic here
+    window.addEventListener('DOMContentLoaded', function() {
+        // Calculate totals for each column
+        document.querySelectorAll('.month-value').forEach(function(cell, index) {
+            let total = 0;
+
+            // Calculate total for each row
+            document.querySelectorAll('.month-value').forEach(function(rowCell, rowIndex) {
+                if (rowIndex % 6 === index) {
+                    total += parseFloat(rowCell.innerText) || 0;
+                }
+            });
+
+            // Update the total row in the tfoot
+            const totalCell = document.getElementById(`totalMonth${index + 1}`);
+            totalCell.innerText = total.toFixed(2); // Display the sum with two decimal places
+        });
+    });
+</script>
+
+
+            <!-- END PAGE CONTENT-->
+
+{% endblock content %}
+

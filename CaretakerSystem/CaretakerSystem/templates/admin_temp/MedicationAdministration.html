@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+{% extends "admin_temp/capacity.html" %}
+{% load static %}
+{% block content %}
+
+        <!-- END SIDEBAR-->
+        <div class="content-wrapper">
+            <!-- START PAGE CONTENT-->
+            <div class="page-heading">
+                <div style="padding-top:10px;padding-bottom: 0px;">
+                    
+                    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                        <a class="navbar-brand" href="/admin-panel/index/" style="color:skyblue;">Dashboard</a>
+                        
+                        <span>/</span>
+                        <a class="nav-link" href="#" style="color:skyblue;">Monitor </a>
+                        <span>/</span>
+                        <a class="nav-link" href="#" style="color:#c5c5c5;">Medication Administration</a>
+                      </nav>
+                </div>
+            </div>
+
+            
+           
+            <style>
+                .button-container {
+                    display: flex;
+                    justify-content: space-between;
+                    padding: 10px;
+                    border-radius: 5px;
+                    max-width: 100%;
+                    margin: auto;
+                    background-color: #c8c8c8;
+                }
+            
+                .button-container button {
+                    padding: 10px;
+                    margin-right: 10px; /* Add margin between buttons */
+                    background-color: #337ab7;
+                    color: white;
+                    border: none;
+                    border-radius: 4px;
+                    cursor: pointer;
+                }
+            
+                .dropdown {
+                    margin-left: auto;
+                }
+            
+                .dropdown select {
+                    padding: 10px;
+                }
+
+
+
+                .datepicker-container {
+                    display: inline-block;
+                  }
+              
+                  .datepicker-container input {
+                    padding: 5px;
+                    font-size: 16px;
+                    border: 1px solid #ccc;
+                    border-radius: 3px;
+                  }
+
+
+
+                #myForm {
+                    display: none; /* Hide the form by default */
+                    max-width: 500px;
+                    position: relative;
+                    padding: 20px;
+                  }
+              
+                #customDateInput {
+                    width: 85%;
+                    padding: 5px;
+                    margin-bottom: 16px;
+                    box-sizing: border-box;
+                }
+                .page-content {
+                    padding-top: 2px !important;
+                }
+                .bor{
+                    padding: 7px;
+                    border: 2px solid #ff6600;
+                    border-right: none;
+                    border-left: none;
+                    font-weight: bold;                                          
+                }
+                .box{
+                    width: 430px;
+                    align: center;
+                    
+                }
+
+                .datepicker-container {
+                    display: inline-block;
+                }
+        
+                .datepicker-container input {
+                    padding: 2px;
+                    font-size: 14px;
+                    border: 1px solid #ccc;
+                    border-radius: 3px;
+                }
+
+                #additionalFunctionalityContainer {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                }
+        
+                #additionalFunctionality {
+                    display: none;
+                    padding: 2px;
+                    border-radius: 5px;
+                    margin-top: 0px;
+                    text-align: left;
+                }
+        
+                #searchField {
+                    padding: 0px;
+                    margin-right: 0px;
+                    text-align: left;
+                }
+        
+                #searchButton,
+                #copyClipboardButton,
+                .dropdown-toggle {
+                    padding: 0px;
+                    margin-right: 0px;
+                    cursor: pointer;
+                }
+        
+                .dropdown {
+                    display: inline-block;
+                }
+        
+                .dropdown-menu {
+                    min-width: 100%;
+                    position: absolute;
+                }   
+                
+                .table tbody tr{
+                    font-size: 12px;
+                }
+                .table tbody tr:hover {
+                    background-color: #B3FF00; /* Change this to the desired green color */                    
+                }
+                #dateSelectionBox {
+                    margin: 0 auto; /* Center the box */
+                    max-width: 400px; /* Set a maximum width if needed */
+                    text-align: left; /* Justify the content */
+                }
+                .form-control {
+                    display: block;
+                    width: 100%;
+                    height: 21px;
+                }
+                table{
+                    font-size: 12px;
+                }
+                tfoot th {
+                    background-color: 2px silid #e6e6e6; /* Change to your preferred background color for the footer row */
+                }
+                th, td {
+                    text-align: left;
+                    padding: 8px;
+                }
+            
+                th {
+                    background-color: #f2f2f2;
+                }
+            
+            </style>
+
+
+
+
+            <div class="page-content fade-in-up">
+                
+                  
+                    <div class="box" id="dateSelectionBox">
+                        <p style="text-align: center;">Medication Administration</p>
+                        <p class="bor">Parameter <span style="padding-left: 10px;">User input</span></p>
+                        <div class="ibox-title">Start Date: <div class="datepicker-container"><input type="date" id="customDateInput" class="form-control" name="selectedDate"></div></div>
+                        <div class="ibox-title">End Date: <div class="datepicker-container"><input type="date" id="endcustomDateInput" class="form-control" name="selectedDate"></div></div>
+                        
+                        <div class="ibox-title" style="padding-top: 10px;">Display: 
+                            <div class="datepicker-container">
+                                <select>
+                                    <option value="Show All Administration Records">Show All Administration Records</option>
+                                    <option value="Only Show Over/Under Medication">Only Show Over/Under Medication</option>
+                                    <option value="Only Show PRN Records">Only Show PRN Records</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="ibox-title" style="padding-top: 10px;">Time Display: 
+                            <div class="datepicker-container">
+                                <select>
+                                    <option value="Detailed">Detailed</option>
+                                    <option value="Simple">Simple</option>
+                                    
+                                </select>
+                            </div>
+                        </div>
+
+                        
+                        <div class="ibox-title" style="padding-top: 10px;">Show Over/Under Dose: 
+                            <div class="datepicker-container">
+                                <select>
+                                    <option value="Show">Show</option>
+                                    <option value="Hide">Hide</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="ibox-title" style="padding-top: 10px;">Region: 
+                            <div class="datepicker-container">
+                                <select>
+                                    <option value="All">All</option>
+                                    <option value="Berkshire">Berkshire</option>
+                                    <option value="Hamoishire">Hamoishire</option>
+                                    <option value="">London, Hounslow</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+
+                    <div class="ibox-title" style="padding-top: 10px;">Client: 
+                        <div class="datepicker-container">
+                            <select>
+                                <option value="All">All</option>
+                                <option value="Berkshire">Berkshire</option>
+                                <option value="Hamoishire">Hamoishire</option>
+                                <option value="">London, Hounslow</option>
+                            </select>
+                        </div>
+                    </div>
+
+                        <button type="button" class="btn btn-default" onclick="runReport()">Run Report</button>
+                    </div>
+                   
+                    <br>
+
+
+                    
+
+                    <div class="ibox" id="dataTableContainer" style="display: none;">
+                        <div class="box" id="dateSelectionBox">
+                            <p style="text-align: center;">Medication Administration</p>
+                            
+                        </div>
+                       <div style="text-align:left;padding-left:10px;padding-top:10px;"> <i class="fa fa-play" onclick="toggleAdditionalFunctionality()"></i></div>
+
+                       <div id="additionalFunctionality" style="display: none;">
+                        <input type="text" id="searchField" placeholder="Search...">
+                        <button id="searchButton" onclick="performSearch()"><i class="fa fa-search"></i></button>
+                        <button id="copyClipboardButton" onclick="copyToClipboard()"><i class="fa fa-copy"></i></button>
+                        <div class="dropdown">
+                            <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-download"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="#">Excel</a>
+                                <a class="dropdown-item" href="#">PDF</a>
+                                <a class="dropdown-item" href="#">CVS</a>
+                            </div>
+                        </div>
+                    </div>
+
+                       <script>
+                        // Your existing scripts
+                
+                        // Add any additional scripts for the new functionality
+                        function toggleAdditionalFunctionality() {
+                            const additionalFunctionality = document.getElementById('additionalFunctionality');
+                            additionalFunctionality.style.display = additionalFunctionality.style.display === 'none' ? 'block' : 'none';
+                        }
+                
+                        function performSearch() {
+                            // Add logic for search functionality
+                        }
+                
+                        function copyToClipboard() {
+                            // Add logic for copying to clipboard
+                        }
+                
+                        function runReport() {
+                            // Add logic for running the report
+                        }
+                    </script>
+                    <table class="table table-striped" id="example-table" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th>Client</th>
+                                <th>Medication</th>
+                                <th>PRN</th>
+                                <th>Qty</th>
+                                <th>Action</th>
+                                <th>Over/Under Dose</th>         
+                                <th>Allocated ID</th> 
+                                <th>Date Administered</th>    
+                                <th>Comment</th>    
+                                <th>staff_id</th>  
+                                <th>Staff</th>  
+                                <th>Time Administered</th>                          
+                            </tr>
+                        </thead>
+                        
+                        <tbody>
+                            <tr>
+                                <td>Alexander, Jean</td>
+                                <td>LAXIDO ORANGE POWDER FOR ORAL SOLUTION</td>
+                                <td>PRN</td>
+                                <td>1</td>
+                                <td>A</td>
+                                <td></td>
+                                <td></td>
+                                <td>2024-02-27</td>
+                                <td></td>
+                                <td>154</td>
+                                <td>Nwaneri, Halimat</td>
+                                <td>09:15:11</td>
+                                
+                            </tr>
+                            <tr>
+                                <td>Alexander, Jean</td>
+                                <td>LAXIDO ORANGE POWDER FOR ORAL SOLUTION</td>
+                                <td>PRN</td>
+                                <td>1</td>
+                                <td>A</td>
+                                <td></td>
+                                <td></td>
+                                <td>2024-02-27</td>
+                                <td></td>
+                                <td>154</td>
+                                <td>Nwaneri, Halimat</td>
+                                <td>09:15:11</td>
+                            </tr>
+                            <tr>
+                                <td>Alexander, Jean</td>
+                                <td>LAXIDO ORANGE POWDER FOR ORAL SOLUTION</td>
+                                <td>PRN</td>
+                                <td>1</td>
+                                <td>A</td>
+                                <td></td>
+                                <td></td>
+                                <td>2024-02-27</td>
+                                <td></td>
+                                <td>154</td>
+                                <td>Nwaneri, Halimat</td>
+                                <td>09:15:11</td>
+                            </tr>
+                            <tr>
+                                <td>Alexander, Jean</td>
+                                <td>LAXIDO ORANGE POWDER FOR ORAL SOLUTION</td>
+                                <td>PRN</td>
+                                <td>1</td>
+                                <td>A</td>
+                                <td></td>
+                                <td></td>
+                                <td>2024-02-27</td>
+                                <td></td>
+                                <td>154</td>
+                                <td>Nwaneri, Halimat</td>
+                                <td>09:15:11</td>
+                            </tr>
+                            <tr>
+                                <td>Alexander, Jean</td>
+                                <td>LAXIDO ORANGE POWDER FOR ORAL SOLUTION</td>
+                                <td>PRN</td>
+                                <td>1</td>
+                                <td>A</td>
+                                <td></td>
+                                <td></td>
+                                <td>2024-02-27</td>
+                                <td></td>
+                                <td>154</td>
+                                <td>Nwaneri, Halimat</td>
+                                <td>09:15:11</td>
+                            </tr>
+                            <tr>
+                                <td>Alexander, Jean</td>
+                                <td>LAXIDO ORANGE POWDER FOR ORAL SOLUTION</td>
+                                <td>PRN</td>
+                                <td>1</td>
+                                <td>A</td>
+                                <td></td>
+                                <td></td>
+                                <td>2024-02-27</td>
+                                <td></td>
+                                <td>154</td>
+                                <td>Nwaneri, Halimat</td>
+                                <td>09:15:11</td>
+                            </tr>
+                            <tr>
+                                <td>Alexander, Jean</td>
+                                <td>LAXIDO ORANGE POWDER FOR ORAL SOLUTION</td>
+                                <td>PRN</td>
+                                <td>1</td>
+                                <td>A</td>
+                                <td></td>
+                                <td></td>
+                                <td>2024-02-27</td>
+                                <td></td>
+                                <td>154</td>
+                                <td>Nwaneri, Halimat</td>
+                                <td>09:15:11</td>
+                            </tr>
+                            <tr>
+                                <td>Alexander, Jean</td>
+                                <td>LAXIDO ORANGE POWDER FOR ORAL SOLUTION</td>
+                                <td>PRN</td>
+                                <td>1</td>
+                                <td>A</td>
+                                <td></td>
+                                <td></td>
+                                <td>2024-02-27</td>
+                                <td></td>
+                                <td>154</td>
+                                <td>Nwaneri, Halimat</td>
+                                <td>09:15:11</td>
+                            </tr>
+                        </tbody>
+
+                        
+                    </table>
+                    
+                </div>
+            </div>
+            
+
+
+            <!-- Your existing HTML code -->
+
+<script>
+    // Get the current date in the format "YYYY-MM-DD"
+    function getFormattedDate(date) {
+        const year = date.getFullYear();
+        let month = date.getMonth() + 1;
+        let day = date.getDate();
+
+        // Add leading zero for single-digit months and days
+        month = month < 10 ? `0${month}` : month;
+        day = day < 10 ? `0${day}` : day;
+
+        return `${year}-${month}-${day}`;
+    }
+
+    // Set the input field value to the date 10 days before the current date
+    const today = new Date();
+    const startDate = new Date(today);
+    startDate.setDate(today.getDate() - 10);
+
+    const customDateInput = document.getElementById('customDateInput');
+    customDateInput.value = getFormattedDate(startDate);
+
+    // Define the runReport function
+    function runReport() {
+        // Hide the date selection box
+        const dateSelectionBox = document.getElementById('dateSelectionBox');
+        dateSelectionBox.style.display = 'none';
+
+        // Show the data table container
+        const dataTableContainer = document.getElementById('dataTableContainer');
+        dataTableContainer.style.display = 'block';
+    }
+
+    function getEndCurrentDate() {
+        const today = new Date();
+        const year = today.getFullYear();
+        let month = today.getMonth() + 1;
+        let day = today.getDate();
+
+        // Add leading zero for single-digit months and days
+        month = month < 10 ? `0${month}` : month;
+        day = day < 10 ? `0${day}` : day;
+
+        return `${year}-${month}-${day}`;
+    }
+
+    // Set the input field value to the current date
+    const endcustomDateInput = document.getElementById('endcustomDateInput');
+    endcustomDateInput.value = getEndCurrentDate();
+
+
+    // Get average of Early / late arrival (mins)
+    document.addEventListener("DOMContentLoaded", function () {
+        calculateAverages();
+    });
+
+    function calculateAverages() {
+        // Select the table body
+        const tbody = document.querySelector("#example-table tbody");
+
+        // Select the rows in the table body
+        const rows = tbody.querySelectorAll("tr");
+
+        // Initialize variables to store column totals
+        let totalEarlyArrival = 0;
+        let totalLateDeparture = 0;
+        let totalCheckInDistance = 0;
+        let totalCheckOutDistance = 0;
+
+        // Iterate over each row in the table
+        rows.forEach((row) => {
+            // Get the values from the columns
+            const earlyArrival = parseInt(row.cells[7].textContent);
+            const lateDeparture = parseInt(row.cells[8].textContent);
+            const checkInDistance = parseFloat(row.cells[13].textContent);
+            const checkOutDistance = parseFloat(row.cells[15].textContent);
+
+            // Add the values to the totals
+            totalEarlyArrival += isNaN(earlyArrival) ? 0 : earlyArrival;
+            totalLateDeparture += isNaN(lateDeparture) ? 0 : lateDeparture;
+            totalCheckInDistance += isNaN(checkInDistance) ? 0 : checkInDistance;
+            totalCheckOutDistance += isNaN(checkOutDistance) ? 0 : checkOutDistance;
+        });
+
+        // Calculate the averages
+        const rowCount = rows.length;
+        const averageEarlyArrival = totalEarlyArrival / rowCount;
+        const averageLateDeparture = totalLateDeparture / rowCount;
+        const averageCheckInDistance = totalCheckInDistance / rowCount;
+        const averageCheckOutDistance = totalCheckOutDistance / rowCount;
+
+        // Update the totals in the table footer
+        document.getElementById("totalMonth1").textContent = averageEarlyArrival.toFixed(2);
+        document.getElementById("totalMonth2").textContent = averageLateDeparture.toFixed(2);
+        document.getElementById("totalMonth4").textContent = averageCheckInDistance.toFixed(2);
+        document.getElementById("totalMonth6").textContent = averageCheckOutDistance.toFixed(2);
+    }
+
+
+</script>
+
+
+
+
+
+
+
+            <!-- END PAGE CONTENT-->
+
+{% endblock content %}
+

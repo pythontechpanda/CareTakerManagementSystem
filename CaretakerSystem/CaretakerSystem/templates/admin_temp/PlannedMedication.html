@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+{% extends "admin_temp/capacity.html" %}
+{% load static %}
+{% block content %}
+
+        <!-- END SIDEBAR-->
+        <div class="content-wrapper">
+            <!-- START PAGE CONTENT-->
+            <div class="page-heading">
+                <div style="padding-top:10px;padding-bottom: 0px;">
+                    
+                    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                        <a class="navbar-brand" href="/admin-panel/index/" style="color:skyblue;">Dashboard</a>
+                        
+                        <span>/</span>
+                        <a class="nav-link" href="#" style="color:skyblue;">Plan </a>
+                        <span>/</span>
+                        <a class="nav-link" href="#" style="color:#c5c5c5;">Planned Medication</a>
+                      </nav>
+                </div>
+            </div>
+
+            
+           
+            <style>
+                .button-container {
+                    display: flex;
+                    justify-content: space-between;
+                    padding: 10px;
+                    border-radius: 5px;
+                    max-width: 100%;
+                    margin: auto;
+                    background-color: #c8c8c8;
+                }
+            
+                .button-container button {
+                    padding: 10px;
+                    margin-right: 10px; /* Add margin between buttons */
+                    background-color: #337ab7;
+                    color: white;
+                    border: none;
+                    border-radius: 4px;
+                    cursor: pointer;
+                }
+            
+                .dropdown {
+                    margin-left: auto;
+                }
+            
+                .dropdown select {
+                    padding: 10px;
+                }
+
+
+
+                .datepicker-container {
+                    display: inline-block;
+                  }
+              
+                  .datepicker-container input {
+                    padding: 5px;
+                    font-size: 16px;
+                    border: 1px solid #ccc;
+                    border-radius: 3px;
+                  }
+
+
+
+                #myForm {
+                    display: none; /* Hide the form by default */
+                    max-width: 500px;
+                    position: relative;
+                    padding: 20px;
+                  }
+              
+                #customDateInput {
+                    width: 85%;
+                    padding: 5px;
+                    margin-bottom: 16px;
+                    box-sizing: border-box;
+                }
+                .page-content {
+                    padding-top: 2px !important;
+                }
+                .bor{
+                    padding: 7px;
+                    border: 2px solid #ff6600;
+                    border-right: none;
+                    border-left: none;
+                    font-weight: bold;                                          
+                }
+                .box{
+                    width: 200px;
+                    align: center;
+                    
+                }
+
+                .datepicker-container {
+                    display: inline-block;
+                }
+        
+                .datepicker-container input {
+                    padding: 10px;
+                    font-size: 14px;
+                    border: 1px solid #ccc;
+                    border-radius: 3px;
+                }
+
+                #additionalFunctionalityContainer {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                }
+        
+                #additionalFunctionality {
+                    display: none;
+                    padding: 2px;
+                    border-radius: 5px;
+                    margin-top: 0px;
+                    text-align: left;
+                }
+        
+                #searchField {
+                    padding: 0px;
+                    margin-right: 0px;
+                    text-align: left;
+                }
+        
+                #searchButton,
+                #copyClipboardButton,
+                .dropdown-toggle {
+                    padding: 0px;
+                    margin-right: 0px;
+                    cursor: pointer;
+                }
+        
+                .dropdown {
+                    display: inline-block;
+                }
+        
+                .dropdown-menu {
+                    min-width: 100%;
+                    position: absolute;
+                }   
+                .table tbody tr{
+                    font-size: 12px;
+                }
+                .table tbody tr:hover {
+                    background-color: #B3FF00; /* Change this to the desired green color */                    
+                }
+            </style>
+
+
+
+
+            <div class="page-content fade-in-up">
+                
+                    <center>
+                    <div class="box" id="dateSelectionBox">
+                        <p>Planned Medication</p>
+                        <p class="bor">Parameter  User input</p>
+                        <div class="ibox-title">Date: <div class="datepicker-container"><input type="date" id="customDateInput" name="selectedDate"></div></div>
+                        <button type="button" class="btn btn-default" onclick="runReport()">Run Report</button>
+                    </div>
+                    <center>
+                    <br>
+
+
+                    
+
+                    <div class="ibox" id="dataTableContainer" style="display: none;">
+                        <div class="box" id="dateSelectionBox">
+                            <p>Planned Medication</p>
+                            
+                        </div>
+                       <div style="text-align:left;padding-left:10px;padding-top:10px;"> <i class="fa fa-play" onclick="toggleAdditionalFunctionality()"></i></div>
+
+                       <div id="additionalFunctionality" style="display: none;">
+                        <input type="text" id="searchField" placeholder="Search...">
+                        <button id="searchButton" onclick="performSearch()"><i class="fa fa-search"></i></button>
+                        <button id="copyClipboardButton" onclick="copyToClipboard()"><i class="fa fa-copy"></i></button>
+                        <div class="dropdown">
+                            <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-download"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="#">Excel</a>
+                                <a class="dropdown-item" href="#">PDF</a>
+                                <a class="dropdown-item" href="#">CVS</a>
+                            </div>
+                        </div>
+                    </div>
+
+                       <script>
+                        // Your existing scripts
+                
+                        // Add any additional scripts for the new functionality
+                        function toggleAdditionalFunctionality() {
+                            const additionalFunctionality = document.getElementById('additionalFunctionality');
+                            additionalFunctionality.style.display = additionalFunctionality.style.display === 'none' ? 'block' : 'none';
+                        }
+                
+                        function performSearch() {
+                            // Add logic for search functionality
+                        }
+                
+                        function copyToClipboard() {
+                            // Add logic for copying to clipboard
+                        }
+                
+                        function runReport() {
+                            // Add logic for running the report
+                        }
+                    </script>
+                        <table class="table " id="example-table" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>Client</th>
+                                    <th>Medication</th>
+                                    <th>Qty</th>
+                                    <th>Comment</th>
+                                    <th>Earliest Time</th>
+                                    <th>Latest Time</th>         
+                                    <th>Allocated ID</th> 
+                                    <th>Possible Bookings</th>    
+                                    <th>Possible Regular Bookings</th>                         
+                                </tr>
+                            </thead>
+                            
+                            <tbody>
+                                <tr>
+                                    <td>Alexander, Jean</td>
+                                    <td>ADCAL D3 1.5 g / 400 units Chewable tablets</td>
+                                    <td>1</td>
+                                    <td>Chew one tablet twice daily</td>
+                                    <td>08:00</td>
+                                    <td>11:00</td>
+                                    <td>100,166</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                </tr>
+                                <tr>
+                                    <td>Alexander, Jean</td>
+                                    <td>ALENDRONIC ACID 70MG TABLETS</td>
+                                    <td>1</td>
+                                    <td>Take one tablet same day each week on an empty stomach</td>
+                                    <td>16:00</td>
+                                    <td>18:00</td>
+                                    <td>100,166</td>
+                                    <td>0</td>
+                                    <td>1</td>
+                                </tr>
+                                <tr>
+                                    <td>Alexander, Jean</td>
+                                    <td>DONEPEZIL 10 MG TABLETS</td>
+                                    <td>1</td>
+                                    <td>Take one at bed time.</td>
+                                    <td>19:00</td>
+                                    <td>23:00</td>
+                                    <td>100,166</td>
+                                    <td>0</td>
+                                    <td>1</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    
+                </div>
+            </div>
+            
+
+
+            <!-- Your existing HTML code -->
+
+<script>
+    // Get the current date in the format "YYYY-MM-DD"
+    function getCurrentDate() {
+        const today = new Date();
+        const year = today.getFullYear();
+        let month = today.getMonth() + 1;
+        let day = today.getDate();
+
+        // Add leading zero for single-digit months and days
+        month = month < 10 ? `0${month}` : month;
+        day = day < 10 ? `0${day}` : day;
+
+        return `${year}-${month}-${day}`;
+    }
+
+    // Set the input field value to the current date
+    const customDateInput = document.getElementById('customDateInput');
+    customDateInput.value = getCurrentDate();
+
+    // Define the runReport function
+    function runReport() {
+        // Hide the date selection box
+        const dateSelectionBox = document.getElementById('dateSelectionBox');
+        dateSelectionBox.style.display = 'none';
+
+        // Show the data table container
+        const dataTableContainer = document.getElementById('dataTableContainer');
+        dataTableContainer.style.display = 'block';
+    }
+</script>
+
+
+
+
+
+
+            <!-- END PAGE CONTENT-->
+
+{% endblock content %}
+

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+{% extends "admin_temp/capacity.html" %}
+{% load static %}
+{% block content %}
+
+        <!-- END SIDEBAR-->
+        <div class="content-wrapper">
+            <!-- START PAGE CONTENT-->
+            <div class="page-heading">
+                <div style="padding-top:10px;padding-bottom: 0px;">
+                    
+                    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                        <a class="navbar-brand" href="/admin-panel/index/" style="color:skyblue;">Dashboard</a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                          <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <span>/</span>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                          <ul class="navbar-nav mr-auto">
+                            <li class="nav-item active">
+                              <a class="nav-link" href="#" style="color:skyblue;">Plan </a>
+                            </li>
+                            
+                          </ul>
+                          
+                        </div>
+                      </nav>
+                </div>
+            </div>
+
+            
+            <div class="page-content fade-in-up">
+                <div class="ibox" style="height:120px;">
+                    <div class="ibox-head">
+                        <div class=""><strong>Filter Selection</strong> - use the filters to filter the Visits shown below</div>
+                    </div>
+                    <div class="ibox-body">
+                        <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="col-sm-2 form-group">
+                            <select class="form-control input-sm" name="line_manager">
+                                <option value="d">All Regions</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-2 form-group">
+                            <select class="form-control input-sm" name="line_manager">
+                                <option value="d">All Service User</option>
+                            </select>
+                        </div>
+
+                        <div class="col-sm-2 form-group">
+                            <select class="form-control input-sm" name="line_manager">
+                                <option value="d">All Visit Type</option>
+                            </select>
+                        </div>
+
+                        <div class="col-sm-2 form-group">
+                            <select class="form-control input-sm" name="line_manager">
+                                <option value="d">All Staff</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <button class="btn btn-primary" type="submit">Get Visits</button>
+                        </div>
+                    </form>
+                    </div>
+                </div>               
+                
+            </div>
+
+
+
+            <style>
+                .button-container {
+                    display: flex;
+                    justify-content: space-between;
+                    {% comment %} padding: 10px; {% endcomment %}
+                    border-radius: 5px;
+                    max-width: 100%;
+                    margin: auto;
+                }
+            
+                .button-container button {
+                    padding: 10px;
+                    margin-right: 10px; /* Add margin between buttons */
+                    background-color: #337ab7;
+                    color: white;
+                    border: none;
+                    border-radius: 4px;
+                    cursor: pointer;
+                }
+            
+                .dropdown {
+                    margin-left: auto;
+                }
+            
+                .dropdown select {
+                    padding: 10px;
+                }
+            </style>
+
+
+
+
+            <div class="button-container">
+                <button>Current Visits</button>
+                <button>Archived Visits</button>
+                <button><i class="fa fa-plus"></i> <strong>Add Visit</strong></button>
+                
+                
+                
+                <div class="dropdown">
+                        <select>
+                            <option value="d">All Staff</option>
+                        </select>
+
+                       
+                            <button class="btn btn-primary" type="submit">Go</button>
+                        
+                </div>
+              </div>
+
+
+
+            <div class="page-content fade-in-up">
+                <div class="ibox">
+                    <div class="ibox-head">
+                        <div class="ibox-title">Data Table</div>
+                    </div>
+                    <div class="ibox-body">
+                        <table class="table table-striped table-bordered table-hover" id="example-table" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th><input type="checkbox"></th>
+                                    <th>Time</th>
+                                    <th>Name</th>
+                                    <th>Location</th>
+                                    <th>Frequency</th>
+                                    <th>Type of Visit</th>
+                                    <th>No. Carers</th>
+                                    <th>Mon</th>
+                                    <th>Tue</th>
+                                    <th>Wed</th>
+                                    <th>Thu</th>
+                                    <th>Fri</th>
+                                    <th>Sat</th>
+                                    <th>Sun</th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <th><input type="checkbox"></th>
+                                    <th>Time</th>
+                                    <th>Name</th>
+                                    <th>Location</th>
+                                    <th>Frequency</th>
+                                    <th>Type of Visit</th>
+                                    <th>No. Carers</th>
+                                    <th>Mon</th>
+                                    <th>Tue</th>
+                                    <th>Wed</th>
+                                    <th>Thu</th>
+                                    <th>Fri</th>
+                                    <th>Sat</th>
+                                    <th>Sun</th>
+                                </tr>
+                            </tfoot>
+                            <tbody>
+                                {% for user, details in mapped %}
+                                <tr>
+                                    <td>{{ user.staff_id }}</td>
+                                    <td>{{ user.first_name }} {{ user.last_name }}</td>
+                                    <td></td>
+                                    <td>
+                                        {% if user.is_active == True %}
+                                        Active
+                                        {% elif user.is_active == False %}
+                                        Inactive
+                                        {% endif %}
+                                    </td>
+                                    <td></td>
+                                    <td>
+                                        <span><a href="{% url 'staff_updt' id=user.id empid=details.employment_id eadid=details.equality_and_diversity_id regid=details.regions_id bkid=details.bank_details_id %}" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil color-muted m-r-5"></i> </a> | 
+                                            {% comment %} <a href="{% url 'staff_del' id=user.id empid=details.employment_id eadid=details.equality_and_diversity_id regid=details.regions_id bkid=details.bank_details_id %}" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash-o color-danger"></i></a></span>  {% endcomment %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+            </div>
+
+            
+
+            <!-- END PAGE CONTENT-->
+
+{% endblock content %}
+

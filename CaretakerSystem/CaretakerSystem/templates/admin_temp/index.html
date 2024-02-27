@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width initial-scale=1.0">
-    <title>Admin | Dashboard</title>
+    <title>Admin | CareTaker System</title>
     <!-- GLOBAL MAINLY STYLES-->
     <link href="{% static './assets/vendors/bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet" />
     <link href="{% static './assets/vendors/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" />
@@ -16,6 +16,9 @@
     <!-- THEME STYLES-->
     <link href="{% static 'assets/css/main.min.css' %}" rel="stylesheet" />
     <!-- PAGE LEVEL STYLES-->
+
+
+    
 </head>
 
 <body class="fixed-navbar">
@@ -24,10 +27,9 @@
         <header class="header">
             <div class="page-brand">
                 <a class="link" href="index.html">
-                    <span class="brand">Admin
-                        <span class="brand-tip">CAST</span>
+                    <span class="brand"><img src="{% static './assets/img/Asset10.png' %}" />
                     </span>
-                    <span class="brand-mini">AC</span>
+                    <span class="brand-mini"><img src="{% static './assets/img/Asset80.png' %}" /></span>
                 </a>
             </div>
             <div class="flexbox flex-1">
@@ -177,190 +179,320 @@
             </div>
         </header>
         <!-- END HEADER-->
+
+
+
+
+        
         <!-- START SIDEBAR-->
         <nav class="page-sidebar" id="sidebar">
             <div id="sidebar-collapse">
-                <div class="admin-block d-flex">
-                    <div>
-                        <img src="./assets/img/admin-avatar.png" width="45px" />
-                    </div>
-                    <div class="admin-info">
-                        <div class="font-strong">James Brown</div><small>Administrator</small></div>
-                </div>
+                
                 <ul class="side-menu metismenu">
                     <li>
-                        <a class="active" href="index.html"><i class="sidebar-item-icon fa fa-th-large"></i>
+                        <a class="active" href="/admin-panel/index/"><i class="sidebar-item-icon fa fa-th-large"></i>
                             <span class="nav-label">Dashboard</span>
                         </a>
                     </li>
                     <li class="heading">FEATURES</li>
                     <li>
                         <a href="javascript:;"><i class="sidebar-item-icon fa fa-bookmark"></i>
-                            <span class="nav-label">Basic UI</span><i class="fa fa-angle-left arrow"></i></a>
+                            <span class="nav-label">Plan</span><i class="fa fa-angle-left arrow"></i></a>
                         <ul class="nav-2-level collapse">
                             <li>
-                                <a href="colors.html">Colors</a>
+                                <a href="/admin-panel/index/">Overview</a>
                             </li>
                             <li>
-                                <a href="typography.html">Typography</a>
+                                <a href="/admin-panel/capacity/">Capacity</a>
                             </li>
                             <li>
-                                <a href="panels.html">Panels</a>
+                                <a href="javascript:;">
+                                    <span class="nav-label">Visits</span><i class="fa fa-angle-left arrow"></i></a>
+                                <ul class="nav-3-level collapse">
+                                    <li>
+                                        <a href="/admin-panel/regular-visits/">Regular Visits</a>
+                                    </li>
+                                    <li>
+                                        <a href="/admin-panel/plan-rounds/">Rounds</a>
+                                    </li>
+                                    <li>
+                                        <a href="/admin-panel/care-booster/">CAREbooster</a>
+                                    </li>
+                                </ul>
                             </li>
                             <li>
-                                <a href="buttons.html">Buttons</a>
+                                <a href="/admin-panel/planned-medication/">Planned Medication</a>
                             </li>
                             <li>
-                                <a href="tabs.html">Tabs</a>
+                                <a href="/admin-panel/planned-monthly-hours-comparison/">Planned Monthly Hours Comparison</a>
                             </li>
                             <li>
-                                <a href="alerts_tooltips.html">Alerts &amp; Tooltips</a>
+                                <a href="/admin-panel/regular-care-hours/">Regular Care Hours</a>
                             </li>
-                            <li>
-                                <a href="badges_progress.html">Badges &amp; Progress</a>
-                            </li>
-                            <li>
-                                <a href="lists.html">List</a>
-                            </li>
-                            <li>
-                                <a href="cards.html">Card</a>
-                            </li>
+                           
                         </ul>
                     </li>
                     <li>
                         <a href="javascript:;"><i class="sidebar-item-icon fa fa-edit"></i>
-                            <span class="nav-label">Forms</span><i class="fa fa-angle-left arrow"></i></a>
+                            <span class="nav-label">Schedule</span><i class="fa fa-angle-left arrow"></i></a>
                         <ul class="nav-2-level collapse">
                             <li>
-                                <a href="form_basic.html">Basic Forms</a>
+                                <a href="/admin-panel/index/">Overview</a>
                             </li>
                             <li>
-                                <a href="form_advanced.html">Advanced Plugins</a>
+                                <a href="javascript:;">
+                                    <span class="nav-label">View Visits</span><i class="fa fa-angle-left arrow"></i></a>
+                                <ul class="nav-3-level collapse">
+                                    <li>
+                                        <a href="javascript:;">The Wall</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;">List View</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;">Grid View</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;">View Visits</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;">View Holiday</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;">View Cancellationsw</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;">View Review</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;">View Sickness</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;">View Supervision</a>
+                                    </li>
+                                </ul>
                             </li>
                             <li>
-                                <a href="form_masks.html">Form input masks</a>
-                            </li>
-                            <li>
-                                <a href="form_validation.html">Form Validation</a>
-                            </li>
-                            <li>
-                                <a href="text_editors.html">Text Editors</a>
+                                <a href="javascript:;">
+                                    <span class="nav-label">Add Visits</span><i class="fa fa-angle-left arrow"></i></a>
+                                <ul class="nav-3-level collapse">
+                                    <li>
+                                        <a href="javascript:;">Add Visit</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;">Add Holiday</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;">Add Cancellation</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;">Add Review</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;">View Sickness</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;">View Supervision</a>
+                                    </li>
+                                </ul>
                             </li>
                         </ul>
                     </li>
                     <li>
                         <a href="javascript:;"><i class="sidebar-item-icon fa fa-table"></i>
-                            <span class="nav-label">Tables</span><i class="fa fa-angle-left arrow"></i></a>
+                            <span class="nav-label">Deliver</span><i class="fa fa-angle-left arrow"></i></a>
                         <ul class="nav-2-level collapse">
                             <li>
-                                <a href="table_basic.html">Basic Tables</a>
+                                <a href="/admin-panel/index/">Overview</a>
                             </li>
                             <li>
-                                <a href="datatables.html">Datatables</a>
+                                <a href="/admin-panel/mobile-user-version/">Mobile User Version</a>
                             </li>
                         </ul>
                     </li>
                     <li>
                         <a href="javascript:;"><i class="sidebar-item-icon fa fa-bar-chart"></i>
-                            <span class="nav-label">Charts</span><i class="fa fa-angle-left arrow"></i></a>
+                            <span class="nav-label">Monitor</span><i class="fa fa-angle-left arrow"></i></a>
                         <ul class="nav-2-level collapse">
                             <li>
-                                <a href="charts_flot.html">Flot Charts</a>
+                                <a href="/admin-panel/index/">Overview</a>
                             </li>
                             <li>
-                                <a href="charts_morris.html">Morris Charts</a>
+                                <a href="/admin-panel/check-in-out-data/">Check In & Out Data</a>
                             </li>
                             <li>
-                                <a href="chartjs.html">Chart.js</a>
+                                <a href="/admin-panel/check-in-out-positions/">Check In & Out Positions</a>
                             </li>
                             <li>
-                                <a href="charts_sparkline.html">Sparkline Charts</a>
+                                <a href="/admin-panel/forms-tasks/">Forms & Tasks</a>
                             </li>
+                            <li>
+                                <a href="/admin-panel/medication-administration/">Medication Administration</a>
+                            </li>
+                            <li>
+                                <a href="/admin-panel/planned-vs-actual/">Planned Vs Actual</a>
+                            </li>                                            
                         </ul>
                     </li>
                     <li>
                         <a href="javascript:;"><i class="sidebar-item-icon fa fa-map"></i>
-                            <span class="nav-label">Maps</span><i class="fa fa-angle-left arrow"></i></a>
+                            <span class="nav-label">Finance</span><i class="fa fa-angle-left arrow"></i></a>
                         <ul class="nav-2-level collapse">
                             <li>
-                                <a href="maps_vector.html">Vector maps</a>
+                                <a href="/admin-panel/index/">Overview</a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">
+                                    <span class="nav-label">Funders</span><i class="fa fa-angle-left arrow"></i></a>
+                                <ul class="nav-3-level collapse">
+                                    <li>
+                                        <a href="javascript:;">Funders</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;">Add Funder</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="maps_vector.html">Invoices</a>
+                            </li>
+                            <li>
+                                <a href="maps_vector.html">Payroll Comparison</a>
+                            </li>
+                            <li>
+                                <a href="maps_vector.html">Sage invoice extract</a>
+                            </li>
+
+                            <li>
+                                <a href="javascript:;">
+                                    <span class="nav-label">Settings</span><i class="fa fa-angle-left arrow"></i></a>
+                                <ul class="nav-3-level collapse">
+                                    <li>
+                                        <a href="javascript:;">Special Days</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;">Travel Types</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    <li>
+                        <a href="javascript:;"><i class="sidebar-item-icon fa fa-wrench"></i>
+                            <span class="nav-label">Service User</span><i class="fa fa-angle-left arrow"></i></a>
+                        <ul class="nav-2-level collapse">
+                            <li>
+                                <a href="mailbox.html">View Service Users</a>
+                            </li>
+                            <li>
+                                <a href="mail_view.html">Add Service Users</a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">
+                                    <span class="nav-label">Add Referral</span><i class="fa fa-angle-left arrow"></i></a>
+                                <ul class="nav-3-level collapse">
+                                    <li>
+                                        <a href="javascript:;">Dementia Care Enquiry</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;">Domiciliary Care Enquiry</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;">End Of Life Care Enquiry</a>
+                                    </li>
+                                </ul>
                             </li>
                         </ul>
                     </li>
                     <li>
                         <a href="icons.html"><i class="sidebar-item-icon fa fa-smile-o"></i>
-                            <span class="nav-label">Icons</span>
+                            <span class="nav-label">Carer</span>
                         </a>
                     </li>
-                    <li class="heading">PAGES</li>
                     <li>
-                        <a href="javascript:;"><i class="sidebar-item-icon fa fa-envelope"></i>
-                            <span class="nav-label">Mailbox</span><i class="fa fa-angle-left arrow"></i></a>
-                        <ul class="nav-2-level collapse">
-                            <li>
-                                <a href="mailbox.html">Inbox</a>
-                            </li>
-                            <li>
-                                <a href="mail_view.html">Mail view</a>
-                            </li>
-                            <li>
-                                <a href="mail_compose.html">Compose mail</a>
-                            </li>
-                        </ul>
+                        <a href="/admin-panel/create-staff/"><i class="sidebar-item-icon fa fa-group"></i>
+                            <span class="nav-label">Staff</span>
+                        </a>
                     </li>
                     <li>
-                        <a href="calendar.html"><i class="sidebar-item-icon fa fa-calendar"></i>
-                            <span class="nav-label">Calendar</span>
+                        <a href="icons.html"><i class="sidebar-item-icon fa fa-map-marker"></i>
+                            <span class="nav-label">Locations</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="icons.html"><i class="sidebar-item-icon fa fa-gears"></i>
+                            <span class="nav-label">Equipment</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="calendar.html"><i class="sidebar-item-icon fa fa-file"></i>
+                            <span class="nav-label">My Documents</span>
                         </a>
                     </li>
                     <li>
                         <a href="javascript:;"><i class="sidebar-item-icon fa fa-file-text"></i>
-                            <span class="nav-label">Pages</span><i class="fa fa-angle-left arrow"></i></a>
+                            <span class="nav-label">Reports</span><i class="fa fa-angle-left arrow"></i></a>
                         <ul class="nav-2-level collapse">
                             <li>
-                                <a href="invoice.html">Invoice</a>
+                                <a href="pages-knowledge-base.html">Client Data Extract</a>
                             </li>
                             <li>
-                                <a href="profile.html">Profile</a>
+                                <a href="pages-contact-us-boxed.html" target="_blank">Client Data Extract Alpha</a>
                             </li>
                             <li>
-                                <a href="login.html">Login</a>
+                                <a href="pages-contact-us-cover.html" target="_blank">Client Map</a>
                             </li>
                             <li>
-                                <a href="register.html">Register</a>
+                                <a href="pages-faq.html">Client Notes Report</a>
                             </li>
                             <li>
-                                <a href="lockscreen.html">Lockscreen</a>
+                                <a href="pages-coming-soon-boxed.html" target="_blank">Event Logs</a>
                             </li>
                             <li>
-                                <a href="forgot_password.html">Forgot password</a>
+                                <a href="pages-coming-soon-cover.html" target="_blank">Inactive Staff Data Extract</a>
                             </li>
                             <li>
-                                <a href="error_404.html">404 error</a>
+                                <a href="pages-maintenence.html" target="_blank">Previous Week Count</a>
                             </li>
                             <li>
-                                <a href="error_500.html">500 error</a>
+                                <a href="pages-maintenence.html" target="_blank">Previous Week Summary</a>
+                            </li>
+                            <li>
+                                <a href="pages-maintenence.html" target="_blank">RAG Rating</a>
+                            </li>
+                            <li>
+                                <a href="pages-maintenence.html" target="_blank">SMS Messages</a>
+                            </li>
+                            <li>
+                                <a href="pages-maintenence.html" target="_blank">Staff Data Extract</a>
+                            </li>
+                            <li>
+                                <a href="pages-maintenence.html" target="_blank">Staff Map</a>
+                            </li>
+                            <li>
+                                <a href="pages-maintenence.html" target="_blank">Staff Notes Report</a>
+                            </li>
+                            <li>
+                                <a href="pages-maintenence.html" target="_blank">Training Matrix</a>
+                            </li>
+                            <li>
+                                <a href="pages-maintenence.html" target="_blank">Training Matrix (Regions)</a>
+                            </li>
+                            <li>
+                                <a href="pages-maintenence.html" target="_blank">Upcoming Care Reviews</a>
                             </li>
                         </ul>
                     </li>
                     <li>
-                        <a href="javascript:;"><i class="sidebar-item-icon fa fa-sitemap"></i>
-                            <span class="nav-label">Menu Levels</span><i class="fa fa-angle-left arrow"></i></a>
+                        <a href="javascript:;"><i class="sidebar-item-icon fa fa-cog"></i>
+                            <span class="nav-label">Settings</span><i class="fa fa-angle-left arrow"></i></a>
                         <ul class="nav-2-level collapse">
                             <li>
-                                <a href="javascript:;">Level 2</a>
+                                <a href="javascript:;">Medication</a>
                             </li>
                             <li>
-                                <a href="javascript:;">
-                                    <span class="nav-label">Level 2</span><i class="fa fa-angle-left arrow"></i></a>
-                                <ul class="nav-3-level collapse">
-                                    <li>
-                                        <a href="javascript:;">Level 3</a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:;">Level 3</a>
-                                    </li>
-                                </ul>
+                                <a href="javascript:;">Training, Skills & Qualifications</a>
                             </li>
                         </ul>
                     </li>
@@ -384,8 +516,8 @@
                     <div class="col-lg-3 col-md-6">
                         <div class="ibox bg-success color-white widget-stat">
                             <div class="ibox-body">
-                                <h2 class="m-b-5 font-strong">201</h2>
-                                <div class="m-b-5">Carer</div><i class="ti-heart widget-stat-icon"></i>
+                                <h2 class="m-b-5 font-strong">Carer</h2>
+                                <div class="m-b-5">11</div><i class="ti-heart widget-stat-icon"></i>
                                 {% comment %} <div><i class="fa fa-level-up m-r-5"></i><small>25% higher</small></div> {% endcomment %}
                             </div>
                         </div>
@@ -393,8 +525,8 @@
                     <div class="col-lg-3 col-md-6">
                         <div class="ibox bg-info color-white widget-stat">
                             <div class="ibox-body">
-                                <h2 class="m-b-5 font-strong">1250</h2>
-                                <div class="m-b-5">Staff</div><i class="ti-heart widget-stat-icon"></i>
+                                <h2 class="m-b-5 font-strong">Staff</h2>
+                                <div class="m-b-5">4</div><i class="ti-heart widget-stat-icon"></i>
                                 {% comment %} <div><i class="fa fa-level-up m-r-5"></i><small>17% higher</small></div> {% endcomment %}
                             </div>
                         </div>
@@ -402,8 +534,8 @@
                     <div class="col-lg-3 col-md-6">
                         <div class="ibox bg-warning color-white widget-stat">
                             <div class="ibox-body">
-                                <h2 class="m-b-5 font-strong">$1570</h2>
-                                <div class="m-b-5">Service Users</div><i class="fa fa-user widget-stat-icon"></i>
+                                <h2 class="m-b-5 font-strong">Service Users</h2>
+                                <div class="m-b-5">27</div><i class="fa fa-user widget-stat-icon"></i>
                                 {% comment %} <div><i class="fa fa-level-up m-r-5"></i><small>22% higher</small></div> {% endcomment %}
                             </div>
                         </div>
@@ -411,8 +543,8 @@
                     <div class="col-lg-3 col-md-6">
                         <div class="ibox bg-danger color-white widget-stat">
                             <div class="ibox-body">
-                                <h2 class="m-b-5 font-strong">108</h2>
-                                <div class="m-b-5">Allocated Hrs</div><i class="fa fa-clock-o widget-stat-icon"></i>
+                                <h2 class="m-b-5 font-strong">Allocated Hrs</h2>
+                                <div class="m-b-5">212</div><i class="fa fa-clock-o widget-stat-icon"></i>
                                 {% comment %} <div><i class="fa fa-level-down m-r-5"></i><small>-12% Lower</small></div> {% endcomment %}
                             </div>
                         </div>
@@ -447,15 +579,19 @@
                                     <hr style="color:#11bfda;">
                                     
                                     <ul class="list-unstyled">
-                                        <li class="m-b-5" style="color: rgb(16, 150, 24);font-weight: bold;">Add Active Service User <i class="ti-check m-r-5"></i></li>
-                                        <li class="m-b-5" style="color: rgb(16, 150, 24);font-weight: bold;">Add Regular Visit <i class="ti-check m-r-5"></i></li><br>
-
+                                        <li class="m-b-5" style="color: rgb(16, 150, 24);font-weight: bold;">Add Active Service User<span class="righty"><i class="ti-check m-r-5" style="font-weight:bold;"></i></span></li>
+                                        <hr style="color:#ffffff;">
+                                        <li class="m-b-5" style="color: rgb(16, 150, 24);font-weight: bold;">Add Regular Visit<span class="righty"><i class="ti-check m-r-5" style="font-weight:bold;"></i></span></li>
+                                        <hr style="color:#ffffff;">
                                         <p class="font-16" style="color: gray;">Advanced</p>
 
-                                        <li class="m-b-5" style="color: gray;font-weight: bold;">Template Regular Visits<i class="ti-check m-r-5"></i></li>
-                                        <li class="m-b-5" style="color: rgb(16, 150, 24);font-weight: bold;">Add A Careplan<i class="ti-check m-r-5"></i></li>
-                                        <li style="color: gray;font-weight: bold;">Add A Risk Assessment<i class="ti-check m-r-5"></i></li>
-                                        <li style="color: rgb(16, 150, 24);font-weight: bold;">Add A Service User note<i class="ti-check m-r-5"></i></li>
+                                        <li class="m-b-5" style="color: gray;font-weight: bold;">Template Regular Visits<span class="righty"><i class="ti-check m-r-5" style="font-weight:bold;"></i></span></li>
+                                        <hr style="color:#ffffff;">
+                                        <li class="m-b-5" style="color: rgb(16, 150, 24);font-weight: bold;">Add A Careplan<span class="righty"><i class="ti-check m-r-5" style="font-weight:bold;"></i></span></li>
+                                        <hr style="color:#ffffff;">
+                                        <li style="color: gray;font-weight: bold;">Add A Risk Assessment<span class="righty"><i class="ti-check m-r-5" style="font-weight:bold;"></i></span></li>
+                                        <hr style="color:#ffffff;">
+                                        <li style="color: rgb(16, 150, 24);font-weight: bold;">Add A Service User note<span class="righty"><i class="ti-check m-r-5" style="font-weight:bold;"></i></span></li>
                                     </ul>
                                 </div>
                             </div>
@@ -470,8 +606,9 @@
                                     <h5 class="schedule"><i class="fa fa-clock-o mr-1"></i> SCHEDULE</h5>
                                     <hr style="color:#11bfda;border-hight:2px;">
                                     <ul class="list-unstyled">
-                                        <li class="m-b-5" style="color: rgb(16, 150, 24);font-weight: bold;">Add Carers<i class="ti-check m-r-5"></i></li>
-                                        <li class="m-b-5" style="color: rgb(16, 150, 24);font-weight: bold;">Schedule Visit<i class="ti-check m-r-5"></i></li>
+                                        <li class="m-b-5" style="color: rgb(16, 150, 24);font-weight: bold;">Add Carers<span class="righty"><i class="ti-check m-r-5" style="font-weight:bold;"></i></span></li>
+                                        <hr style="color:#ffffff;">
+                                        <li class="m-b-5" style="color: rgb(16, 150, 24);font-weight: bold;">Schedule Visit<span class="righty"><i class="ti-check m-r-5" style="font-weight:bold;"></i></span></li>
                                     </ul>
                                 </div>
                             </div>
@@ -487,8 +624,9 @@
                                     <h5 class="deliver"><i class="fa fa-sun-o mr-1"></i> DELIVER</h5>
                                     <hr style="color:#11bfda;border-hight:2px;">
                                     <ul class="list-unstyled">
-                                        <li class="m-b-5" style="color: gray;font-weight: bold;">Invite Carers <span class="righty"><i class="ti-check m-r-5"></i></span></li>
-                                        <li class="m-b-5" style="color: rgb(16, 150, 24);font-weight: bold;">Access App<i class="ti-check m-r-5"></i></li>
+                                        <li class="m-b-5" style="color: gray;font-weight: bold;">Invite Carers <span class="righty"><i class="ti-check m-r-5" style="font-weight:bold;"></i></span></li>
+                                        <hr style="color:#ffffff;">
+                                        <li class="m-b-5" style="color: rgb(16, 150, 24);font-weight: bold;">Access App<span class="righty"><i class="ti-check m-r-5" style="font-weight:bold;"></i></span></li>
                                     </ul>
                                 </div>
                             </div>
@@ -503,8 +641,9 @@
                                     <h5 class="monitor"><i class="fa fa-group mr-1"></i> MONITOR</h5>
                                     <hr style="color:#11bfda;border-hight:2px;">
                                     <ul class="list-unstyled">
-                                        <li class="m-b-5" style="color: rgb(16, 150, 24);font-weight: bold;">Check In to Visits<i class="ti-check m-r-5"></i></li>
-                                        <li class="m-b-5" style="color: rgb(16, 150, 24);font-weight: bold;">Check Out of Visits<i class="ti-check m-r-5"></i></li>
+                                        <li class="m-b-5" style="color: rgb(16, 150, 24);font-weight: bold;">Check In to Visits<span class="righty"><i class="ti-check m-r-5" style="font-weight:bold;"></i></span></li>
+                                        <hr style="color:#ffffff;">
+                                        <li class="m-b-5" style="color: rgb(16, 150, 24);font-weight: bold;">Check Out of Visits<span class="righty"><i class="ti-check m-r-5" style="font-weight:bold;"></i></span></li>
                                     </ul>
                                 </div>
                             </div>
@@ -519,15 +658,19 @@
                                     <hr style="color:#11bfda;border-hight:2px;">
                                     
                                     <ul class="list-unstyled">
-                                        <li class="m-b-5" style="color: rgb(16, 150, 24);font-weight: bold;">Raise Invoices<i class="ti-check m-r-5"></i></li>
-                                        <li class="m-b-5" style="color: rgb(16, 150, 24);font-weight: bold;">Run Payroll<i class="ti-check m-r-5"></i></li><br>
-
+                                        <li class="m-b-5" style="color: rgb(16, 150, 24);font-weight: bold;">Raise Invoices<span class="righty"><i class="ti-check m-r-5" style="font-weight:bold;"></i></span></li>
+                                        <hr style="color:#ffffff;">
+                                        <li class="m-b-5" style="color: rgb(16, 150, 24);font-weight: bold;">Run Payroll<span class="righty"><i class="ti-check m-r-5" style="font-weight:bold;"></i></span></li>
+                                        <hr style="color:#ffffff;">
                                         <p class="font-16" style="color: gray;">Advanced</p>
 
-                                        <li class="m-b-5" style="color: rgb(16, 150, 24);font-weight: bold;">Add Funders<i class="ti-check m-r-5"></i></li>
-                                        <li class="m-b-5" style="color: rgb(16, 150, 24);font-weight: bold;">Add Travel Types<i class="ti-check m-r-5"></i></li>
-                                        <li style="color: rgb(16, 150, 24);font-weight: bold;">Edit Pay Rates<i class="ti-check m-r-5"></i></li>
-                                        <li style="color: rgb(16, 150, 24);font-weight: bold;">Edit Charge Rates<i class="ti-check m-r-5"></i></li>
+                                        <li class="m-b-5" style="color: rgb(16, 150, 24);font-weight: bold;">Add Funders<span class="righty"><i class="ti-check m-r-5" style="font-weight:bold;"></i></span></li>
+                                        <hr style="color:#ffffff;">
+                                        <li class="m-b-5" style="color: rgb(16, 150, 24);font-weight: bold;">Add Travel Types<span class="righty"><i class="ti-check m-r-5" style="font-weight:bold;"></i></span></li>
+                                        <hr style="color:#ffffff;">
+                                        <li style="color: rgb(16, 150, 24);font-weight: bold;">Edit Pay Rates<span class="righty"><i class="ti-check m-r-5" style="font-weight:bold;"></i></span></li>
+                                        <hr style="color:#ffffff;">
+                                        <li style="color: rgb(16, 150, 24);font-weight: bold;">Edit Charge Rates<span class="righty"><i class="ti-check m-r-5" style="font-weight:bold;"></i></span></li>
                                     </ul>
                                 </div>
                             </div>
@@ -701,6 +844,40 @@
     <script src="{% static 'assets/js/app.min.js' %}" type="text/javascript"></script>
     <!-- PAGE LEVEL SCRIPTS-->
     <script src="{% static './assets/js/scripts/dashboard_1_demo.js' %}" type="text/javascript"></script>
+
+    <script>
+        var select = document.querySelector("[name=department_id]");
+        var i=1
+    
+        function addOption() {
+        var option = document.createElement("option");
+        option.text = "hello #" + i++
+        select.appendChild(option);
+        $(select).selectpicker('refresh')
+        }
+    
+        function removeAllOptions() {
+        select.innerHTML = "";
+        $(select).selectpicker('refresh')
+        }
+    </script>
+
+    <script>
+        var select = document.querySelector("[name=department_id2]");
+        var i=1
+    
+        function addOption() {
+        var option = document.createElement("option");
+        option.text = "hello #" + i++
+        select.appendChild(option);
+        $(select).selectpicker('refresh')
+        }
+    
+        function removeAllOptions() {
+        select.innerHTML = "";
+        $(select).selectpicker('refresh')
+        }
+    </script>
 </body>
 
 </html>

@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+{% extends "admin_temp/capacity.html" %}
+{% load static %}
+{% block content %}
+
+        <!-- END SIDEBAR-->
+        <div class="content-wrapper">
+            <!-- START PAGE CONTENT-->
+            <div class="page-heading">
+                <div style="padding-top:10px;padding-bottom: 0px;">
+                    
+                    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                        <a class="navbar-brand" href="/admin-panel/index/" style="color:skyblue;">Dashboard</a>
+                        <span>/</span>
+                        <a class="nav-link" href="#" style="color:skyblue;">Plan </a>
+                        <span>/</span>
+                        <a class="nav-link" href="#" style="color:#c5c5c5;">CAREbooster</a>
+                      </nav>
+                </div>
+            </div>
+
+            
+           
+            <style>
+                .button-container {
+                    display: flex;
+                    justify-content: space-between;
+                    padding: 10px 10px 0px 10px;
+                    border-radius: 5px;
+                    max-width: 100%;
+                    margin: auto;
+                    background-color: #c8c8c8;
+                }
+            
+                .button-container button {
+                    padding: 6px;
+                    margin-right: 10px; /* Add margin between buttons */
+                    background-color: #337ab7;
+                    color: white;
+                    border: none;
+                    border-radius: 4px;
+                    cursor: pointer;
+                }
+            
+                .dropdown {
+                    margin-left: auto;
+                }
+            
+                .dropdown select {
+                    padding: 10px;
+                }
+
+
+
+                .datepicker-container {
+                    display: inline-block;
+                  }
+              
+                  .datepicker-container input {
+                    padding: 1px;
+                    font-size: 14px;
+                    border: 1px solid #ccc;
+                    border-radius: 3px;
+                  }
+
+
+
+                #myForm {
+                    display: none; /* Hide the form by default */
+                    max-width: 500px;
+                    position: relative;
+                    padding: 20px;
+                    margin-top: 15%;
+                  }
+              
+                #customDateInput {
+                    width: 80%;
+                    padding: 2px;
+                    margin-bottom: 16px;
+                    box-sizing: border-box;
+                }
+              
+                #Done {
+                    padding: 10px;
+                    background-color: #4CAF50;
+                    color: white;
+                    border: none;
+                    cursor: pointer;
+                  }
+
+                  .close-btn {
+                    position: absolute;
+                    top: 5px;
+                    left: 5px;
+                    background-color: #ffffff;
+                  }
+
+                  input[type="radio"] {
+                    margin-right: 5px; /* Adjust the margin as needed */
+                }
+                
+                label {
+                    display: inline-block;
+                    margin-right: 15px; /* Adjust the margin as needed */
+                }
+                .carevisit{
+                  text-align: center;
+                  font-weight: 700;
+                  font-size: 22px;
+                  color: #fff;
+                }
+                .scrollit {
+                  overflow:scroll;
+                  height:200px;
+              }
+              #example-table {
+                position: relative;
+                width: 80%;
+                table-layout: fixed;
+                border-collapse: collapse;
+              }
+              #resizer {
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                width: 8px;
+                cursor: ew-resize;
+                background-color: #ddd;
+              }
+
+              #example-table2 {
+                position: relative;
+                width: 100%;
+                table-layout: fixed;
+                border-collapse: collapse;
+              }
+              #resizer2 {
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                width: 8px;
+                cursor: ew-resize;
+                background-color: #ddd;
+              }
+
+              {% comment %}  /*map css*/   {% endcomment %}
+              .flex-container {
+                display: flex;
+                justify-content: space-between;
+            }
+        
+            .table-container {
+                flex: 1;
+            }
+              #map {
+                width: 200px; /* Adjust the width as needed */
+                height: 200px; /* Adjust the height as needed */
+            }
+            </style>
+
+
+
+
+            <div class="button-container">
+              <div class="ibox-title"><strong>Date:</strong><div class="datepicker-container"><input id="customDateInput" value="23/02/2024"></div></div>
+                
+              <div class="ibox-title" style="margin-right:20px;"><strong>Day:</strong><div class="datepicker-container">{{current_day }}</div></div>
+              <div class="ibox-title"><strong>Region:</strong><div class="datepicker-container"><input id="customDateInput" placeholder="Select Some Options"></div></div>
+              
+              <div class="dropdown">   
+                
+                  <button id="showFormButton"><i class="fa fa-gear"></i></button>                   
+                  <button class="btn btn-primary" type="submit" id="boostButton"><strong><i class="fa fa-rocket"></i> Boost</strong></button>   
+                  
+                  
+                  <script>
+                    // Add an event listener to the button
+                    document.getElementById('boostButton').addEventListener('click', function() {
+                        // Display an alert when the button is clicked
+                        alert('Please ensure you select data to optimise');
+                    });
+                    </script>
+                </div>
+
+              </div>
+
+
+      
+        
+            <div class="page-content fade-in-up">
+              <div class="flex-container">
+                <div class="ibox" id="example-table">
+                    <div class="ibox-head" style="background-color:#06abd8;">
+                        <div class="carevisit">Visits (25)</div>
+                        <button id="showFormButton" style="background:#767676;color: #fff;"><i class="fa fa-sliders"></i></button>
+
+                        <form id="myForm" style="background-color: #ccc;">
+                            <p style="text-align: right"><strong>Route Optimisation Options</strong></p>
+                            
+                            
+                            <div class="">Max. Visits Per Staff <div class="datepicker-container"><input type="number" id="customDateInput" name="perstaff"></div></div>
+                            
+                            <div class="">Preparation time per Visit <div class="datepicker-container"><input type="number" id="customDateInput" name="perstaff"></div> mins</div>
+                           
+                            
+                            <p>Optimise for:</p>
+                            <input type="radio" id="html" name="fav_language" value="minimum number of staff">
+                            <label for="minimum number of staff">Minimum number of staff</label><br>
+                            <input type="radio" id="css" name="fav_language" value="minimum completion time">
+                            <label for="minimum completion time">Minimum completion time</label><br>
+                            <input type="radio" id="javascript" name="fav_language" value="minimum transport time">
+                            <label for="minimum transport time">Minimum transport time</label>
+                            <button class="close-btn" id="closeFormButton"><i class="fa fa-close"></i></button>
+                        </form>
+                    </div>
+
+                    <div id="resizable-table-container">
+                    <div class="scrollit">
+                        <table class="table table-striped table-bordered table-hover" cellspacing="0" width="100%" style="background-color: #7a7a7a;color: white;">
+                            <thead>
+                                <tr>
+                                    <th><input type="checkbox"></th>
+                                    <th>Service User</th>
+                                    <th>Planned Start
+                                      (Earliest-Latest)</th>
+                                    <th>Duration</th>
+                                    <th>Type</th>
+                                    <th>Postcode</th>                                    
+                                </tr>
+                            </thead>
+                            
+                            <tbody>
+                              {% comment %} {% for user, details in mapped %} {% endcomment %}
+                              <tr>
+                                  <td><input type="checkbox"></td>
+                                  <td>data1</td>
+                                  <td>data1</td>
+                                  <td>data1</td>
+                                  <td>data1</td>
+                                  <td>data1</td>
+                                  <td>
+                                      {% comment %} <span><a href="{% url 'staff_updt' id=user.id empid=details.employment_id eadid=details.equality_and_diversity_id regid=details.regions_id bkid=details.bank_details_id %}" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil color-muted m-r-5"></i> </a> |  {% endcomment %}
+                                          {% comment %} <a href="{% url 'staff_del' id=user.id empid=details.employment_id eadid=details.equality_and_diversity_id regid=details.regions_id bkid=details.bank_details_id %}" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash-o color-danger"></i></a></span>  {% endcomment %}
+                                  </td>
+                              </tr>
+                              <tr>
+                                <td><input type="checkbox"></td>
+                                <td>data1</td>
+                                <td>data1</td>
+                                <td>data1</td>
+                                <td>data1</td>
+                                <td>data1</td>
+                                <td>
+                                    {% comment %} <span><a href="{% url 'staff_updt' id=user.id empid=details.employment_id eadid=details.equality_and_diversity_id regid=details.regions_id bkid=details.bank_details_id %}" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil color-muted m-r-5"></i> </a> |  {% endcomment %}
+                                        {% comment %} <a href="{% url 'staff_del' id=user.id empid=details.employment_id eadid=details.equality_and_diversity_id regid=details.regions_id bkid=details.bank_details_id %}" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash-o color-danger"></i></a></span>  {% endcomment %}
+                                </td>
+                            </tr>
+                            <tr>
+                                  <td><input type="checkbox"></td>
+                                  <td>data1</td>
+                                  <td>data1</td>
+                                  <td>data1</td>
+                                  <td>data1</td>
+                                  <td>data1</td>
+                                  <td>
+                                      {% comment %} <span><a href="{% url 'staff_updt' id=user.id empid=details.employment_id eadid=details.equality_and_diversity_id regid=details.regions_id bkid=details.bank_details_id %}" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil color-muted m-r-5"></i> </a> |  {% endcomment %}
+                                          {% comment %} <a href="{% url 'staff_del' id=user.id empid=details.employment_id eadid=details.equality_and_diversity_id regid=details.regions_id bkid=details.bank_details_id %}" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash-o color-danger"></i></a></span>  {% endcomment %}
+                                  </td>
+                              </tr>
+                              <tr>
+                                <td><input type="checkbox"></td>
+                                <td>data1</td>
+                                <td>data1</td>
+                                <td>data1</td>
+                                <td>data1</td>
+                                <td>data1</td>
+                                <td>
+                                    {% comment %} <span><a href="{% url 'staff_updt' id=user.id empid=details.employment_id eadid=details.equality_and_diversity_id regid=details.regions_id bkid=details.bank_details_id %}" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil color-muted m-r-5"></i> </a> |  {% endcomment %}
+                                        {% comment %} <a href="{% url 'staff_del' id=user.id empid=details.employment_id eadid=details.equality_and_diversity_id regid=details.regions_id bkid=details.bank_details_id %}" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash-o color-danger"></i></a></span>  {% endcomment %}
+                                </td>
+                            </tr>
+                              {% comment %} {% endfor %} {% endcomment %}
+                          </tbody>
+                        </table>
+                        <div id="resizer"></div>
+                      </div>
+                </div>
+            </div>
+            <div id="map-container">
+            <div id="map"></div>
+          </div>
+          </div>
+
+            <div class="page-content fade-in-up">
+              <div class="ibox" id="example-table2">
+                  <div class="ibox-head" style="background-color:#06abd8;">
+                      <div class="carevisit">Staff (32)</div>
+                      <button id="showFormButton" style="background:#767676;color: #fff;"><i class="fa fa-sliders"></i></button>
+
+                      <form id="myForm" style="background-color: #ccc;">
+                          <p style="text-align: right"><strong>Route Optimisation Options</strong></p>
+                          
+                          
+                          <div class="">Max. Visits Per Staff <div class="datepicker-container"><input type="number" id="customDateInput" name="perstaff"></div></div>
+                          
+                          <div class="">Preparation time per Visit <div class="datepicker-container"><input type="number" id="customDateInput" name="perstaff"></div> mins</div>
+                         
+                          
+                          <p>Optimise for:</p>
+                          <input type="radio" id="html" name="fav_language" value="minimum number of staff">
+                          <label for="minimum number of staff">Minimum number of staff</label><br>
+                          <input type="radio" id="css" name="fav_language" value="minimum completion time">
+                          <label for="minimum completion time">Minimum completion time</label><br>
+                          <input type="radio" id="javascript" name="fav_language" value="minimum transport time">
+                          <label for="minimum transport time">Minimum transport time</label>
+                          <button class="close-btn" id="closeFormButton"><i class="fa fa-close"></i></button>
+                      </form>
+                  </div>
+
+                  <div class="scrollit">
+                      <table class="table table-striped table-bordered table-hover" cellspacing="0" width="100%" style="background-color: #7a7a7a;color: white;">
+                          <thead>
+                              <tr>
+                                  <th><input type="checkbox"></th>
+                                  <th>Staff</th>
+                                  <th>Transport</th>
+                                  <th>Availability</th>
+                                  <th>Postcode</th>                                    
+                              </tr>
+                          </thead>
+                          
+                          <tbody>
+                              {% comment %} {% for user, details in mapped %} {% endcomment %}
+                              <tr>
+                                  <td><input type="checkbox"></td>
+                                  <td>data1</td>
+                                  <td>data1</td>
+                                  <td>data1</td>
+                                  <td>data1</td>
+                                  <td>data1</td>
+                                  <td>
+                                      {% comment %} <span><a href="{% url 'staff_updt' id=user.id empid=details.employment_id eadid=details.equality_and_diversity_id regid=details.regions_id bkid=details.bank_details_id %}" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil color-muted m-r-5"></i> </a> |  {% endcomment %}
+                                          {% comment %} <a href="{% url 'staff_del' id=user.id empid=details.employment_id eadid=details.equality_and_diversity_id regid=details.regions_id bkid=details.bank_details_id %}" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash-o color-danger"></i></a></span>  {% endcomment %}
+                                  </td>
+                              </tr>
+                              <tr>
+                                <td><input type="checkbox"></td>
+                                <td>data1</td>
+                                <td>data1</td>
+                                <td>data1</td>
+                                <td>data1</td>
+                                <td>data1</td>
+                                <td>
+                                    {% comment %} <span><a href="{% url 'staff_updt' id=user.id empid=details.employment_id eadid=details.equality_and_diversity_id regid=details.regions_id bkid=details.bank_details_id %}" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil color-muted m-r-5"></i> </a> |  {% endcomment %}
+                                        {% comment %} <a href="{% url 'staff_del' id=user.id empid=details.employment_id eadid=details.equality_and_diversity_id regid=details.regions_id bkid=details.bank_details_id %}" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash-o color-danger"></i></a></span>  {% endcomment %}
+                                </td>
+                            </tr>
+                            <tr>
+                                  <td><input type="checkbox"></td>
+                                  <td>data1</td>
+                                  <td>data1</td>
+                                  <td>data1</td>
+                                  <td>data1</td>
+                                  <td>data1</td>
+                                  <td>
+                                      {% comment %} <span><a href="{% url 'staff_updt' id=user.id empid=details.employment_id eadid=details.equality_and_diversity_id regid=details.regions_id bkid=details.bank_details_id %}" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil color-muted m-r-5"></i> </a> |  {% endcomment %}
+                                          {% comment %} <a href="{% url 'staff_del' id=user.id empid=details.employment_id eadid=details.equality_and_diversity_id regid=details.regions_id bkid=details.bank_details_id %}" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash-o color-danger"></i></a></span>  {% endcomment %}
+                                  </td>
+                              </tr>
+                              <tr>
+                                <td><input type="checkbox"></td>
+                                <td>data1</td>
+                                <td>data1</td>
+                                <td>data1</td>
+                                <td>data1</td>
+                                <td>data1</td>
+                                <td>
+                                    {% comment %} <span><a href="{% url 'staff_updt' id=user.id empid=details.employment_id eadid=details.equality_and_diversity_id regid=details.regions_id bkid=details.bank_details_id %}" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil color-muted m-r-5"></i> </a> |  {% endcomment %}
+                                        {% comment %} <a href="{% url 'staff_del' id=user.id empid=details.employment_id eadid=details.equality_and_diversity_id regid=details.regions_id bkid=details.bank_details_id %}" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash-o color-danger"></i></a></span>  {% endcomment %}
+                                </td>
+                            </tr>
+                            <tr>
+                              <td><input type="checkbox"></td>
+                              <td>data1</td>
+                              <td>data1</td>
+                              <td>data1</td>
+                              <td>data1</td>
+                              <td>data1</td>
+                              <td>
+                                  {% comment %} <span><a href="{% url 'staff_updt' id=user.id empid=details.employment_id eadid=details.equality_and_diversity_id regid=details.regions_id bkid=details.bank_details_id %}" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil color-muted m-r-5"></i> </a> |  {% endcomment %}
+                                      {% comment %} <a href="{% url 'staff_del' id=user.id empid=details.employment_id eadid=details.equality_and_diversity_id regid=details.regions_id bkid=details.bank_details_id %}" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash-o color-danger"></i></a></span>  {% endcomment %}
+                              </td>
+                              <tr>
+                                <td><input type="checkbox"></td>
+                                <td>data1</td>
+                                <td>data1</td>
+                                <td>data1</td>
+                                <td>data1</td>
+                                <td>data1</td>
+                                <td>
+                                    {% comment %} <span><a href="{% url 'staff_updt' id=user.id empid=details.employment_id eadid=details.equality_and_diversity_id regid=details.regions_id bkid=details.bank_details_id %}" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil color-muted m-r-5"></i> </a> |  {% endcomment %}
+                                        {% comment %} <a href="{% url 'staff_del' id=user.id empid=details.employment_id eadid=details.equality_and_diversity_id regid=details.regions_id bkid=details.bank_details_id %}" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash-o color-danger"></i></a></span>  {% endcomment %}
+                                </td>
+                                <tr>
+                                <td><input type="checkbox"></td>
+                                <td>data1</td>
+                                <td>data1</td>
+                                <td>data1</td>
+                                <td>data1</td>
+                                <td>data1</td>
+                                <td>
+                                    {% comment %} <span><a href="{% url 'staff_updt' id=user.id empid=details.employment_id eadid=details.equality_and_diversity_id regid=details.regions_id bkid=details.bank_details_id %}" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil color-muted m-r-5"></i> </a> |  {% endcomment %}
+                                        {% comment %} <a href="{% url 'staff_del' id=user.id empid=details.employment_id eadid=details.equality_and_diversity_id regid=details.regions_id bkid=details.bank_details_id %}" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash-o color-danger"></i></a></span>  {% endcomment %}
+                                </td>
+                              {% comment %} {% endfor %} {% endcomment %}
+                          </tbody>
+                      </table>
+                      
+                      <div id="resizer2"></div>
+                    </div>
+
+                      
+              </div>
+              
+          </div>
+
+
+{% comment %} Table resize in javascript {% endcomment %}
+
+
+
+          <script>
+            document.addEventListener('DOMContentLoaded', function () {
+              const table = document.getElementById('example-table');
+              const resizer = document.getElementById('resizer');
+              let isResizing = false;
+              let originalX;
+              let originalWidth;
+        
+              resizer.addEventListener('mousedown', function (event) {
+                isResizing = true;
+                originalX = event.clientX;
+                originalWidth = parseFloat(getComputedStyle(table, null).getPropertyValue('width').replace('px', ''));
+        
+                document.addEventListener('mousemove', handleMouseMove);
+                document.addEventListener('mouseup', function () {
+                  isResizing = false;
+                  document.removeEventListener('mousemove', handleMouseMove);
+                });
+              });
+        
+              function handleMouseMove(event) {
+                if (isResizing) {
+                  const newWidth = originalWidth + (event.clientX - originalX);
+                  table.style.width = newWidth + 'px';
+                }
+              }
+            });
+          </script>
+
+
+          <script>
+            document.addEventListener('DOMContentLoaded', function () {
+              const table = document.getElementById('example-table2');
+              const resizer = document.getElementById('resizer2');
+              let isResizing = false;
+              let originalX;
+              let originalWidth;
+        
+              resizer.addEventListener('mousedown', function (event) {
+                isResizing = true;
+                originalX = event.clientX;
+                originalWidth = parseFloat(getComputedStyle(table, null).getPropertyValue('width').replace('px', ''));
+        
+                document.addEventListener('mousemove', handleMouseMove);
+                document.addEventListener('mouseup', function () {
+                  isResizing = false;
+                  document.removeEventListener('mousemove', handleMouseMove);
+                });
+              });
+        
+              function handleMouseMove(event) {
+                if (isResizing) {
+                  const newWidth = originalWidth + (event.clientX - originalX);
+                  table.style.width = newWidth + 'px';
+                }
+              }
+            });
+          </script>
+
+
+
+
+          {% comment %}      JS for map        {% endcomment %}
+          <script>
+            function initMap() {
+                // Set initial map options (center and zoom level)
+                var mapOptions = {
+                    center: { lat: -34.397, lng: 150.644 },
+                    zoom: 8
+                };
+          
+                // Create a new map instance
+                var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+            }
+          </script>
+
+
+            
+            <script>
+                $(function() {
+                  $("#customDateInput").datepicker({
+                    dateFormat: 'dd/mm/yy'
+                  });
+                });
+              </script>
+
+              <script>
+                document.getElementById('showFormButton').addEventListener('click', function() {
+                  document.getElementById('myForm').style.display = 'block';
+                  this.style.display = 'none'; // Hide the button
+                });
+
+                document.getElementById('closeFormButton').addEventListener('click', function(event) {
+                    event.preventDefault(); // Prevent the default form submission behavior
+                    document.getElementById('myForm').style.display = 'none';
+                    document.getElementById('showFormButton').style.display = 'block'; // Show the "Show Form" button
+                  });
+              </script>
+            <!-- END PAGE CONTENT-->
+
+{% endblock content %}
+
