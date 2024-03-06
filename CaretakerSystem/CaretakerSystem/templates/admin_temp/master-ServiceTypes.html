@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+{% extends "admin_temp/capacity.html" %}
+{% load static %}
+{% block content %}
+
+        <!-- END SIDEBAR-->
+        <div class="content-wrapper">
+            <!-- START PAGE CONTENT-->
+            <div class="page-heading">
+                <div style="padding-top:10px;padding-bottom: 0px;">
+                    
+                    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                        <a class="navbar-brand" href="/admin-panel/index/" style="color:skyblue;">Dashboard</a>
+                        
+                        <span>/</span>
+                        <a class="nav-link" href="#" style="color:#c5c5c5;">Service Types </a>
+                       
+                      </nav>
+                </div>
+            </div>
+
+            
+           
+            <style>         
+               
+                .page-content {
+                    padding-top: 2px !important;
+                }
+                
+                .box{
+                    width: 200px;
+                    align: center;
+                    
+                }
+
+                .table tbody tr{
+                    font-size: 12px;
+                }
+                
+                th{
+                    background-color: #686868;
+                    color: #ffffff;
+                }
+
+                .column {
+                    float: right;
+                    width: 410px;
+                    padding: 10px;
+                    height: auto; /* Should be removed. Only for demonstration */
+                }
+                  
+                /* Clear floats after the columns */
+                .row:after {
+                    content: "";
+                    display: table;
+                    clear: both;
+                  }
+                .searchbox{
+                    margin-left: 20px;
+                }
+                .ibox-body{
+                    background-color: #e5e5e5;
+                }
+                #ex-pass{
+                    padding: 4px;
+                    width: 400px;
+                }
+                #ex-role{
+                    padding: 4px;
+                    width: 20px;
+                    height: auto;
+                }
+                #tbdata{
+                    border-style:none;
+                    width: 400px;
+                }
+                
+                input[type="checkbox"] {
+                    margin-left: 15px;
+                    margin-right: 15px;
+                    transform: scale(1.7);
+                }
+                #getAccountsButton{
+                    margin-left: 15px;
+                    margin-right: 15px;
+                }
+                .fa-gear {
+                    font-size: 24px; /* Adjust the font-size as needed */
+                }
+            </style>
+
+
+
+
+
+
+
+            
+
+
+
+            
+            <div class="page-content fade-in-up">
+                <div class="ibox">
+                    
+                    <div class="ibox-body">
+                        <p><strong>Add Service Type</strong> - add a new service type ie. Dementia Care, End of Life Care</p>
+                        <form class="form-inline" method="post">                            
+                            <label class="sr-only" for="ex-pass"></label>
+                            <input class="mb-2 mr-sm-2 mb-sm-0" id="ex-pass" type="text" name="seniorcarer" placeholder="New Service Types">
+                            
+                            <button class="btn btn-info" id="getAccountsButton" type="submit"><i class="fa fa-plus"></i> Add Service Types</button>
+                                                
+                        </form>
+                    </div>
+                </div>
+
+
+               
+                    
+
+                    
+
+                    <table class="table" id="example-table" cellspacing="0" border="1px" width="100%">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Service Type</th>                                  
+                                <th></th>                                       
+                            </tr>
+                        </thead>
+                        
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td>Dementia Care</td>
+                                <td>
+                                    <div class="gear-button" onclick="toggleGearContainer(this)" onMouseOver="this.style.background='#19b9e4'" onMouseOut="this.style.background='#000'" style="font-size:20px;font-weight:bold;background-color:#000;color:#fff;width:30px;text-align:center;border-radius:10px;">
+                                        <i class="fa fa-gear"></i>
+                                    </div>
+                                </td>
+                            </tr>
+                           
+                            <tr>
+                                <td></td>
+                                <td>Domiciliary Care</td>
+                                <td><div onMouseOver="this.style.background='#19b9e4'" onMouseOut="this.style.background='#000'" style="font-size:20px;font-weight:bold;background-color:#000;color:#fff;width:30px;text-align:center;border-radius:10px;"><i class="fa fa-gear"></i></div></td>
+                            </tr>
+
+                            <tr>
+                                <td></td>
+                                <td>End Of Life Care</td>
+                                <td><div onMouseOver="this.style.background='#19b9e4'" onMouseOut="this.style.background='#000'" style="font-size:20px;font-weight:bold;background-color:#000;color:#fff;width:30px;text-align:center;border-radius:10px;"><i class="fa fa-gear"></i></div></td>
+                            </tr>
+                        </tbody>
+
+                        
+                        
+                    </table>
+                </div>
+
+                <div class="gear-container" id="gearContainer">
+                    <div class="parallel-div">
+                        <!-- Content for the first parallel div -->
+                        <p>First Parallel Div Content</p>
+                    </div>
+                    <div class="parallel-div">
+                        <!-- Content for the second parallel div -->
+                        <p>Second Parallel Div Content</p>
+                    </div>
+                </div>
+                
+                
+                    
+
+                    
+
+
+            <!-- Your existing HTML code -->
+
+<script>
+    
+
+
+    // Get the current date in the format "YYYY-MM-DD"
+    function getCurrentDate() {
+        const today = new Date();
+        const year = today.getFullYear();
+        let month = today.getMonth() + 1;
+        let day = today.getDate();
+
+        // Add leading zero for single-digit months and days
+        month = month < 10 ? `0${month}` : month;
+        day = day < 10 ? `0${day}` : day;
+
+        return `${year}-${month}-${day}`;
+    }
+
+ 
+    // Define the runReport function
+    function runReport() {
+        // Hide the date selection box
+        const dateSelectionBox = document.getElementById('dateSelectionBox');
+        dateSelectionBox.style.display = 'none';
+
+        // Show the data table container
+        const dataTableContainer = document.getElementById('dataTableContainer');
+        dataTableContainer.style.display = 'block';
+    }
+
+
+    function toggleGearContainer(button) {
+        var gearContainer = document.getElementById('gearContainer');
+        gearContainer.style.display = (gearContainer.style.display === 'block') ? 'none' : 'block';
+    }
+
+
+
+    // Code for Graph
+    
+</script>
+
+
+
+
+
+
+            <!-- END PAGE CONTENT-->
+
+{% endblock content %}
+

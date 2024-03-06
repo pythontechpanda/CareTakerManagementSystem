@@ -1,0 +1,177 @@
+{% extends "admin_temp/index.html" %}
+{% load static %}
+{% block content %}
+
+<style>
+    .button-container {
+        display: flex;
+    }
+    
+    button {
+        margin-right: 10px; /* Adjust as needed */
+        padding: 10px;
+        color: #000;
+        border: none;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: #08c; /* Darker green color on hover */
+        color: #fff;
+    }
+    .vertical-lines {
+        height: 20vh; /* Adjust the height as needed */
+        width: 30vh;
+      }
+      .popup-container {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        padding: 20px;
+        border: 1px solid #ccc;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        z-index: 999;
+        width: 400px;
+    }
+    .popup-container2 {
+        display: none;
+        position: fixed;
+        top: 60%;
+        left: 60%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        padding: 20px;
+        border: 1px solid #ccc;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        z-index: 999;
+        width: 50%;
+        height:70%;
+        overflow: auto;
+        
+    }
+
+    .close-button {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+    }
+    .vertical-div {
+        width: 200px;
+        height: 30px;
+        border:1px solid #e1e1e1;
+        background-color: #ffffff;
+        float: bottom;
+        color: #3498db;
+    }
+    h5 {
+        color:#ffffff;
+        background-color: gray;
+        width:200px;
+        padding: 5px;
+    }
+
+
+    .search-container {
+        display: flex;
+        align-items: center;
+    }
+
+    .search-bar {
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin-right: 8px;
+    }
+
+    .search-button {
+        padding: 8px 12px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    
+</style>
+        <div class="content-wrapper">
+            <!-- START PAGE CONTENT-->
+            
+            <div class="page-content fade-in-up">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div style="padding-bottom:10px;">
+                            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                            <a class="navbar-brand" href="/admin-panel/index/" style="color:skyblue;">Dashboard</a>
+                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <span>/</span>
+                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                <ul class="navbar-nav mr-auto">
+                                
+                                
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">App Settings</a>
+                                </li>
+                                
+                                </ul>
+                               
+                            </div>
+                            </nav>
+                        </div>
+
+                        <div class="button-container">
+                            <a href="/admin-panel/app-setting/"><button class="btn btn-default">Account Settings</button></a>
+                            <a href="/admin-panel/app-setting-Landing-call/"><button class="btn btn-default">Landline Call Monitoring</button></a>
+                            <a href="/admin-panel/app-setting-sms-massaging/"><button class="btn btn-default">SMS Messaging</button></a>
+                            <a href="/admin-panel/app-setting-integration/"><button class="btn btn-default">Integrations</button></a>
+                        </div>
+                        <div class="ibox">
+                            <div class="ibox-body" style="height: 200px;">
+                               
+                                    <h5>Purchase numbers</h5>
+                                    <p><strong>Find Numbers </strong>- search for numbers in your area by entering your local dialling code.</p>
+                                    <div class="search-container">
+                                        <input type="text" class="search-bar" placeholder="STD Search...">
+                                        <button class="search-button" onclick="searchFunction()">Search</button>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+
+               
+
+                
+
+
+
+
+
+
+                {% comment %} Equality & Diversity {% endcomment %}
+
+                   
+            </div>
+
+
+            <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+            <script>
+                function searchFunction() {
+                    // Add your search functionality here
+                    var searchTerm = document.querySelector('.search-bar').value;
+                    alert('Searching for: ' + searchTerm);
+                    // You can implement your own search logic or send the search term to a server.
+                }
+
+               
+            </script>
+{% endblock content %}

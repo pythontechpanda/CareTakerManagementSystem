@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+{% extends "admin_temp/capacity.html" %}
+{% load static %}
+{% block content %}
+
+        <!-- END SIDEBAR-->
+        <div class="content-wrapper">
+            <!-- START PAGE CONTENT-->
+            <div class="page-heading">
+                <div style="padding-top:10px;padding-bottom: 0px;">
+                    
+                    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                        <a class="navbar-brand" href="/admin-panel/index/" style="color:skyblue;">Dashboard</a>
+                        
+                        <span>/</span>
+                        <a class="nav-link" href="#" style="color:skyblue;">All Staff</a>
+                        <span>/</span>
+                        <a class="nav-link" href="#" style="color:#c5c5c5;">{{user.id}} </a>
+                       
+                      </nav>
+                </div>
+            </div>
+
+            
+           
+            <style>         
+               
+                .page-content {
+                    padding-top: 2px !important;
+                }
+                
+                .box{
+                    width: 200px;
+                    align: center;
+                    
+                }
+
+                .table tbody tr{
+                    font-size: 12px;
+                }
+                
+                th{
+                    background-color: #686868;
+                    color: #ffffff;
+                }
+
+                .column {
+                    float: right;
+                    width: 410px;
+                    padding: 10px;
+                    height: auto; /* Should be removed. Only for demonstration */
+                }
+                  
+                /* Clear floats after the columns */
+                .row:after {
+                    content: "";
+                    display: table;
+                    clear: both;
+                  }
+                .searchbox{
+                    margin-left: 20px;
+                }
+                .ibox-body{
+                    background-color: #e5e5e5;
+                }
+                #ex-pass{
+                    padding: 4px;
+                    width: 400px;
+                }
+                #ex-role{
+                    padding: 4px;
+                    width: 20px;
+                    height: auto;
+                }
+                #tbdata{
+                    border-style:none;
+                    width: 400px;
+                }
+                
+                input[type="checkbox"] {
+                    margin-left: 15px;
+                    margin-right: 15px;
+                    transform: scale(1.7);
+                }
+                #getAccountsButton{
+                    margin-left: 15px;
+                    margin-right: 15px;
+                }
+                .fa-gear {
+                    font-size: 24px; /* Adjust the font-size as needed */
+                }
+                .custom-width {
+                    width: 200px; /* Adjust the width as needed */
+                }
+                .custom-color {
+                    width: 200px; /* Adjust the width as needed */
+                }
+            </style>
+
+
+            <div class="button-container">
+                <button class="btn btn-default">Personal</button>
+                <a href="/admin-panel/staff-contact/"><button class="btn btn-default">Contact</button></a>
+                <a href="/admin-panel/staff-nok/"><button class="btn btn-default">NOK</button></a>
+                <a href="/admin-panel/staff-qualification/"><button class="btn btn-default">Qualifications</button></a>
+                <a href="/admin-panel/staff-equipment/"><button class="btn btn-default">Equipment</button></a>
+                <a href="/admin-panel/staff-schedule/"><button class="btn btn-default">Schedule</button></a>
+                <a href="/admin-panel/staff-contact/"><button class="btn btn-default">Notes</button></a>
+                <a href="/admin-panel/staff-contact/"><button class="btn btn-default">Avail</button></a>
+                <a href="/admin-panel/staff-contact/"><button class="btn btn-default">Holiday</button></a>
+                <a href="/admin-panel/staff-contact/"><button class="btn btn-default">Documents</button></a>
+                <a href="/admin-panel/staff-contact/"><button class="btn btn-default">Settings</button></a>
+            </div>
+            
+            <div class="page-content fade-in-up">
+                <div class="ibox">
+                    
+                    <div class="ibox-body">
+                        
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="form-group">
+                              <label for="exampleInputEmail1">Add Training / Skill / Qualification - add the details of any training, skills or qualification this user has</label>
+                              <select type="email" class="form-control col-md-6" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                                <option>Appriasal - YEARLY</option>
+                              </select>
+                              <input type="email" class="form-control col-md-6" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleInputPassword1">Dates - add the date this user aquired this training, skill or qualification
+                                (add an expiry date if you need a reminder to renew this training / skill / qualification)</label>
+                              <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Paid (£) - include any amount paid by the user towards the cost</label>
+                                <div style="display: flex; gap: 10px;">
+                                    <input type="date" class="form-control custom-width" id="exampleInputPassword1">
+                                    <input type="date" class="form-control custom-width" id="exampleInputPassword1">
+                                    <input type="date" class="form-control custom-width" id="exampleInputPassword1">
+                                </div>
+                              </div>
+
+                              <div class="form-group">
+                                <label for="exampleInputPassword1">Certificate Upload - upload a copy of the certificate as a jpeg or pdf document</label>
+                                <input type="file" class="form-control " id="exampleInputPassword1" placeholder="">
+                              </div>
+                            
+                            <button type="submit" class="btn btn-primary">Add Training / Skill / Qualification</button>
+                          </form>
+                    </div>
+                </div>
+
+                <div style="padding:10px; text-align: right;">
+                    <select style="padding:10px;">
+                        <option value="d">-Select Bulk Action-</option>
+                        <option value="d">Delete Job Roles</option>
+                        <option value="d">Update Job Roles</option>
+                    </select>
+
+                   
+                        <button class="btn btn-primary" type="submit">Go</button>
+                    
+            </div>
+               
+                    
+
+                    
+            <div style="display: flex; gap: 10px;margin-bottom: 10px;">
+                <div style="background-color:#fff;width:20px;border: 1px solid;"></div>In Date 
+                <div style="background-color:#000;width:20px;border: 1px solid;"></div>Reminder Period 
+                <div style="background-color:#C70202;width:20px;border: 1px solid;"></div>Expired
+            </div>
+                    <table class="table" id="example-table" cellspacing="0" border="1px" width="100%">
+                        <thead>
+                            <tr>
+                                <th rowspan="2"></th>
+                                <th colspan="3" style="text-align:center;">Date</th>
+                                <th colspan="13" style="text-align:center;"></th>
+                            </tr>
+                            <tr>
+                              <!-- Add more months as needed -->
+                              
+                                
+                                
+                            </tr>
+                            <tr>
+                                <th rowspan="2"><input type="checkbox" ></th>
+                                <th colspan="1">Planned</th>
+                                <th rowspan="1">Qualified</th>
+                                <th colspan="1">Expires</th>
+                                <th colspan="3" style="text-align:center;">Qualification</th>
+                                <th colspan="3" style="text-align:center;">Certificate No.</th>
+                                <th colspan="3" style="text-align:center;">Cost	(£)</th>
+                                <th colspan="3" style="text-align:center;">Paid	(£)</th>
+                                <th colspan="3" style="text-align:center;">Total Owed (£)</th>
+                            </tr>
+                        </thead>
+                        
+                        <tbody>
+                            <tr>
+                                <td><input type="checkbox" ></td>
+                                <td><input type="text" value="03/01/2023"></td>
+                                <td>03/01/2024</td>                            
+                                <td colspan="3">03/01/2024</td>
+                                <td>End Of Life (Dying, Death, and Bereavement)</td>    
+                                <td colspan="3">                                    
+                                        <i class="fa fa-paperclip" title="View Certificate"></i>
+                                        <input type="text" value="">
+                                </td>
+                                <td colspan="3">£ 0.00</td>
+                                <td colspan="3">£ <input type="text" value="0.00" width="50px"></td>
+                                <td colspan="3">£ 0.00</td>
+                            </tr>
+                           
+                            <tr>
+                                <td><input type="checkbox" ></td>
+                                <td><input type="text" value="03/01/2023"></td>
+                                <td>03/01/2024</td>                            
+                                <td colspan="3">11/08/2023</td>
+                                <td>Challenging Behaviour</td>    
+                                <td colspan="3">                                    
+                                        <i class="fa fa-paperclip" title="View Certificate"></i>
+                                        <input type="text" value="">
+                                </td>
+                                <td colspan="3">£ 0.00</td>
+                                <td colspan="3">£ <input type="text" value="0.00" width="50px"></td>
+                                <td colspan="3">£ 0.00</td>
+                            </tr>
+
+                            <tr>
+                                <td><input type="checkbox" ></td>
+                                <td><input type="text" value="03/01/2023"></td>
+                                <td>03/01/2024</td>                            
+                                <td colspan="3">11/08/2023</td>
+                                <td>Induction Awareness</td>    
+                                <td colspan="3">                                    
+                                        <i class="fa fa-paperclip" title="View Certificate"></i>
+                                        <input type="text" value="">
+                                </td>
+                                <td colspan="3">£ 0.00</td>
+                                <td colspan="3">£ <input type="text" value="0.00" width="50px"></td>
+                                <td colspan="3">£ 0.00</td>
+                            </tr>
+                        </tbody>
+
+                        
+                        
+                    </table>
+                </div>
+
+                
+                
+                    
+
+                    
+
+
+            <!-- Your existing HTML code -->
+
+<script>
+    
+
+
+    // Get the current date in the format "YYYY-MM-DD"
+    function getCurrentDate() {
+        const today = new Date();
+        const year = today.getFullYear();
+        let month = today.getMonth() + 1;
+        let day = today.getDate();
+
+        // Add leading zero for single-digit months and days
+        month = month < 10 ? `0${month}` : month;
+        day = day < 10 ? `0${day}` : day;
+
+        return `${year}-${month}-${day}`;
+    }
+
+ 
+    // Define the runReport function
+    function runReport() {
+        // Hide the date selection box
+        const dateSelectionBox = document.getElementById('dateSelectionBox');
+        dateSelectionBox.style.display = 'none';
+
+        // Show the data table container
+        const dataTableContainer = document.getElementById('dataTableContainer');
+        dataTableContainer.style.display = 'block';
+    }
+
+
+    function toggleGearContainer(button) {
+        var gearContainer = document.getElementById('gearContainer');
+        gearContainer.style.display = (gearContainer.style.display === 'block') ? 'none' : 'block';
+    }
+
+
+
+    // Code for Graph
+    
+</script>
+
+
+
+
+
+
+            <!-- END PAGE CONTENT-->
+
+{% endblock content %}
+

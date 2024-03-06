@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+{% extends "admin_temp/capacity.html" %}
+{% load static %}
+{% block content %}
+
+        <!-- END SIDEBAR-->
+        <div class="content-wrapper">
+            <!-- START PAGE CONTENT-->
+            <div class="page-heading">
+                <div style="padding-top:10px;padding-bottom: 0px;">
+                    
+                    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                        <a class="navbar-brand" href="/admin-panel/index/" style="color:skyblue;">Dashboard</a>
+                        
+                        <span>/</span>
+                        <a class="nav-link" href="#" style="color:#c5c5c5;">Job Roles </a>
+                       
+                      </nav>
+                </div>
+            </div>
+
+            
+           
+            <style>
+                .button-container {
+                    display: flex;
+                    justify-content: space-between;
+                    padding: 10px;
+                    border-radius: 5px;
+                    max-width: 100%;
+                    margin: auto;
+                    background-color: #c8c8c8;
+                }
+            
+                .button-container button {
+                    padding: 10px;
+                    margin-right: 10px; /* Add margin between buttons */
+                    background-color: #337ab7;
+                    color: white;
+                    border: none;
+                    border-radius: 4px;
+                    cursor: pointer;
+                }
+            
+                .dropdown {
+                    margin-left: auto;
+                }
+            
+                .dropdown select {
+                    padding: 10px;
+                }
+
+
+
+                .datepicker-container {
+                    display: inline-block;
+                  }
+              
+                  .datepicker-container input {
+                    padding: 5px;
+                    font-size: 16px;
+                    border: 1px solid #ccc;
+                    border-radius: 3px;
+                  }
+
+
+
+                #myForm {
+                    display: none; /* Hide the form by default */
+                    max-width: 500px;
+                    position: relative;
+                    padding: 20px;
+                  }
+              
+                #customDateInput {
+                    width: 85%;
+                    padding: 5px;
+                    margin-bottom: 16px;
+                    box-sizing: border-box;
+                }
+                .page-content {
+                    padding-top: 2px !important;
+                }
+                .bor{
+                    padding: 7px;
+                    border: 2px solid #ff6600;
+                    border-right: none;
+                    border-left: none;
+                    font-weight: bold;                                          
+                }
+                .box{
+                    width: 200px;
+                    align: center;
+                    
+                }
+
+                .datepicker-container {
+                    display: inline-block;
+                }
+        
+                .datepicker-container input {
+                    padding: 10px;
+                    font-size: 14px;
+                    border: 1px solid #ccc;
+                    border-radius: 3px;
+                }
+
+                #additionalFunctionalityContainer {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                }
+        
+                #additionalFunctionality {
+                    display: none;
+                    padding: 2px;
+                    border-radius: 5px;
+                    margin-top: 0px;
+                    text-align: left;
+                }
+        
+                #searchField {
+                    padding: 0px;
+                    margin-right: 0px;
+                    text-align: left;
+                }
+        
+                #searchButton,
+                #copyClipboardButton,
+                .dropdown-toggle {
+                    padding: 0px;
+                    margin-right: 0px;
+                    cursor: pointer;
+                }
+        
+                .dropdown {
+                    display: inline-block;
+                }
+        
+                .dropdown-menu {
+                    min-width: 70%;
+                    position: absolute;
+                }   
+               
+                .table tbody tr{
+                    font-size: 12px;
+                }
+                
+                th{
+                    background-color: #686868;
+                    color: #ffffff;
+                }
+                tr td{
+                    background-color: #e1e1e1;
+                }
+
+                .column {
+                    float: right;
+                    width: 410px;
+                    padding: 10px;
+                    height: auto; /* Should be removed. Only for demonstration */
+                }
+                  
+                /* Clear floats after the columns */
+                .row:after {
+                    content: "";
+                    display: table;
+                    clear: both;
+                  }
+                .searchbox{
+                    margin-left: 20px;
+                }
+                .ibox-body{
+                    background-color: #e5e5e5;
+                }
+                #ex-pass{
+                    padding: 6px;
+                    width: 400px;
+                }
+                #ex-role{
+                    padding: 8px;
+                    width: 200px;
+                }
+                #tbdata{
+                    border-style:none;
+                    width: 400px;
+                }
+                
+            </style>
+
+
+
+
+
+
+
+            
+
+
+
+            
+            <div class="page-content fade-in-up">
+                <div class="ibox">
+                    
+                    <div class="ibox-body">
+                        <p><strong>Job Role Title</strong> - add a new Job Role to the database</p>
+                        <form class="form-inline" method="post">                            
+                            <label class="sr-only" for="ex-pass"></label>
+                            <input class="mb-2 mr-sm-2 mb-sm-0" id="ex-pass" type="text" name="seniorcarer" placeholder="eg. Senior Carer">
+                            <label class="sr-only" for="ex-pass"></label>
+                            <select class=" mb-2 mr-sm-2 mb-sm-0" id="ex-role" name="setrole">
+                                <option value="Assessor">Assessor</option>
+                                <option value="Carer">Carer</option>
+                                <option value="Facilitator">Facilitator</option>
+                                <option value="Staff">Staff</option>
+                            </select>
+                            <button class="btn btn-info" id="getAccountsButton" type="submit"><i class="fa fa-plus"></i> Add Job Role</button>
+
+                            
+                        </form>
+                    </div>
+
+                    
+                    <div style="padding:10px; text-align: right;">
+                        <select style="padding:10px;">
+                            <option value="d">-Select Bulk Action-</option>
+                            <option value="d">Delete Job Roles</option>
+                            <option value="d">Update Job Roles</option>
+                        </select>
+
+                       
+                            <button class="btn btn-primary" type="submit">Go</button>
+                        
+                </div>
+
+                    
+
+                    <table class="table" id="example-table" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox"></th>
+                                <th>Job Role</th>                                  
+                                <th>Category</th>       
+                                <th></th>                                  
+                            </tr>
+                        </thead>
+                        
+                        <tbody>
+                            <tr>
+                                <td><input type="checkbox"></td>
+                                <td><input type="text" value="Care Coordinator" id="tbdata"></td>
+                                <td>Staff</td>
+                                <td><a href="/admin-panel/update-job-role/"><div onMouseOver="this.style.background='#19b9e4'" onMouseOut="this.style.background='#000'" style="font-size:20px;font-weight:bold;background-color:#000;color:#fff;width:30px;text-align:center;border-radius:10px;"><i class="fa fa-gbp"></i></div></a></td>
+                            </tr>
+                           
+                            <tr>
+                                <td><input type="checkbox"></td>
+                                <td><input type="text" value="Carer" id="tbdata"></td>
+                                <td>Carer</td>
+                                <td><div onMouseOver="this.style.background='#19b9e4'" onMouseOut="this.style.background='#000'" style="font-size:20px;font-weight:bold;background-color:#000;color:#fff;width:30px;text-align:center;border-radius:10px;"><i class="fa fa-gbp"></i></div></td>
+                            </tr>
+                        </tbody>
+
+                        
+                        
+                    </table>
+                </div>
+                
+            </div>      
+                    
+
+                    
+
+
+            <!-- Your existing HTML code -->
+
+<script>
+    function toggleAdditionalFunctionality() {
+        const additionalFunctionality = document.getElementById('additionalFunctionality');
+        additionalFunctionality.style.display = additionalFunctionality.style.display === 'none' ? 'block' : 'none';
+    }
+
+
+    // Get the current date in the format "YYYY-MM-DD"
+    function getCurrentDate() {
+        const today = new Date();
+        const year = today.getFullYear();
+        let month = today.getMonth() + 1;
+        let day = today.getDate();
+
+        // Add leading zero for single-digit months and days
+        month = month < 10 ? `0${month}` : month;
+        day = day < 10 ? `0${day}` : day;
+
+        return `${year}-${month}-${day}`;
+    }
+
+    // Set the input field value to the current date
+    const customDateInput = document.getElementById('customDateInput');
+    customDateInput.value = getCurrentDate();
+
+    // Define the runReport function
+    function runReport() {
+        // Hide the date selection box
+        const dateSelectionBox = document.getElementById('dateSelectionBox');
+        dateSelectionBox.style.display = 'none';
+
+        // Show the data table container
+        const dataTableContainer = document.getElementById('dataTableContainer');
+        dataTableContainer.style.display = 'block';
+    }
+
+
+    function toggleSearchbox() {
+        var searchbox = document.querySelector('.searchbox');
+        var getAccountsButton = document.getElementById('getAccountsButton');   
+
+        // Toggle the visibility of searchbox and the "Get Accounts" button
+        searchbox.style.display = searchbox.style.display === 'none' ? 'block' : 'none';
+        getAccountsButton.style.display = 'none';
+    }
+
+
+
+    // Code for Graph
+    
+</script>
+
+
+
+
+
+
+            <!-- END PAGE CONTENT-->
+
+{% endblock content %}
+

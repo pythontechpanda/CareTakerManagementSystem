@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+{% extends "admin_temp/capacity.html" %}
+{% load static %}
+{% block content %}
+
+        <!-- END SIDEBAR-->
+        <div class="content-wrapper">
+            <!-- START PAGE CONTENT-->
+            <div class="page-heading">
+                <div style="padding-top:10px;padding-bottom: 0px;">
+                    
+                    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                        <a class="navbar-brand" href="/admin-panel/index/" style="color:skyblue;">Dashboard</a>
+                        
+                        <span>/</span>
+                        <a class="nav-link" href="#" style="color:#c5c5c5;">All Visit Types </a>
+                       
+                      </nav>
+                </div>
+            </div>
+
+            
+           
+            <style>         
+               
+                .page-content {
+                    padding-top: 2px !important;
+                }
+                
+                .box{
+                    width: 200px;
+                    align: center;
+                    
+                }
+
+                .table tbody tr{
+                    font-size: 12px;
+                }
+                
+                th{
+                    background-color: #686868;
+                    color: #ffffff;
+                }
+
+                .column {
+                    float: right;
+                    width: 410px;
+                    padding: 10px;
+                    height: auto; /* Should be removed. Only for demonstration */
+                }
+                  
+                /* Clear floats after the columns */
+                .row:after {
+                    content: "";
+                    display: table;
+                    clear: both;
+                  }
+                .searchbox{
+                    margin-left: 20px;
+                }
+                .ibox-body{
+                    background-color: #e5e5e5;
+                }
+                #ex-pass{
+                    padding: 4px;
+                    width: 400px;
+                }
+                #ex-role{
+                    padding: 4px;
+                    width: 20px;
+                    height: auto;
+                }
+                #tbdata{
+                    border-style:none;
+                    width: 400px;
+                }
+                
+                input[type="text"] {
+                    width: 400px;
+                }
+                #getAccountsButton{
+                    margin-left: 15px;
+                    margin-right: 15px;
+                }
+                
+
+                .button-row {
+                    display: flex;
+                    justify-content: space-around; /* Adjust as needed */
+                    align-items: center;
+                }
+                
+                /* Additional styles for the gear buttons */
+                .gear-button {
+                    font-size: 20px;
+                    font-weight: bold;
+                    background-color: #000;
+                    color: #fff;
+                    width: 30px;
+                    height: 30px; /* Set height to match width for a square button */
+                    text-align: center;
+                    border-radius: 10px;
+                    cursor: pointer;
+                }
+                
+                .gear-button:hover {
+                    background-color: #19b9e4;
+                }
+
+
+                .popup-container {
+                    display: none;
+                    position: fixed;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    background-color: white;
+                    padding: 20px;
+                    border: 1px solid #ccc;
+                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                    z-index: 999;
+                    width: 400px;
+                }
+        
+                .close-button {
+                    position: absolute;
+                    top: 10px;
+                    right: 10px;
+                    cursor: pointer;
+                }
+                
+            </style>
+
+
+
+
+
+
+
+            
+
+
+
+            
+            <div class="page-content fade-in-up">
+                <div class="ibox">
+                    
+                    <div class="ibox-body">
+                        <p><strong>Visit Type Title</strong> - add a new Visit type to the database</p>
+                        <form class="form-inline" method="post">     
+                            <label class="sr-only" for="ex-pass"></label>
+                            <input class="mb-2 mr-sm-2 mb-sm-0" id="ex-pass" type="text" name="seniorcarer" placeholder="Visit Type Title">
+
+                            <label class="sr-only" for="ex-pass"></label>
+                            <select type="text" name="daytime" style="height:30px;">
+                                <option value="Manual Rate">-Select Service Type</option>
+                                <option value="Dementia Care">Dementia Care</option>
+                                <option value="Manual Rate">Domiciliary Care</option>
+                                <option value="Manual Rate">End of Life Care</option>                                
+                            </select>
+
+                            <label class="sr-only" for="ex-pass"></label>
+                            <select type="text" name="daytime" style="height:30px;margin-left: 15px;">
+                                <option value="Manual Rate">-Select Type</option>
+                                <option value="Dementia Care">Assessment</option>
+                                <option value="Manual Rate">Cancel</option>
+                                <option value="Manual Rate">Event</option>     
+                                <option value="Manual Rate">Form</option>
+                                <option value="Manual Rate">Holiday</option>
+                                <option value="Manual Rate">Review</option>        
+                                <option value="Manual Rate">Sickness</option> 
+                                <option value="Manual Rate">Supervision</option>                    
+                            </select>
+                            
+                            <button class="btn btn-info" id="getAccountsButton" type="submit"><i class="fa fa-plus"></i> Add Visit Type</button>
+                                                
+                        </form>
+
+                        
+                    </div>
+                </div>
+
+
+               
+                    
+                    
+                <div style="padding:10px; text-align: right;">
+                    <select style="padding:7px;">
+                        <option value="d">- Bulk Action -</option>
+                        <option value="d">Delete Job Roles</option>
+                        <option value="d">Update Job Roles</option>
+                    </select>                  
+                    <button class="btn btn-info" type="submit">Go</button>                    
+                </div>
+                    
+
+                    <table class="table" id="example-table" cellspacing="0" border="1px" width="100%">
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox"></th>
+                                <th>Visit Type</th>                                  
+                                <th>Type</th>      
+                                <th>Service</th>  
+                                <th>Functions</th>                                
+                            </tr>
+                        </thead>
+                        
+                        <tbody>
+                            <tr>
+                                <td><input type="checkbox"></td>
+                                <td><input type="text" value="Admin" width="400px"></td>
+                                <td>Assignment</td>
+                                <td></td>
+                                <td>
+                                    <div class="button-row">
+                                        <div class="gear-button">
+                                            <a href="/admin-panel/update_visit_type_rates/"><i class="fa fa-gbp" title="Edit Rates"></i></a>
+                                        </div>
+
+                                        <div class="gear-button">
+                                            <i class="fa fa-gear" title="Edit Settings" id="UpdateSetting"></i>
+                                        </div>
+
+                                        <div class="gear-button">
+                                            <i class="fa fa-wpforms" title="Edit Form" id="UpdateForm"></i>
+                                        </div>
+                                    </div>
+                                </td>
+                                
+                            </tr>
+                           
+                            <tr>
+                                <td><input type="checkbox"></td>
+                                <td><input type="text" value="College Travel" width="400px"></td>
+                                <td>Assignment</td>
+                                <td>Domiciliary Care</td>
+                                <td>
+                                    <div class="button-row">
+                                        <div class="gear-button">
+                                            <i class="fa fa-gbp" title="Edit Rates"></i>
+                                        </div>
+
+                                        <div class="gear-button">
+                                            <i class="fa fa-gear" title="Edit Settings"></i>
+                                        </div>
+
+                                        <div class="gear-button">
+                                            <i class="fa fa-wpforms" title="Edit Form"></i>
+                                        </div>
+                                    </div>
+                                </td>
+                                
+                            </tr>
+                        </tbody>
+
+                        
+                        
+                    </table>
+
+
+
+
+                    <div class="popup-container" id="popupSettingForm">
+                        <span class="close-button" onclick="closePopupSettingForm()">&times;</span>
+                        <h2>Add Medication</h2>
+                        <!-- Your form content goes here -->
+                        <form method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <!-- Add your form fields here -->
+                            <div class="form-group">
+                                <label for="medicationName">Medication Name:</label>
+                                <input type="text" class="form-control" id="medicationName" name="medicationName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="medicationName">PDF Link:</label>
+                                <input type="text" class="form-control" id="medicationName" name="medicationName" required>
+                            </div>
+                            <!-- ... Add other form fields as needed ... -->
+                    
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+
+
+                    <div class="popup-container" id="popupFormEdit">
+                        <span class="close-button" onclick="closePopupEditForm()">&times;</span>
+                        <h2>Add Medication</h2>
+                        <!-- Your form content goes here -->
+                        <form method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <!-- Add your form fields here -->
+                            <div class="form-group">
+                                <label for="medicationName">Medication Name:</label>
+                                <input type="text" class="form-control" id="medicationName" name="medicationName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="medicationName">PDF Link:</label>
+                                <input type="text" class="form-control" id="medicationName" name="medicationName" required>
+                            </div>
+                            <!-- ... Add other form fields as needed ... -->
+                    
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+
+
+
+                </div>
+                
+                
+                    
+
+                    
+
+
+            <!-- Your existing HTML code -->
+
+<script>
+    
+
+
+    // Get the current date in the format "YYYY-MM-DD"
+    function getCurrentDate() {
+        const today = new Date();
+        const year = today.getFullYear();
+        let month = today.getMonth() + 1;
+        let day = today.getDate();
+
+        // Add leading zero for single-digit months and days
+        month = month < 10 ? `0${month}` : month;
+        day = day < 10 ? `0${day}` : day;
+
+        return `${year}-${month}-${day}`;
+    }
+
+ 
+    // Define the runReport function
+    function runReport() {
+        // Hide the date selection box
+        const dateSelectionBox = document.getElementById('dateSelectionBox');
+        dateSelectionBox.style.display = 'none';
+
+        // Show the data table container
+        const dataTableContainer = document.getElementById('dataTableContainer');
+        dataTableContainer.style.display = 'block';
+    }
+
+
+    function toggleSearchbox() {
+        var searchbox = document.querySelector('.searchbox');
+        var getAccountsButton = document.getElementById('getAccountsButton');   
+
+        // Toggle the visibility of searchbox and the "Get Accounts" button
+        searchbox.style.display = searchbox.style.display === 'none' ? 'block' : 'none';
+        getAccountsButton.style.display = 'none';
+    }
+
+
+
+  
+
+    $(document).ready(function () {
+        $('#UpdateSetting').click(function () {
+            $('#popupSettingForm').fadeIn();
+        });
+    });
+
+    function closePopupSettingForm() {
+        $('#popupSettingForm').fadeOut();
+    }
+
+    $(document).ready(function () {
+        $('#UpdateForm').click(function () {
+            $('#popupFormEdit').fadeIn();
+        });
+    });
+
+    function closePopupEditForm() {
+        $('#popupFormEdit').fadeOut();
+    }
+
+    // Code for Graph
+    
+</script>
+
+
+
+
+
+
+            <!-- END PAGE CONTENT-->
+
+{% endblock content %}
+

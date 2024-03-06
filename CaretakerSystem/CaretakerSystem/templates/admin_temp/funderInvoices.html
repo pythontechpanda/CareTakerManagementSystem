@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+{% extends "admin_temp/capacity.html" %}
+{% load static %}
+{% block content %}
+
+        <!-- END SIDEBAR-->
+        <div class="content-wrapper">
+            <!-- START PAGE CONTENT-->
+            <div class="page-heading">
+                <div style="padding-top:10px;padding-bottom: 0px;">
+                    
+                    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                        <a class="navbar-brand" href="/admin-panel/index/" style="color:skyblue;">Dashboard</a>
+                        
+                        <span>/</span>
+                        <a class="nav-link" href="#" style="color:skyblue;">Finance </a>
+                        <span>/</span>
+                        <a class="nav-link" href="#" style="color:skyblue;">Funders </a>
+                        <span>/</span>
+                        <a class="nav-link" href="#" style="color:#c5c5c5;">Add Funders</a>
+                      </nav>
+                </div>
+            </div>
+
+            
+           
+            <style>
+                .button-container {
+                    display: flex;
+                    justify-content: space-between;
+                    padding: 10px;
+                    border-radius: 5px;
+                    max-width: 100%;
+                    margin: auto;
+                    background-color: #c8c8c8;
+                }
+            
+                .button-container button {
+                    padding: 10px;
+                    margin-right: 10px; /* Add margin between buttons */
+                    background-color: #337ab7;
+                    color: white;
+                    border: none;
+                    border-radius: 4px;
+                    cursor: pointer;
+                }
+            
+                .dropdown {
+                    margin-left: auto;
+                }
+            
+                .dropdown select {
+                    padding: 10px;
+                }
+
+
+
+                .datepicker-container {
+                    display: inline-block;
+                  }
+              
+                  .datepicker-container input {
+                    padding: 5px;
+                    font-size: 16px;
+                    border: 1px solid #ccc;
+                    border-radius: 3px;
+                  }
+
+
+
+                #myForm {
+                    display: none; /* Hide the form by default */
+                    max-width: 500px;
+                    position: relative;
+                    padding: 20px;
+                  }
+              
+                #customDateInput {
+                    width: 85%;
+                    padding: 5px;
+                    margin-bottom: 16px;
+                    box-sizing: border-box;
+                }
+                .page-content {
+                    padding-top: 2px !important;
+                }
+                .bor{
+                    padding: 7px;
+                    border: 2px solid #ff6600;
+                    border-right: none;
+                    border-left: none;
+                    font-weight: bold;                                          
+                }
+                .box{
+                    width: 200px;
+                    align: center;
+                    
+                }
+
+                .datepicker-container {
+                    display: inline-block;
+                }
+        
+                .datepicker-container input {
+                    padding: 10px;
+                    font-size: 14px;
+                    border: 1px solid #ccc;
+                    border-radius: 3px;
+                }
+
+                #additionalFunctionalityContainer {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                }
+        
+                #additionalFunctionality {
+                    display: none;
+                    padding: 2px;
+                    border-radius: 5px;
+                    margin-top: 0px;
+                    text-align: left;
+                }
+        
+                #searchField {
+                    padding: 0px;
+                    margin-right: 0px;
+                    text-align: left;
+                }
+        
+                #searchButton,
+                #copyClipboardButton,
+                .dropdown-toggle {
+                    padding: 0px;
+                    margin-right: 0px;
+                    cursor: pointer;
+                }
+        
+                .dropdown {
+                    display: inline-block;
+                }
+        
+                .dropdown-menu {
+                    min-width: 70%;
+                    position: absolute;
+                }   
+               
+                .table tbody tr{
+                    font-size: 12px;
+                }
+                .table tbody tr:hover {
+                    background-color: #B3FF00; /* Change this to the desired green color */                    
+                }
+                th{
+                    background-color: #686868;
+                    color: #ffffff;
+                }
+
+
+                .column {
+                    float: right;
+                    width: 410px;
+                    padding: 10px;
+                    height: auto; /* Should be removed. Only for demonstration */
+                }
+                  
+                /* Clear floats after the columns */
+                .row:after {
+                    content: "";
+                    display: table;
+                    clear: both;
+                  }
+                .searchbox{
+                    margin-left: 20px;
+                }
+                  
+            </style>
+
+
+
+
+
+
+
+            
+
+
+
+            
+            <div class="page-content fade-in-up">
+                <div class="ibox">
+                    <div class="ibox-head">
+                        <div class="ibox-title">
+                            <div class="col-md-3">
+                                <a href="/admin-panel/add-funders/"><button class="btn btn-primary btn-block" >Funder</button></a>
+                            </div>
+                    
+                            <!-- Button 2 -->
+                            <div class="col-md-3">
+                                <a href="/admin-panel/add-account/"><button class="btn btn-success btn-block" >Account</button></a>
+                            </div>
+                    
+                            <!-- Button 3 -->
+                            <div class="col-md-3">
+                                <a href="/admin-panel/add-invoice/"><button class="btn btn-warning btn-block" >Invoices</button></a>
+                            </div>
+                    
+                            <!-- Button 4 -->
+                            <div class="col-md-3">
+                                <a href="/admin-panel/add-notes/"><button class="btn btn-info btn-block" >Notes</button></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ibox-body">
+                        <p><strong>Date Filter</strong> - use this to filter the payer information between two dates</p>
+                        <form class="form-inline">
+                            <label class="sr-only" for="ex-email"></label>
+                            <input class="form-control mb-2 mr-sm-2 mb-sm-0" id="ex-email" type="date">
+                            <label class="sr-only" for="ex-pass"></label>
+                            <input class="form-control mb-2 mr-sm-2 mb-sm-0" id="ex-pass" type="date" >
+                            <label class="sr-only" for="ex-pass"></label>
+                            <input class="form-control mb-2 mr-sm-2 mb-sm-0" id="ex-pass" type="text" placeholder="Invoice Nos">
+                            <label class="sr-only" for="ex-pass"></label>
+                            <select class="form-control mb-2 mr-sm-2 mb-sm-0" id="ex-pass">
+                                <option value="">All Invoices</option>
+                                <option value="">Paid</option>
+                                <option value="">Unpaid</option>
+                            </select>
+                            <button class="btn btn-info" id="getAccountsButton" type="submit">Get Invoices</button>
+
+                            
+                        </form>
+                    </div>
+
+                    
+                    
+
+                    <div class="bar-chart-container">
+                        <canvas id="barChart"></canvas>
+                    </div>
+
+
+                    <div class="dropdown" style="padding:10px;">
+                        <select>
+                            <option value="d">-Select Bulk Action-</option>
+                        </select>
+
+                       
+                            <button class="btn btn-primary" type="submit">Go</button>
+                        
+                </div>
+
+
+                    <div class="searchbox" id="additionalFunctionality" style="display: none;">
+                    <div class="row">
+                        <div class="column">
+                          <h4>Select how you want to calculate charges</h4>
+                          <div>
+                            <input type="radio" id="contactChoice1" name="contact" value="email" />
+                            <label for="contactChoice1">Actual Times</label>
+                      
+                            <input type="radio" id="contactChoice2" name="contact" value="phone" />
+                            <label for="contactChoice2">Scheduled Times</label>
+                          </div>
+                        </div>
+                        <div class="column">
+                          <h4>Limit by Service User</h4>
+                            <div class="dropdown">
+                                <select>
+                                    <option value="d">--Select Service User-</option>
+                                </select>    
+                                
+                            </div>
+                        </div>
+                        <div class="column">
+                            <button class="btn btn-info" type="submit">Get Accounts</button>
+                        </div>
+                      </div>
+                    </div>
+
+                    <table class="table table-striped" id="example-table" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox"></th>
+                                <th>Invoice #</th>     
+                                <th>Payer</th>
+                                <th>Amount</th>
+                                <th>Date Sent</th>
+                                <th>Due Date</th>
+                                <th>Date Paid</th>
+                                <th>Sent</th>
+                                        
+                            </tr>
+                        </thead>
+                        
+                        <tbody>
+                            <tr>
+                                <td><input type="checkbox"></td>
+                                <td>01155</td>
+                                <td>BRACKNELL FOREST COUNCIL</td>
+                                <td>£ 303.94</td>
+                                <td>29/11/2021</td>
+                                <td style="color: #FF0000;">06/12/2021</td>
+                                <td><input type="text"></td>
+                                <td></td>
+                            </tr>
+                           
+                        </tbody>
+
+                        
+                        
+                    </table>
+                </div>
+                
+            </div>      
+                    
+
+                    
+
+
+            <!-- Your existing HTML code -->
+
+<script>
+    function toggleAdditionalFunctionality() {
+        const additionalFunctionality = document.getElementById('additionalFunctionality');
+        additionalFunctionality.style.display = additionalFunctionality.style.display === 'none' ? 'block' : 'none';
+    }
+
+
+    // Get the current date in the format "YYYY-MM-DD"
+    function getCurrentDate() {
+        const today = new Date();
+        const year = today.getFullYear();
+        let month = today.getMonth() + 1;
+        let day = today.getDate();
+
+        // Add leading zero for single-digit months and days
+        month = month < 10 ? `0${month}` : month;
+        day = day < 10 ? `0${day}` : day;
+
+        return `${year}-${month}-${day}`;
+    }
+
+    // Set the input field value to the current date
+    const customDateInput = document.getElementById('customDateInput');
+    customDateInput.value = getCurrentDate();
+
+    // Define the runReport function
+    function runReport() {
+        // Hide the date selection box
+        const dateSelectionBox = document.getElementById('dateSelectionBox');
+        dateSelectionBox.style.display = 'none';
+
+        // Show the data table container
+        const dataTableContainer = document.getElementById('dataTableContainer');
+        dataTableContainer.style.display = 'block';
+    }
+
+
+    function toggleSearchbox() {
+        var searchbox = document.querySelector('.searchbox');
+        var getAccountsButton = document.getElementById('getAccountsButton');   
+
+        // Toggle the visibility of searchbox and the "Get Accounts" button
+        searchbox.style.display = searchbox.style.display === 'none' ? 'block' : 'none';
+        getAccountsButton.style.display = 'none';
+    }
+
+
+
+    // Code for Graph
+    
+</script>
+
+
+
+
+
+
+            <!-- END PAGE CONTENT-->
+
+{% endblock content %}
+

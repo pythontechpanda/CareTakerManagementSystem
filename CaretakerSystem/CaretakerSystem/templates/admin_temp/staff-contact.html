@@ -1,0 +1,200 @@
+{% extends "admin_temp/index.html" %}
+{% load static %}
+{% block content %}
+
+<style>
+    .button-container {
+        display: flex;
+    }
+    
+    button {
+        margin-right: 10px; /* Adjust as needed */
+        padding: 10px;
+        color: #000;
+        border: none;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: #08c; /* Darker green color on hover */
+        color: #fff;
+    }
+</style>
+        <div class="content-wrapper">
+            <!-- START PAGE CONTENT-->
+            
+            <div class="page-content fade-in-up">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div style="padding-bottom:10px;">
+                            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                                <a class="navbar-brand" href="/admin-panel/index/" style="color:skyblue;">Dashboard</a>
+                                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                                  <span class="navbar-toggler-icon"></span>
+                                </button>
+                                <span>/</span>
+                                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                  <ul class="navbar-nav mr-auto">
+                                    <li class="nav-item active">
+                                      <a class="nav-link" href="/admin-panel/staff-table/" style="color:skyblue;">All Staff /</a>
+                                    </li>
+                                    
+                                    <li class="nav-item">
+                                      <a class="nav-link" href="#">{{ user.id }}</a>
+                                    </li>
+                                    
+                                  </ul>
+                                  <form class="form-inline my-2 my-lg-0">
+                                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                                  </form>
+                                </div>
+                              </nav>
+                        </div>
+
+                        <div class="button-container">
+                            <button class="btn btn-default">Personal</button>
+                            <a href="/admin-panel/staff-contact/"><button class="btn btn-default">Contact</button></a>
+                            <a href="/admin-panel/staff-nok/"><button class="btn btn-default">NOK</button></a>
+                            <a href="/admin-panel/staff-qualification/"><button class="btn btn-default">Qualifications</button></a>
+                            <a href="/admin-panel/staff-equipment/"><button class="btn btn-default">Equipment</button></a>
+                            <a href="/admin-panel/staff-schedule/"><button class="btn btn-default">Schedule</button></a>
+                            <a href="/admin-panel/staff-contact/"><button class="btn btn-default">Notes</button></a>
+                            <a href="/admin-panel/staff-contact/"><button class="btn btn-default">Avail</button></a>
+                            <a href="/admin-panel/staff-contact/"><button class="btn btn-default">Holiday</button></a>
+                            <a href="/admin-panel/staff-contact/"><button class="btn btn-default">Documents</button></a>
+                            <a href="/admin-panel/staff-contact/"><button class="btn btn-default">Settings</button></a>
+                        </div>
+                        <div class="ibox">
+                            <div class="ibox-head">
+                                <div class="ibox-title">Contact Information</div>
+                                <div class="ibox-tools">
+                                    <a class="ibox-collapse"><i class="fa fa-minus"></i></a>
+                                    {% comment %} <a class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-ellipsis-v"></i></a>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <a class="dropdown-item">option 1</a>
+                                        <a class="dropdown-item">option 2</a>
+                                    </div> {% endcomment %}
+                                </div>
+                            </div>
+
+                            
+
+
+                            <div class="ibox-body">
+                                <form method="post" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    
+                                    <div class="row">
+                                        <div class="col-sm-6 form-group">
+                                            <label>Email:</label>
+                                            <input class="form-control" type="email" name="email" value="{{ get_usr.staff_id }}">
+                                        </div>
+                                
+                                    </div>
+
+                                    <div class="row">
+                                        
+                                        <div class="col-sm-3 form-group">
+                                            <label>Telephone</label>
+                                            <input class="form-control" type="number" name="telephone" value="{{ get_usr.staff_id }}" placeholder="0123456789">
+                                        </div>
+                                        <div class="col-sm-3 form-group">
+                                            <label></label>
+                                            <select class="form-control" name="abbreviations">
+                                                <option>-Type-</option>
+                                                <option value="Home">Home</option>
+                                                <option value="Mobile">Mobile</option>
+                                                <option value="Work">Work</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-sm-8 form-group">
+                                            <label>Mobile</label>
+                                            <input class="form-control" type="number" name="num" value="{{ get_usr.dob }}" placeholder="Enter mobile number">
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                    
+                                    <div class="col-sm-8 form-group">
+                                        <button class="btn btn-default" type="submit">Submit</button>
+                                    </div>
+                                </form>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+
+                <form method="post" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="ibox">
+                            <div class="ibox-head">
+                                <div class="ibox-title">Address Information</div>
+                                <div class="ibox-tools">
+                                    <a class="ibox-collapse"><i class="fa fa-minus"></i></a>
+                                    {% comment %} <a class="fullscreen-link"><i class="fa fa-expand"></i></a> {% endcomment %}
+                                </div>
+                            </div>
+                            {% comment %} <form method="post" enctype="multipart/form-data"> {% endcomment %}
+                                {% csrf_token %}
+                            <div class="ibox-body">
+
+                                <div class="col-sm-8 form-group">
+                                    <label>Address Line 1</label>
+                                    <input class="form-control" type="text" name="start" value="{{ get_usr.start_date }}" placeholder="">
+                                </div>
+
+                                <div class="col-sm-8 form-group">
+                                    <label>Address Line 2</label>
+                                    <input class="form-control" type="text" name="start" value="{{ get_usr.start_date }}" placeholder="">
+                                </div>
+
+                                <div class="col-sm-8 form-group">
+                                    <label>Town / City</label>
+                                    <input class="form-control" type="text" name="start" value="{{ get_usr.start_date }}" placeholder="">
+                                </div>
+
+                                <div class="form-group">
+                                    <label>County</label>
+                                    <select class="form-control col-sm-6" name="role">                                            
+                                        {% for i in get_role %}
+                                        <option value="{{ i.id }}">{{ i.rol }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                                
+                                <div class="col-sm-6 form-group">
+                                    <label>Post Code</label>
+                                    <input class="form-control input-lg" type="number" name="dependants" placeholder="Dependants">
+                                </div>
+                                
+                                
+                            {% comment %} </form> {% endcomment %}
+                               
+                        </div>
+                    </div>
+
+                
+
+
+
+
+
+
+                {% comment %} Equality & Diversity {% endcomment %}
+
+                   
+
+                </div>
+                
+            </div>
+{% endblock content %}

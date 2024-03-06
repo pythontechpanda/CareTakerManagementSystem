@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+{% extends "admin_temp/capacity.html" %}
+{% load static %}
+{% block content %}
+
+        <!-- END SIDEBAR-->
+        <div class="content-wrapper">
+            <!-- START PAGE CONTENT-->
+            <div class="page-heading">
+                <div style="padding-top:10px;padding-bottom: 0px;">
+                    
+                    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                        <a class="navbar-brand" href="/admin-panel/index/" style="color:skyblue;">Dashboard</a>
+                        
+                        <span>/</span>
+                        <a class="nav-link" href="#" style="color:skyblue;">All Staff</a>
+                        <span>/</span>
+                        <a class="nav-link" href="#" style="color:#c5c5c5;">{{user.id}} </a>
+                       
+                      </nav>
+                </div>
+            </div>
+
+            
+           
+            <style>         
+               
+                .page-content {
+                    padding-top: 2px !important;
+                }
+                
+                .box{
+                    width: 200px;
+                    align: center;
+                    
+                }
+
+                .table tbody tr{
+                    font-size: 12px;
+                }
+                
+                th{
+                    background-color: #686868;
+                    color: #ffffff;
+                }
+                tr td{
+                    background-color: #686868;
+                    color: #ffffff;
+                    border-style: none;
+                }
+
+                .column {
+                    float: right;
+                    width: 410px;
+                    padding: 10px;
+                    height: auto; /* Should be removed. Only for demonstration */
+                }
+                  
+                /* Clear floats after the columns */
+                .row:after {
+                    content: "";
+                    display: table;
+                    clear: both;
+                  }
+                .searchbox{
+                    margin-left: 20px;
+                }
+                .ibox-body{
+                    background-color: #e5e5e5;
+                }
+                #ex-pass{
+                    padding: 4px;
+                    width: 400px;
+                }
+                #ex-role{
+                    padding: 4px;
+                    width: 20px;
+                    height: auto;
+                }
+                #tbdata{
+                    border-style:none;
+                    width: 400px;
+                }
+                
+                input[type="checkbox"] {
+                    margin-left: 15px;
+                    margin-right: 15px;
+                    transform: scale(1.7);
+                }
+                #getAccountsButton{
+                    margin-left: 15px;
+                    margin-right: 15px;
+                }
+                .fa-gear {
+                    font-size: 24px; /* Adjust the font-size as needed */
+                }
+                .custom-width {
+                    width: 200px; /* Adjust the width as needed */
+                }
+            </style>
+            <div class="button-container">
+                <button class="btn btn-default">Personal</button>
+                <a href="/admin-panel/staff-contact/"><button class="btn btn-default">Contact</button></a>
+                <a href="/admin-panel/staff-nok/"><button class="btn btn-default">NOK</button></a>
+                <a href="/admin-panel/staff-qualification/"><button class="btn btn-default">Qualifications</button></a>
+                <a href="/admin-panel/staff-equipment/"><button class="btn btn-default">Equipment</button></a>
+                <a href="/admin-panel/staff-schedule/"><button class="btn btn-default">Schedule</button></a>
+                <a href="/admin-panel/staff-contact/"><button class="btn btn-default">Notes</button></a>
+                <a href="/admin-panel/staff-contact/"><button class="btn btn-default">Avail</button></a>
+                <a href="/admin-panel/staff-contact/"><button class="btn btn-default">Holiday</button></a>
+                <a href="/admin-panel/staff-contact/"><button class="btn btn-default">Documents</button></a>
+                <a href="/admin-panel/staff-contact/"><button class="btn btn-default">Settings</button></a>
+            </div>
+            
+            <div class="page-content fade-in-up">
+                <div class="ibox">
+                    
+                    <div class="ibox-body">
+                        
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Week Commencing - use this selector to view a different weeks schedule</label>
+                                <div style="display: flex; gap: 10px;">
+                                    <input type="date" class="form-control custom-width" id="exampleInputPassword1">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                            <label for="exampleInputPassword1">Hours Worked - the total hours worked this week</label>
+                            <div style="display: flex; gap: 10px;">
+                                <div>0hrs</div> <div>0mins</div>
+                            </div>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary">Change</button>
+                          </form>
+                    </div>
+                </div>
+
+                    <div style="padding:10px; text-align: right;">
+                        <select style="padding:10px;">
+                            <option value="d">-Select Bulk Action-</option>
+                            <option value="d">Delete Job Roles</option>
+                            <option value="d">Update Job Roles</option>
+                        </select>                   
+                        <button class="btn btn-primary" type="submit">Go</button>                    
+                    </div>
+                
+                    
+
+                    <div class="ibox" id="dataTableContainer">
+                        
+                       <div id="additionalFunctionality">
+                        <button id="searchButton" onclick="performSearch()"><i class="fa fa-print"></i></button>
+                        <button id="copyClipboardButton"><i class="fa fa-gear"></i></button>
+                        <button id="copyClipboardButton"><i class="fa fa-envelope"></i></button>
+                    </div>
+                    <table class="table" id="example-table" cellspacing="0" border="1px" width="100%">
+                        <thead>
+                            
+                            <tr>
+                                <th rowspan="2">ID</th>
+                                <th colspan="1">Start Time</th>
+                                <th rowspan="1">End Time</th>
+                                <th colspan="4">Service User</th>
+                                <th colspan="2" style="text-align:center;">Location</th>
+                                <th colspan="2" style="text-align:center;">Staff</th>
+                            </tr>
+                        </thead>
+                        
+                        <tbody>
+                            <tr>
+                                <td>04/03/2024 Monday</td>
+                                <td></td>
+                                <td></td>
+                                <td colspan="4"></td>
+                                <td colspan="2"></td>
+                                <td colspan="2"></td>
+                            </tr>
+                            <tr>
+                                <td>04/03/2024 Monday</td>
+                                <td></td>
+                                <td></td>
+                                <td colspan="4"></td>
+                                <td colspan="2"></td>
+                                <td colspan="2"></td>
+                            </tr>
+                            <tr>
+                                <td>04/03/2024 Monday</td>
+                                <td></td>
+                                <td></td>
+                                <td colspan="4"></td>
+                                <td colspan="2"></td>
+                                <td colspan="2"></td>
+                            </tr>
+                            <tr>
+                                <td>04/03/2024 Monday</td>
+                                <td></td>
+                                <td></td>
+                                <td colspan="4"></td>
+                                <td colspan="2"></td>
+                                <td colspan="2"></td>
+                            </tr>
+                            <tr>
+                                <td>04/03/2024 Monday</td>
+                                <td></td>
+                                <td></td>
+                                <td colspan="4"></td>
+                                <td colspan="2"></td>
+                                <td colspan="2"></td>
+                            </tr>
+                            <tr>
+                                <td>04/03/2024 Monday</td>
+                                <td></td>
+                                <td></td>
+                                <td colspan="4"></td>
+                                <td colspan="2"></td>
+                                <td colspan="2"></td>
+                            </tr>
+                            <tr>
+                                <td>04/03/2024 Monday</td>
+                                <td></td>
+                                <td></td>
+                                <td colspan="4"></td>
+                                <td colspan="2"></td>
+                                <td colspan="2"></td>
+                            </tr>
+                        </tbody>
+
+                        
+                        
+                    </table>
+                </div>
+
+                
+                
+                    
+
+                    
+
+
+            <!-- Your existing HTML code -->
+
+<script>
+    
+
+
+    // Get the current date in the format "YYYY-MM-DD"
+    function getCurrentDate() {
+        const today = new Date();
+        const year = today.getFullYear();
+        let month = today.getMonth() + 1;
+        let day = today.getDate();
+
+        // Add leading zero for single-digit months and days
+        month = month < 10 ? `0${month}` : month;
+        day = day < 10 ? `0${day}` : day;
+
+        return `${year}-${month}-${day}`;
+    }
+
+ 
+    // Define the runReport function
+    function runReport() {
+        // Hide the date selection box
+        const dateSelectionBox = document.getElementById('dateSelectionBox');
+        dateSelectionBox.style.display = 'none';
+
+        // Show the data table container
+        const dataTableContainer = document.getElementById('dataTableContainer');
+        dataTableContainer.style.display = 'block';
+    }
+
+
+    function toggleGearContainer(button) {
+        var gearContainer = document.getElementById('gearContainer');
+        gearContainer.style.display = (gearContainer.style.display === 'block') ? 'none' : 'block';
+    }
+
+
+
+    // Code for Graph
+    
+</script>
+
+
+
+
+
+
+            <!-- END PAGE CONTENT-->
+
+{% endblock content %}
+

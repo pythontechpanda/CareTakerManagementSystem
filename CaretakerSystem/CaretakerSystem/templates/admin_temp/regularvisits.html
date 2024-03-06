@@ -11,19 +11,13 @@
                     
                     <nav class="navbar navbar-expand-lg navbar-light bg-light">
                         <a class="navbar-brand" href="/admin-panel/index/" style="color:skyblue;">Dashboard</a>
-                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                          <span class="navbar-toggler-icon"></span>
-                        </button>
+                        
                         <span>/</span>
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                          <ul class="navbar-nav mr-auto">
-                            <li class="nav-item active">
-                              <a class="nav-link" href="#" style="color:skyblue;">Plan </a>
-                            </li>
-                            
-                          </ul>
-                          
-                        </div>
+                        <a class="nav-link" href="#" style="color:skyblue;">Finance </a>
+                        <span>/</span>
+                        <a class="nav-link" href="#" style="color:skyblue;">Plan </a>
+                        <span>/</span>
+                        <a class="nav-link" href="#" style="color:#c5c5c5;">Regular Visits</a>
                       </nav>
                 </div>
             </div>
@@ -148,44 +142,26 @@
                                     <th>Sun</th>
                                 </tr>
                             </thead>
-                            <tfoot>
-                                <tr>
-                                    <th><input type="checkbox"></th>
-                                    <th>Time</th>
-                                    <th>Name</th>
-                                    <th>Location</th>
-                                    <th>Frequency</th>
-                                    <th>Type of Visit</th>
-                                    <th>No. Carers</th>
-                                    <th>Mon</th>
-                                    <th>Tue</th>
-                                    <th>Wed</th>
-                                    <th>Thu</th>
-                                    <th>Fri</th>
-                                    <th>Sat</th>
-                                    <th>Sun</th>
-                                </tr>
-                            </tfoot>
+                            
                             <tbody>
-                                {% for user, details in mapped %}
+                                
                                 <tr>
-                                    <td>{{ user.staff_id }}</td>
-                                    <td>{{ user.first_name }} {{ user.last_name }}</td>
-                                    <td></td>
-                                    <td>
-                                        {% if user.is_active == True %}
-                                        Active
-                                        {% elif user.is_active == False %}
-                                        Inactive
-                                        {% endif %}
-                                    </td>
-                                    <td></td>
-                                    <td>
-                                        <span><a href="{% url 'staff_updt' id=user.id empid=details.employment_id eadid=details.equality_and_diversity_id regid=details.regions_id bkid=details.bank_details_id %}" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil color-muted m-r-5"></i> </a> | 
-                                            {% comment %} <a href="{% url 'staff_del' id=user.id empid=details.employment_id eadid=details.equality_and_diversity_id regid=details.regions_id bkid=details.bank_details_id %}" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash-o color-danger"></i></a></span>  {% endcomment %}
-                                    </td>
+                                    <td><input type="checkbox"></td>
+                                    <td>12:00am - 8:00pm</td>
+                                    <td>Mrs Rita Stevens</td>
+                                    <td>Service User Home</td>
+                                    <td>Weekly</td>
+                                    <td>Live-in Care</td>
+                                    <td>1</td>
+                                    <td><i class="fa fa-check"></i></td>
+                                    <td><i class="fa fa-check"></i></td>
+                                    <td><i class="fa fa-check"></i></td>
+                                    <td><i class="fa fa-check"></i></td>
+                                    <td><i class="fa fa-check"></i></td>
+                                    <td><i class="fa fa-check"></i></td>
+                                    <td><i class="fa fa-check"></i></td>
                                 </tr>
-                                {% endfor %}
+                                
                             </tbody>
                         </table>
                     </div>

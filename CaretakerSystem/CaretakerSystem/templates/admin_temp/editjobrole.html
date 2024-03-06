@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+{% extends "admin_temp/capacity.html" %}
+{% load static %}
+{% block content %}
+
+        <!-- END SIDEBAR-->
+        <div class="content-wrapper">
+            <!-- START PAGE CONTENT-->
+            <div class="page-heading">
+                <div style="padding-top:10px;padding-bottom: 0px;">
+                    
+                    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                        <a class="navbar-brand" href="/admin-panel/index/" style="color:skyblue;">Dashboard</a>
+                        
+                        <span>/</span>
+                        <a class="nav-link" href="#" style="color:skyblue;">Job Roles </a>
+                        <span>/</span>
+                        <a class="nav-link" href="#" style="color:#c5c5c5;"> Update Care Coordinator Rates </a>
+                      </nav>
+                </div>
+            </div>
+
+            
+           
+            <style>
+                #myForm {
+                    display: none; /* Hide the form by default */
+                    max-width: 500px;
+                    position: relative;
+                    padding: 20px;
+                  }              
+               
+                .page-content {
+                    padding-top: 2px !important;
+                }
+                .bor{
+                    padding: 7px;
+                    border: 2px solid #ff6600;
+                    border-right: none;
+                    border-left: none;
+                    font-weight: bold;                                          
+                }
+                .box{
+                    width: 200px;
+                    align: center;
+                    
+                }
+                
+        
+               
+                .table tbody tr{
+                    font-size: 12px;
+                }
+                
+                
+                
+
+                .column {
+                    float: right;
+                    width: 410px;
+                    padding: 10px;
+                    height: auto; /* Should be removed. Only for demonstration */
+                }
+                  
+                /* Clear floats after the columns */
+                .row:after {
+                    content: "";
+                    display: table;
+                    clear: both;
+                  }
+                .searchbox{
+                    margin-left: 20px;
+                }
+                
+                #ex-pass{
+                    padding: 6px;
+                    width: 200px;
+                }
+                #ex-role{
+                    padding: 8px;
+                    width: 200px;
+                }
+                #tbdata{
+                    width: 478px;
+                    padding: 10px;
+                }
+
+
+
+                .container {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    gap: 10px;
+                    background-color: #d9edf7;
+                }
+        
+                .input-group {
+                    display: flex;
+                    gap: 10px;
+                }
+        
+                input {
+                    padding: 5px;
+                    width: 200px; /* Adjust the width as needed */
+                }
+        
+                button {
+                    padding: 5px;
+                }
+                .bgcolo{
+                    background-color: #d9edf7;
+                    padding: 10px;
+                }
+                
+
+
+                .parallel-div {
+                    float: left; /* Float the divs to the left */
+                    width: 47%; /* Adjust the width as needed */
+                    margin-right: 1%; /* Add margin for spacing between the divs */
+                    margin-left: 1%;
+                    box-sizing: border-box;
+                    padding: 0px;
+                    border: 1px solid #ccc;
+                }
+        
+                /* Clear the float to prevent layout issues */
+                .clearfix::after {
+                    content: "";
+                    clear: both;
+                    display: table;
+                }
+
+
+                .button-container {
+                    display: flex;
+                    justify-content: space-between;
+                    padding: 1px;
+                    border: 1px solid #ccc;
+                    background-color: #686868;
+                }
+        
+                .button {
+                    padding: 6px;
+                    text-align: center;
+                    color: #ffffff;
+                }
+
+                
+                #contactChoice1{
+                    width: 22px;
+                    
+                }
+                #lab{
+                    color: #fff;
+                }
+
+
+
+
+                .button-container2 {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding-left: 10px;
+                    padding-right: 10px;
+                    background-color: #686868;
+                    border: 1px solid #ccc;
+                }
+        
+                .datepicker-container {
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 10px;
+                }
+        
+                .button {
+                    padding: 10px 20px;
+                }
+
+                .button div {
+                    display: none;
+                }
+        
+                .button.active div {
+                    display: block;
+                }
+        
+                .button-container2 div {
+                    margin-left: 10px;
+                }
+
+
+                /* Initially hide the second section */
+                #toggleDiv {
+                    display: none;
+                    margin-top: 0px; /* Just for spacing in this example */
+                    padding: 2px;
+                    border: 1px solid #ccc;
+                }
+            </style>
+
+
+
+
+
+
+
+            
+
+            <div class="ibox"> 
+                <div class="ibox-body">
+                    <form class="bgcolo" >
+                    <table>
+                        <tr>
+                            <td style="padding: 50px;"><img src="{% static './assets/img/info.png' %}" width="100px" alt><td>
+                            <td>
+                                <p>This Standard Rate Card will be applied to all Care Coordinator staff hours when calculating payroll (unless you have added a different rate card for a specific Visit).</p>
+                                <p>If you would like to pay staff a different amount based on the Visit they are doing, then create a Pay Rate Card for that specific Visit.
+
+                                    Pay Rate Cards can be created here manually, or you can create Rate Cards Templates from the Finance menu and then apply them to this job role.</p>
+                            </td>
+                        </tr>
+                    </table>
+                    
+                        
+                            <div class="input-group">
+                                <p>Add a Pay Rate Card for a Visit</p>
+                                <select class="form-control selectpicker" name="department_id" multiple data-live-search="true">
+                                    <option>Admin</option>
+                                    <option>Annual Leave</option>
+                                    <option>Cancellation - Charegable</option>
+                                  </select>
+                                <p>Based on Rate</p>
+                                <select type="text" name="daytime" style="height:40px;">
+                                    <option value="Manual Rate">Manual Rate</option>
+                                    <option value="Manual Rate">Bank Holiday (£15.00)</option>
+                                    <option value="Manual Rate">Standard pay (£10.00)</option>
+                                    <option value="Manual Rate">Weekend Pay (£11.00)</option>
+                                </select>
+                                <button class="btn btn-primary" type="button" style="height:40px;"><i class="fa fa-plus"></i> Add Pay Rate Card for a Visit type</button>
+                            </div>
+                    </form>
+                    <h4>View Care Coordinator rates and charges</h4>                  
+                    <p>If no rate is specified, the next highest rate will be used pro-rata.</p>
+                </div>
+
+            
+            
+                <div class="button-container">
+                        <h5 class="button" id="toggleButton">Standard Rate Card</h5>
+                        <h5 class="button" id="toggleButton2">Click to view rate cart</h5>                    
+                </div>
+
+                
+                <div id="toggleDiv">
+                    <div class="button-container2">
+                        <div class="datepicker-container">
+                            <label for="contactChoice" id="lab">Variable Rate</label>
+                            <input type="radio" id="contactChoice1" name="content" value="Only Checked In Visits" />
+                    
+                            <label for="contactChoice" id="lab">Fixed Rate</label>
+                            <input type="radio" id="contactChoice1" name="content" value="All Visits" />
+                        </div>
+                    
+                        <div>
+                            <button class="btn btn-info button">Replace</button>
+                            <button class="btn btn-info button">Save as a New Rate Card</button>
+                            <button class="btn btn-info button">Save</button>
+                        </div>
+                    </div>
+
+
+
+
+                
+                
+                    <div class="page-content fade-in-up">
+                        <table class="table" id="example-table" cellspacing="0" width="100%" border="1">
+                            <thead>
+                                <tr>
+                                    <th colspan="1">Type</th>
+                                    <th colspan="11" id="repladata" style="text-align:center;">Daytime
+                                        (Midnight - 12:00am)</th>                                      
+                                </tr>
+                            </thead>
+                            
+                            <tbody>
+                                <tr>
+                                    <td colspan="1">Bank Holiday</td>
+                                    <td colspan="5">
+                                        <select type="text" name="daytime" id="tbdata">
+                                            <option value="Manual Rate">Manual Rate</option>
+                                            <option value="Manual Rate">Bank Holiday (£15.00)</option>
+                                            <option value="Manual Rate">Standard pay (£10.00)</option>
+                                            <option value="Manual Rate">Weekend Pay (£11.00)</option>
+                                        </select>
+
+                                            <input type="text" value="£ 0.00" id="tbdata"></td>
+                                    
+                                </tr>
+
+                                <tr>
+                                    <td colspan="1">Standard</td>
+                                    <td colspan="5">
+                                        <select type="text" name="daytime" id="tbdata">
+                                            <option value="Manual Rate">Manual Rate</option>
+                                            <option value="Manual Rate">Bank Holiday (£15.00)</option>
+                                            <option value="Manual Rate">Standard pay (£10.00)</option>
+                                            <option value="Manual Rate">Weekend Pay (£11.00)</option>
+                                        </select>
+
+                                            <input type="text" value="£ 0.00" id="tbdata"></td>
+                                    
+                                </tr>
+
+                                <tr>
+                                    <td colspan="1">Weekend</td>
+                                    <td colspan="5">
+                                        <select type="text" name="daytime" id="tbdata">
+                                            <option value="Manual Rate">Manual Rate</option>
+                                            <option value="Manual Rate">Bank Holiday (£15.00)</option>
+                                            <option value="Manual Rate">Standard pay (£10.00)</option>
+                                            <option value="Manual Rate">Weekend Pay (£11.00)</option>
+                                        </select>
+
+                                            <input type="text" value="£ 0.00" id="tbdata"></td>
+                                    
+                                </tr>
+                                
+                            </tbody>
+
+                            
+                            
+                        </table>
+                    </div>
+                </div>
+                
+            </div>      
+                    
+
+                    
+
+
+            <!-- Your existing HTML code -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+
+
+
+    // Get the current date in the format "YYYY-MM-DD"
+    function getCurrentDate() {
+        const today = new Date();
+        const year = today.getFullYear();
+        let month = today.getMonth() + 1;
+        let day = today.getDate();
+
+        // Add leading zero for single-digit months and days
+        month = month < 10 ? `0${month}` : month;
+        day = day < 10 ? `0${day}` : day;
+
+        return `${year}-${month}-${day}`;
+    }
+
+    
+
+    $(document).ready(function () {
+        $('#toggleButton, #toggleButton2').click(function () {
+            // Toggle the visibility of the toggleDiv
+            $('#toggleDiv').slideToggle();
+
+            // Toggle the text content of the clicked button
+            
+
+            $('#toggleButton2').text(function(i, text){
+                return text === "Click to view rate cart" ? "Click to hide rate cart" : "Click to view rate cart";
+            });
+        });
+    });
+    
+    
+
+
+
+    $(document).ready(function () {
+        // Function to update repladata based on radio button selection
+        function updateRepladata() {
+            var radioValue = $("input[name='content']:checked").val();
+            var repladataText = (radioValue === "Only Checked In Visits") ? "Daytime (Midnight - 12:00am)" : "Fixed";
+            $('#repladata').text(repladataText);
+        }
+
+        // Initial update on page load
+        updateRepladata();
+
+        // Toggle functionality for the radio buttons
+        $('input[name="content"]').change(function () {
+            updateRepladata();
+        });
+
+       
+    });
+    
+</script>
+
+
+
+
+
+
+            <!-- END PAGE CONTENT-->
+
+{% endblock content %}
+

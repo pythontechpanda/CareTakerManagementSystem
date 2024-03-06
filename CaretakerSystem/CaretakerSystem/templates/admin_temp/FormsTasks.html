@@ -174,8 +174,14 @@
             
                 th {
                     background-color: #f2f2f2;
+                    position: sticky;
+                    top: 0;
+                    z-index: 2;
                 }
-            
+                .table-container {
+                    max-height: 400px; /* Set the maximum height of the table */
+                    overflow-y: auto; /* Enable vertical scrollbar when content overflows */
+                }
             </style>
 
 
@@ -297,6 +303,8 @@
                             // Add logic for running the report
                         }
                     </script>
+
+                    <div class="table-container">
                     <table class="table">
                         <thead>
                             <tr>
@@ -352,13 +360,8 @@
                             </tr>
                         </tbody>
                         
-
-
-                       
-
-
-
                     </table>
+                </div>
                     
                 </div>
             </div>

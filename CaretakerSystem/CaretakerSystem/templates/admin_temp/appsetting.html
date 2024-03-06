@@ -1,0 +1,1004 @@
+{% extends "admin_temp/index.html" %}
+{% load static %}
+{% block content %}
+
+<style>
+    .button-container {
+        display: flex;
+    }
+    
+    button {
+        margin-right: 10px; /* Adjust as needed */
+        padding: 10px;
+        color: #000;
+        border: none;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: #08c; /* Darker green color on hover */
+        color: #fff;
+    }
+    .vertical-lines {
+        height: 20vh; /* Adjust the height as needed */
+        width: 30vh;
+      }
+      .popup-container {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        padding: 20px;
+        border: 1px solid #ccc;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        z-index: 999;
+        width: 400px;
+    }
+    .popup-container2 {
+        display: none;
+        position: fixed;
+        top: 60%;
+        left: 60%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        padding: 20px;
+        border: 1px solid #ccc;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        z-index: 999;
+        width: 50%;
+        height:70%;
+        overflow: auto;
+        
+    }
+
+    .close-button {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+    }
+    .vertical-div {
+        width: 200px;
+        height: 30px;
+        border:1px solid #e1e1e1;
+        background-color: #ffffff;
+        float: bottom;
+        color: #3498db;
+    }
+    h4 {
+        color:#2f96b4;
+    }
+
+
+    
+    
+</style>
+        <div class="content-wrapper">
+            <!-- START PAGE CONTENT-->
+            
+            <div class="page-content fade-in-up">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div style="padding-bottom:10px;">
+                            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                            <a class="navbar-brand" href="/admin-panel/index/" style="color:skyblue;">Dashboard</a>
+                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <span>/</span>
+                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                <ul class="navbar-nav mr-auto">
+                                
+                                
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">App Settings</a>
+                                </li>
+                                
+                                </ul>
+                                <form class="form-inline my-2 my-lg-0">
+                                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                                </form>
+                            </div>
+                            </nav>
+                        </div>
+
+                        <div class="button-container">
+                            <a href="/admin-panel/app-setting/"><button class="btn btn-default">Account Settings</button></a>
+                            <a href="/admin-panel/app-setting-Landing-call/"><button class="btn btn-default">Landline Call Monitoring</button></a>
+                            <a href="/admin-panel/app-setting-sms-massaging/"><button class="btn btn-default">SMS Messaging</button></a>
+                            <a href="/admin-panel/app-setting-integration/"><button class="btn btn-default">Integrations</button></a>
+                        </div>
+                        <div class="ibox">
+                            <div class="ibox-body" style="height: 200px;">
+                                <div class="vertical-lines">
+                                    <div class="vertical-div" id="fileupload">Company Logo</div>
+
+                                    <div class="popup-container" id="popupForm">
+                                        <span class="close-button" onclick="closePopupForm()">&times;</span>
+                                        <h4><i class="fa fa-image"></i> Company Logo</h4>
+                                        <!-- Your form content goes here -->
+                                        <form method="post" enctype="multipart/form-data">
+                                            {% csrf_token %}
+                                            <!-- Add your form fields here -->
+                                            <div class="form-group">
+                                                <img src="{% static './assets/img/Asset10.png' %}">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="medicationName">Logo:</label>
+                                                <input type="file" class="form-control" id="medicationName" name="medicationName" required>
+                                            </div>
+                                            
+                                            <!-- ... Add other form fields as needed ... -->
+                                    
+                                            <button type="submit" class="btn btn-primary"><i class="fa fa-upload"></i> Upload Logo</button>
+                                        </form>
+                                    </div>
+
+
+
+                                    <div class="vertical-div" id="infoForm">Company Information</div>
+
+                                    <div class="popup-container2" id="Information">
+                                        <span class="close-button" onclick="closePopupForm()">&times;</span>
+                                        <h4><i class="fa fa-info"></i> Company Information</h4>
+                                        <!-- Your form content goes here -->
+                                        <form method="post" enctype="multipart/form-data">
+                                            {% csrf_token %}
+                                            <!-- Add your form fields here -->
+                                            
+                                            <div class="form-group">
+                                                <label for="medicationName">Company Name:</label>
+                                                <input type="text" class="form-control" id="medicationName" name="name" required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="medicationName">Company Address:</label>
+                                                <textarea type="text" class="form-control" id="medicationName" name="address" required>
+                                                </textarea>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="medicationName">Telephone:</label>
+                                                <input type="number" class="form-control" id="medicationName" name="telephone" required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="medicationName">Telephone (Out Of Hours):</label>
+                                                <input type="number" class="form-control" id="medicationName" name="telephone2" required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="medicationName">Company Email Address:</label>
+                                                <input type="text" class="form-control" id="medicationName" name="com_email" required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="medicationName">Company Registration:</label>
+                                                <input type="text" class="form-control" id="medicationName" name="registration" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="medicationName">CQC Reference:</label>
+                                                <input type="text" class="form-control" id="medicationName" name="cqc" required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="medicationName">Charity Number:</label>
+                                                <input type="text" class="form-control" id="medicationName" name="charity" required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="medicationName">Client Schedule Addendum:</label>
+                                                <textarea type="text" class="form-control" id="medicationName" name="clientschedule" required>
+                                                </textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="medicationName">Staff Schedule Addendum:</label>
+                                                <textarea type="text" class="form-control" id="medicationName" name="staffschedule" required>
+                                                </textarea>
+                                            </div>
+                                            
+                                            <!-- ... Add other form fields as needed ... -->
+                                    
+                                            <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save Changes</button>
+                                        </form>
+                                    </div>
+
+
+                                    <div class="vertical-div" id="sysetting">System Settings</div>
+
+                                    <div class="popup-container2" id="Settings">
+                                        <span class="close-button" onclick="closePopupForm()">&times;</span>
+                                        <h4><i class="fa fa-wrench"></i> System Settings</h4>
+                                        <!-- Your form content goes here -->
+                                        <form method="post" enctype="multipart/form-data">
+                                            {% csrf_token %}
+                                            <!-- Add your form fields here -->
+                                            
+                                            <div class="form-group">
+                                                <label for="medicationName">Rota Template:</label>
+                                                <select type="text"  id="medicationName" name="role">
+                                                    <option>Condensed</option>
+                                                    <option>Condensed By Client</option>
+                                                    <option>Continuous</option>
+                                                    <option>Day Per Page</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="medicationName">Year Start:</label>
+                                                <select type="text" class="" id="medicationName" name="month">
+                                                    <option>Jan</option>
+                                                    <option>Feb</option>
+                                                    <option>Mar</option>
+                                                    <option>Apr</option>
+                                                    <option>May</option>
+                                                    <option>Jun</option>
+                                                    <option>Jul</option>
+                                                    <option>Aug</option>
+                                                    <option>Sep</option>
+                                                    <option>Oct</option>
+                                                    <option>Nov</option>
+                                                    <option>Dec</option>
+                                                </select>
+                                                <select type="text" class="" id="medicationName" name="day" >
+                                                    <option>1</option>
+                                                    <option>2</option>
+                                                    <option>3</option>
+                                                    <option>4</option>
+                                                    <option>5</option>
+                                                    <option>6</option>
+                                                    <option>7</option>
+                                                    <option>8</option>
+                                                    <option>9</option>
+                                                    <option>10</option>
+                                                    <option>11</option>
+                                                    <option>12</option>
+                                                    <option>13</option>
+                                                    <option>14</option>
+                                                    <option>15</option>
+                                                    <option>16</option>
+                                                    <option>17</option>
+                                                    <option>18</option>
+                                                    <option>19</option>
+                                                    <option>20</option>
+                                                    <option>21</option>
+                                                    <option>22</option>
+                                                    <option>23</option>
+                                                    <option>24</option>
+                                                    <option>25</option>
+                                                    <option>26</option>
+                                                    <option>27</option>
+                                                    <option>28</option>
+                                                    <option>29</option>
+                                                    <option>30</option>
+                                                    <option>31</option>
+                                                </select>
+                                                
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="medicationName">Week Start Day:</label>
+                                                <select type="text" class="" id="medicationName" name="weekday">
+                                                    <option>Monday</option>
+                                                    <option>Tuesday</option>
+                                                    <option>Wednesday</option>
+                                                    <option>Thursday</option>
+                                                    <option>Friday</option>
+                                                    <option>Saturday</option>
+                                                    <option>Sunday</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="medicationName">Deleted Notes:</label>
+                                                <select type="text" class="" id="medicationName" name="delnotes">
+                                                    <option>Strikethrough</option>
+                                                    <option>Hidden</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="medicationName">Show Service User Address:</label>
+                                                <select type="text" class="" id="medicationName" name="showservice">
+                                                    <option>No</option>
+                                                    <option>Yes</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="medicationName">Notification Schema:</label>
+                                                <select type="text" class="" id="medicationName" name="notification">
+                                                    <option>Bell</option>
+                                                    <option>Bell + Email</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="medicationName">Early Hours Start:</label>
+                                                <select type="text" class="" id="medicationName" name="earlyhours">
+                                                    <option>Midnight</option>
+                                                    <option>1 am</option>
+                                                    <option>2 am</option>
+                                                    <option>3 am</option>
+                                                    <option>4 am</option>
+                                                    <option>5 am</option>
+                                                    <option>6 am</option>
+                                                    <option>7 am</option>
+                                                    <option>8 am</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="medicationName">Daytime Hours:</label>
+                                                <select type="text" class="" id="medicationName" name="earlyhours">
+                                                    <option>Midnight</option>
+                                                    <option>1 am</option>
+                                                    <option>2 am</option>
+                                                    <option>3 am</option>
+                                                    <option>4 am</option>
+                                                    <option>5 am</option>
+                                                    <option>6 am</option>
+                                                    <option>7 am</option>
+                                                    <option>8 am</option>
+                                                    <option>9 am</option>
+                                                    <option>10 am</option>
+                                                    <option>11 am</option>
+                                                    <option>Noon</option>
+                                                </select>
+                                                <select type="text" class="" id="medicationName" name="earlyhours">
+                                                    <option>Noon</option>
+                                                    <option>1 pm</option>
+                                                    <option>2 pm</option>
+                                                    <option>3 pm</option>
+                                                    <option>4 pm</option>
+                                                    <option>5 pm</option>
+                                                    <option>6 pm</option>
+                                                    <option>7 pm</option>
+                                                    <option>8 pm</option>
+                                                    <option>9 pm</option>
+                                                    <option>10 pm</option>
+                                                    <option>11 pm</option>
+                                                    <option>Midnight</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="medicationName">Visits Print Type:</label>
+                                                <select type="text" class="" id="medicationName" name="visitsprint">
+                                                    <option>Group By Staff</option>
+                                                    <option>Standard</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="medicationName">Bank Holidays:</label>
+                                                <select type="text" class="" id="medicationName" name="bankholiday">
+                                                    <option>England And Wales</option>
+                                                    <option>Northern Ireland</option>
+                                                    <option>Scotland</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="medicationName">Send Daily Schedule:</label>
+                                                <select type="text" class="" id="medicationName" name="senddaily">
+                                                    <option>No</option>
+                                                    <option>Yes</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="medicationName">Pitney Bowes Mailstream Print:</label>
+                                                <select type="text" class="" id="medicationName" name="pitneybowes">
+                                                    <option>No</option>
+                                                    <option>Yes</option>
+                                                </select>
+                                            </div>
+                                            
+                                            <!-- ... Add other form fields as needed ... -->
+                                    
+                                            <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save Changes</button>
+                                        </form>
+                                    </div>
+
+                                    <div class="vertical-div" id="InvoiceCharge">Invoice/Charge Settings</div>
+
+                                    <div class="popup-container2" id="Invoice">
+                                        <span class="close-button" onclick="closePopupForm()">&times;</span>
+                                        <h4><i class="fa fa-wrench"></i> Invoice/Charge Settings</h4>
+                                        <!-- Your form content goes here -->
+                                        <form method="post" enctype="multipart/form-data">
+                                            {% csrf_token %}
+                                            <!-- Add your form fields here -->
+                                            
+                                            <div class="form-group">
+                                                <label for="medicationName">VAT Registration:</label>
+                                                <input type="text"  id="medicationName" name="vat">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="medicationName">VAT Rate:</label>
+                                                <input type="text" id="medicationName" name="vatrate" >%
+                                                
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="medicationName">Payment Timespan:</label>
+                                                <input type="text" id="medicationName" name="paytime" >days
+                                                
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="medicationName">Payment Info:</label>
+                                                <textarea type="text" class="" id="medicationName" name="delnotes"></textarea>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="medicationName">Reconcile On Invoice:</label>
+                                                <select type="text" class="" id="medicationName" name="reconcile">
+                                                    <option>No</option>
+                                                    <option>Yes</option>
+                                                </select> <span style="padding:4px"><i class="fa fa-info"></i></span>
+                                            </div>
+
+                                            
+
+                                            <div class="form-group">
+                                                <label for="medicationName">Edit Times On Invoiced Visits:</label>
+                                                <select type="text" class="" id="medicationName" name="edittimeinvoice">
+                                                    <option>Never</option>
+                                                    <option>Always</option>
+                                                    <option>Custom</option>
+                                                </select> <span style="padding:4px"><i class="fa fa-info"></i></span>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="medicationName">Minimum Charging Units:</label>
+                                                <select type="text" class="" id="medicationName" name="notification">
+                                                    <option>1 mins</option>
+                                                    <option>2 mins</option>
+                                                    <option>3 mins</option>
+                                                    <option>4 mins</option>
+                                                    <option>5 mins</option>
+                                                    <option>6 mins</option>
+                                                    <option>7 mins</option>
+                                                    <option>8 mins</option>
+                                                    <option>9 mins</option>
+                                                    <option>10 mins</option>
+                                                    <option>11 mins</option>
+                                                    <option>12 mins</option>
+                                                    <option>13 mins</option>
+                                                    <option>14 mins</option>
+                                                    <option>15 mins</option>
+                                                    <option>16 mins</option>
+                                                    <option>17 mins</option>
+                                                    <option>18 mins</option>
+                                                    <option>19 mins</option>
+                                                    <option>20 mins</option>
+                                                    <option>21 mins</option>
+
+                                                </select> <span style="padding:4px"><i class="fa fa-info"></i></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="medicationName">Charge Rounding Policy:</label>
+                                                <select type="text" class="" id="medicationName" name="earlyhours">
+                                                    <option>Nearest</option>
+                                                    <option>up</option>
+                                                </select> <span style="padding:4px"><i class="fa fa-info"></i></span>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="medicationName">Minimum Charge:</label>
+                                                <select type="text" class="" id="medicationName" name="earlyhours">
+                                                    <option>0 mins</option>
+                                                    <option>1 mins</option>
+                                                    <option>2 mins</option>
+                                                    <option>3 mins</option>
+                                                    <option>4 mins</option>
+                                                    <option>5 mins</option>
+                                                    <option>6 mins</option>
+                                                    <option>7 mins</option>
+                                                    <option>8 mins</option>
+                                                    <option>9 mins</option>
+                                                    <option>10 mins</option>
+                                                    <option>11 mins</option>
+                                                    <option>12 mins</option>
+                                                    <option>13 mins</option>
+                                                    <option>14 mins</option>
+                                                    <option>15 mins</option>
+                                                </select> <span style="padding:4px"><i class="fa fa-info"></i></span>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="medicationName">Client Mileage Charge Rate:</label>
+                                                <input type="text" id="medicationName" name="clientmileage" > <span style="padding:4px"><i class="fa fa-info"></i></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="medicationName">Charging Structure:</label>
+                                                <select type="text" class="" id="medicationName" name="charging">
+                                                    <option>With Booking Fee</option>
+                                                    <option>Without Booking Fee</option>
+                                                </select> <span style="padding:4px"><i class="fa fa-info"></i></span>
+                                            </div>
+                                            <!-- ... Add other form fields as needed ... -->
+                                    
+                                            <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save Changes</button>
+                                        </form>
+                                    </div>
+
+
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    <div class="vertical-div" id="PayRoll">Payroll Settings</div>
+
+
+                                    <div class="popup-container2" id="payrollsetting">
+                                        <span class="close-button" onclick="closePopupForm()">&times;</span>
+                                        <h4><i class="fa fa-wrench"></i> Payroll Settings</h4>
+                                        <!-- Your form content goes here -->
+                                        <form method="post" enctype="multipart/form-data">
+                                            {% csrf_token %}
+                                            <!-- Add your form fields here -->
+                                            
+                                            <div class="form-group">
+                                                <label for="medicationName">Staff Pay Capping:</label>
+                                                <select type="text"  id="medicationName" name="role">
+                                                    <option>Yes - Pay Is Capped At Scheduled Pay</option>
+                                                    <option>No - Pay Is Not Capped</option>
+                                                </select> <span style="padding:4px"><i class="fa fa-info"></i></span>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="medicationName">Minimum Pay:</label>
+                                                <select type="text" class="" id="medicationName" name="month">
+                                                    <option>0 mins</option>
+                                                    <option>1 mins</option>
+                                                    <option>2 mins</option>
+                                                    <option>3 mins</option>
+                                                    <option>4 mins</option>
+                                                    <option>5 mins</option>
+                                                    <option>6 mins</option>
+                                                    <option>7 mins</option>
+                                                    <option>8 mins</option>
+                                                    <option>9 mins</option>
+                                                    <option>10 mins</option>
+
+                                                    <option>11 mins</option>
+                                                    <option>12 mins</option>
+                                                    <option>13 mins</option>
+                                                    <option>14 mins</option>
+                                                    <option>15 mins</option>
+                                                    <option>16 mins</option>
+                                                    <option>17 mins</option>
+                                                    <option>18 mins</option>
+                                                    <option>19 mins</option>
+                                                    <option>20 mins</option>
+
+                                                    <option>21 mins</option>
+                                                    <option>22 mins</option>
+                                                    <option>23 mins</option>
+                                                    <option>24 mins</option>
+                                                    <option>25 mins</option>
+                                                    <option>26 mins</option>
+                                                    <option>27 mins</option>
+                                                    <option>28 mins</option>
+                                                    <option>29 mins</option>
+                                                    <option>30 mins</option>
+                                                    
+                                                    <option>31 mins</option>
+                                                    <option>32 mins</option>
+                                                    <option>33 mins</option>
+                                                    <option>34 mins</option>
+                                                    <option>35 mins</option>
+                                                    <option>06 mins</option>
+                                                    <option>07 mins</option>
+                                                    <option>08 mins</option>
+                                                    <option>09 mins</option>
+                                                    <option>40 mins</option>
+
+                                                    <option>41 mins</option>
+                                                    <option>42 mins</option>
+                                                    <option>43 mins</option>
+                                                    <option>44 mins</option>
+                                                    <option>45 mins</option>
+                                                    <option>46 mins</option>
+                                                    <option>47 mins</option>
+                                                    <option>48 mins</option>
+                                                    <option>49 mins</option>
+                                                    <option>50 mins</option>
+
+                                                    <option>51 mins</option>
+                                                    <option>52 mins</option>
+                                                    <option>53 mins</option>
+                                                    <option>54 mins</option>
+                                                    <option>55 mins</option>
+                                                    <option>56 mins</option>
+                                                    <option>57 mins</option>
+                                                    <option>58 mins</option>
+                                                    <option>59 mins</option>
+                                                    <option>60 mins</option>
+                                                </select>
+                                                
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="medicationName">Min Time Between Shifts:</label>
+                                                <input type="text" id="medicationName" name="mintimebw" value="0"> <span>minutes</span> <span style="padding:4px"><i class="fa fa-info"></i></span>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="medicationName">Do you pay staff travel?:</label>
+                                                <select type="text" class="" id="medicationName" name="delnotes">
+                                                    <option>No</option>
+                                                    <option>Yes</option>
+                                                </select> <span style="padding:4px"><i class="fa fa-info"></i></span>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="medicationName">Default Travel Type:</label>
+                                                <select type="text" class="" id="medicationName" name="showservice">
+                                                    <option><i class="fa fa-info"></i></option>
+                                                    <option><i class="fa fa-info"></i></option>
+                                                </select> <span style="padding:4px"><i class="fa fa-info"></i></span>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="medicationName">Pay travel between Shifts:</label>
+
+                                                <label for="medicationName"><strong>Mileage</strong> Unpaid for</label>
+                                                <input type="number" style="width:50px" id="medicationName" name="paytravel"> miles then paid up to
+                                                <input type="number" style="width:50px" id="medicationName" name="paytravel"> <span style="padding:4px"><i class="fa fa-info"></i></span>
+                                            </div>
+                                            
+                                            
+                                            <!-- ... Add other form fields as needed ... -->
+                                    
+                                            <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save Changes</button>
+                                        </form>
+                                    </div>
+
+
+
+                                    <div class="vertical-div" id="CallMonitoring">Call Monitoring Settings</div>
+
+                                    <div class="popup-container2" id="CallMonitoringsetting">
+                                        <span class="close-button" onclick="closePopupForm()">&times;</span>
+                                        <h4><i class="fa fa-wrench"></i> Call Monitoring Settings</h4>
+                                        <!-- Your form content goes here -->
+                                        <form method="post" enctype="multipart/form-data">
+                                            {% csrf_token %}
+                                            <!-- Add your form fields here -->
+                                            
+                                            <div class="form-group">
+                                                <label for="medicationName">Late Check In Notification:</label>
+                                                <select type="text"  id="medicationName" name="role">
+                                                    <option>off</option>
+                                                    <option>on</option>
+                                                </select> <span style="padding:4px"><i class="fa fa-info"></i></span>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="medicationName">Late Check In After:</label>
+                                                <select type="text" class="" id="medicationName" name="month">
+                                                    <option>0 mins</option>
+                                                    <option>1 mins</option>
+                                                    <option>2 mins</option>
+                                                    <option>3 mins</option>
+                                                    <option>4 mins</option>
+                                                    <option>5 mins</option>
+                                                    <option>6 mins</option>
+                                                    <option>7 mins</option>
+                                                    <option>8 mins</option>
+                                                    <option>9 mins</option>
+                                                    <option>10 mins</option>
+
+                                                    <option>11 mins</option>
+                                                    <option>12 mins</option>
+                                                    <option>13 mins</option>
+                                                    <option>14 mins</option>
+                                                    <option>15 mins</option>
+                                                    <option>16 mins</option>
+                                                    <option>17 mins</option>
+                                                    <option>18 mins</option>
+                                                    <option>19 mins</option>
+                                                    <option>20 mins</option>
+
+                                                    <option>21 mins</option>
+                                                    <option>22 mins</option>
+                                                    <option>23 mins</option>
+                                                    <option>24 mins</option>
+                                                    <option>25 mins</option>
+                                                    <option>26 mins</option>
+                                                    <option>27 mins</option>
+                                                    <option>28 mins</option>
+                                                    <option>29 mins</option>
+                                                    <option>30 mins</option>
+                                                    
+                                                    <option>31 mins</option>
+                                                    <option>32 mins</option>
+                                                    <option>33 mins</option>
+                                                    <option>34 mins</option>
+                                                    <option>35 mins</option>
+                                                    <option>06 mins</option>
+                                                    <option>07 mins</option>
+                                                    <option>08 mins</option>
+                                                    <option>09 mins</option>
+                                                    <option>40 mins</option>
+
+                                                    <option>41 mins</option>
+                                                    <option>42 mins</option>
+                                                    <option>43 mins</option>
+                                                    <option>44 mins</option>
+                                                    <option>45 mins</option>
+                                                    <option>46 mins</option>
+                                                    <option>47 mins</option>
+                                                    <option>48 mins</option>
+                                                    <option>49 mins</option>
+                                                    <option>50 mins</option>
+
+                                                    <option>51 mins</option>
+                                                    <option>52 mins</option>
+                                                    <option>53 mins</option>
+                                                    <option>54 mins</option>
+                                                    <option>55 mins</option>
+                                                    <option>56 mins</option>
+                                                    <option>57 mins</option>
+                                                    <option>58 mins</option>
+                                                    <option>59 mins</option>
+                                                    <option>60 mins</option>
+                                                </select>
+                                                
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="medicationName">Late Check Out Notification:</label>
+                                                <select type="text" class="" id="medicationName" name="delnotes">
+                                                    <option>on</option>
+                                                    <option>off</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="medicationName">Late Check Out After:</label>
+                                                <select type="text" class="" id="medicationName" name="latecheck">
+                                                    <option>0 mins</option>
+                                                    <option>1 mins</option>
+                                                    <option>2 mins</option>
+                                                    <option>3 mins</option>
+                                                    <option>4 mins</option>
+                                                    <option>5 mins</option>
+                                                    <option>6 mins</option>
+                                                    <option>7 mins</option>
+                                                    <option>8 mins</option>
+                                                    <option>9 mins</option>
+                                                    <option>10 mins</option>
+
+                                                    <option>11 mins</option>
+                                                    <option>12 mins</option>
+                                                    <option>13 mins</option>
+                                                    <option>14 mins</option>
+                                                    <option>15 mins</option>
+                                                    <option>16 mins</option>
+                                                    <option>17 mins</option>
+                                                    <option>18 mins</option>
+                                                    <option>19 mins</option>
+                                                    <option>20 mins</option>
+
+                                                    <option>21 mins</option>
+                                                    <option>22 mins</option>
+                                                    <option>23 mins</option>
+                                                    <option>24 mins</option>
+                                                    <option>25 mins</option>
+                                                    <option>26 mins</option>
+                                                    <option>27 mins</option>
+                                                    <option>28 mins</option>
+                                                    <option>29 mins</option>
+                                                    <option>30 mins</option>
+                                                    
+                                                    <option>31 mins</option>
+                                                    <option>32 mins</option>
+                                                    <option>33 mins</option>
+                                                    <option>34 mins</option>
+                                                    <option>35 mins</option>
+                                                    <option>06 mins</option>
+                                                    <option>07 mins</option>
+                                                    <option>08 mins</option>
+                                                    <option>09 mins</option>
+                                                    <option>40 mins</option>
+
+                                                    <option>41 mins</option>
+                                                    <option>42 mins</option>
+                                                    <option>43 mins</option>
+                                                    <option>44 mins</option>
+                                                    <option>45 mins</option>
+                                                    <option>46 mins</option>
+                                                    <option>47 mins</option>
+                                                    <option>48 mins</option>
+                                                    <option>49 mins</option>
+                                                    <option>50 mins</option>
+
+                                                    <option>51 mins</option>
+                                                    <option>52 mins</option>
+                                                    <option>53 mins</option>
+                                                    <option>54 mins</option>
+                                                    <option>55 mins</option>
+                                                    <option>56 mins</option>
+                                                    <option>57 mins</option>
+                                                    <option>58 mins</option>
+                                                    <option>59 mins</option>
+                                                    <option>60 mins</option>
+                                                </select> <span style="padding:4px"><i class="fa fa-info"></i></span>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="medicationName">Mobile App Early Check In:</label>
+                                                <select type="text" class="" id="medicationName" name="showservice">
+                                                    <option>off</option>
+                                                    <option>strict</option>
+                                                    <option>warning</option>
+                                                </select> <span style="padding:4px"><i class="fa fa-info"></i></span>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="medicationName">Mobile App Late Check In:</label>
+                                                <select type="text" class="" id="medicationName" name="showservice">
+                                                    <option>off</option>
+                                                    <option>strict</option>
+                                                    <option>warning</option>
+                                                </select> <span style="padding:4px"><i class="fa fa-info"></i></span>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="medicationName">Mobile App Early Check Out:</label>
+                                                <select type="text" class="" id="medicationName" name="showservice">
+                                                    <option>off</option>
+                                                    <option>strict</option>
+                                                    <option>warning</option>
+                                                </select> <span style="padding:4px"><i class="fa fa-info"></i></span>
+                                            </div>
+
+
+                                            <div class="form-group">
+                                                <label for="medicationName">Mobile App Late Check Out:</label>
+                                                <select type="text" class="" id="medicationName" name="showservice">
+                                                    <option>off</option>
+                                                    <option>strict</option>
+                                                    <option>warning</option>
+                                                </select> <span style="padding:4px"><i class="fa fa-info"></i></span>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="medicationName">Mobile App GPS Check In Error:</label>
+                                                <select type="text" class="" id="medicationName" name="showservice">
+                                                    <option>off</option>
+                                                    <option>strict</option>
+                                                    <option>warning</option>
+                                                </select> <span style="padding:4px"><i class="fa fa-info"></i></span>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="medicationName">Mobile App GPS Check Out Error:</label>
+                                                <select type="text" class="" id="medicationName" name="showservice">
+                                                    <option>off</option>
+                                                    <option>strict</option>
+                                                    <option>warning</option>
+                                                </select> <span style="padding:4px"><i class="fa fa-info"></i></span>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="medicationName">Mobile App Overlapping Check In:</label>
+                                                <select type="text" class="" id="medicationName" name="showservice">
+                                                    <option>off</option>
+                                                    <option>strict</option>
+                                                    <option>warning</option>
+                                                </select> <span style="padding:4px"><i class="fa fa-info"></i></span>
+                                            </div>
+
+                                            
+                                            
+                                            
+                                            <!-- ... Add other form fields as needed ... -->
+                                    
+                                            <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save Changes</button>
+                                        </form>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+
+               
+
+                
+
+
+
+
+
+
+                {% comment %} Equality & Diversity {% endcomment %}
+
+                   
+            </div>
+
+
+            <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+            <script>
+                $(document).ready(function () {
+                    $('#fileupload').click(function () {
+                        $('#popupForm').fadeIn();
+                    });
+                });
+            
+                function closePopupForm() {
+                    $('#popupForm').fadeOut();
+                }
+
+                // Company Information
+                $(document).ready(function () {
+                    $('#infoForm').click(function () {
+                        $('#Information').fadeIn();
+                    });
+                });
+            
+                function closePopupForm() {
+                    $('#Information').fadeOut();
+                }
+
+
+                // System Settings
+
+                $(document).ready(function () {
+                    $('#sysetting').click(function () {
+                        $('#Settings').fadeIn();
+                    });
+                });
+            
+                function closePopupForm() {
+                    $('#Settings').fadeOut();
+                }
+
+                // Invoice/Charge Settings
+                $(document).ready(function () {
+                    $('#InvoiceCharge').click(function () {
+                        $('#Invoice').fadeIn();
+                    });
+                });
+            
+                function closePopupForm() {
+                    $('#Invoice').fadeOut();
+                }
+
+                // Payroll Settings
+                $(document).ready(function () {
+                    $('#PayRoll').click(function () {
+                        $('#payrollsetting').fadeIn();
+                    });
+                });
+            
+                function closePopupForm() {
+                    $('#payrollsetting').fadeOut();
+                }
+
+                $(document).ready(function () {
+                    $('#CallMonitoring').click(function () {
+                        $('#CallMonitoringsetting').fadeIn();
+                    });
+                });
+            
+                function closePopupForm() {
+                    $('#CallMonitoringsetting').fadeOut();
+                }
+            </script>
+{% endblock content %}

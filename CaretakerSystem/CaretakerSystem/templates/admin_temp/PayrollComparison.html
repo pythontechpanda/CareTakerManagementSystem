@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+{% extends "admin_temp/capacity.html" %}
+{% load static %}
+{% block content %}
+
+        <!-- END SIDEBAR-->
+        <div class="content-wrapper">
+            <!-- START PAGE CONTENT-->
+            <div class="page-heading">
+                <div style="padding-top:10px;padding-bottom: 0px;">
+                    
+                    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                        <a class="navbar-brand" href="/admin-panel/index/" style="color:skyblue;">Dashboard</a>
+                        
+                        <span>/</span>
+                        <a class="nav-link" href="#" style="color:skyblue;">Monitor </a>
+                        <span>/</span>
+                        <a class="nav-link" href="#" style="color:#c5c5c5;">Payroll Comparison</a>
+                      </nav>
+                </div>
+            </div>
+
+            
+           
+            <style>
+                .button-container {
+                    display: flex;
+                    justify-content: space-between;
+                    padding: 10px;
+                    border-radius: 5px;
+                    max-width: 100%;
+                    margin: auto;
+                    background-color: #c8c8c8;
+                }
+            
+                .button-container button {
+                    padding: 10px;
+                    margin-right: 10px; /* Add margin between buttons */
+                    background-color: #337ab7;
+                    color: white;
+                    border: none;
+                    border-radius: 4px;
+                    cursor: pointer;
+                }
+            
+                .dropdown {
+                    margin-left: auto;
+                }
+            
+                .dropdown select {
+                    padding: 10px;
+                }
+
+
+
+                .datepicker-container {
+                    display: inline-block;
+                  }
+              
+                  .datepicker-container input {
+                    padding: 5px;
+                    font-size: 16px;
+                    border: 1px solid #ccc;
+                    border-radius: 3px;
+                  }
+
+
+
+                #myForm {
+                    display: none; /* Hide the form by default */
+                    max-width: 500px;
+                    position: relative;
+                    padding: 20px;
+                  }
+              
+                #customDateInput {
+                    width: 85%;
+                    padding: 5px;
+                    margin-bottom: 16px;
+                    box-sizing: border-box;
+                }
+                .page-content {
+                    padding-top: 2px !important;
+                }
+                .bor{
+                    padding: 7px;
+                    border: 2px solid #ff6600;
+                    border-right: none;
+                    border-left: none;
+                    font-weight: bold;                                          
+                }
+                .box{
+                    width: 430px;
+                    align: center;
+                    
+                }
+
+                .datepicker-container {
+                    display: inline-block;
+                }
+        
+                .datepicker-container input {
+                    padding: 2px;
+                    font-size: 14px;
+                    border: 1px solid #ccc;
+                    border-radius: 3px;
+                }
+
+                #additionalFunctionalityContainer {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                }
+        
+                #additionalFunctionality {
+                    display: none;
+                    padding: 2px;
+                    border-radius: 5px;
+                    margin-top: 0px;
+                    text-align: left;
+                }
+        
+                #searchField {
+                    padding: 0px;
+                    margin-right: 0px;
+                    text-align: left;
+                }
+        
+                #searchButton,
+                #copyClipboardButton,
+                .dropdown-toggle {
+                    padding: 0px;
+                    margin-right: 0px;
+                    cursor: pointer;
+                }
+        
+                .dropdown {
+                    display: inline-block;
+                }
+        
+                .dropdown-menu {
+                    min-width: 100%;
+                    position: absolute;
+                }   
+                
+                .table tbody tr{
+                    font-size: 12px;
+                }
+                .table tbody tr:hover {
+                    background-color: #B3FF00; /* Change this to the desired green color */                    
+                }
+                #dateSelectionBox {
+                    margin: 0 auto; /* Center the box */
+                    max-width: 400px; /* Set a maximum width if needed */
+                    text-align: left; /* Justify the content */
+                }
+                .form-control {
+                    display: block;
+                    width: 100%;
+                    height: 21px;
+                }
+                table{
+                    font-size: 12px;
+                    border: 1px solid #e1e1e1;
+                }
+                tfoot th {
+                    background-color: 2px silid #e6e6e6; /* Change to your preferred background color for the footer row */
+                }
+                th, td {
+                    border: 1px solid #dddddd;
+                    text-align: left;
+                    padding: 8px;
+                }
+            
+                th {
+                    background-color: #f2f2f2;
+                    position: sticky;
+                    top: 0;
+                    z-index: 2;
+                }
+                .table-container {
+                    max-height: 400px; /* Set the maximum height of the table */
+                    overflow-y: auto; /* Enable vertical scrollbar when content overflows */
+                }
+            </style>
+
+
+
+
+            <div class="page-content fade-in-up">
+                
+                  
+
+
+                    
+
+                    <div class="ibox" >
+                        <div class="box" id="dateSelectionBox">
+                            <p style="text-align: center;">Payroll Comparison</p>
+                            
+                        </div>
+                       <div style="text-align:left;padding-left:10px;padding-top:10px;"> <i class="fa fa-play" onclick="toggleAdditionalFunctionality()"></i></div>
+
+                       <div id="additionalFunctionality" style="display: none;">
+                        <input type="text" id="searchField" placeholder="Search...">
+                        <button id="searchButton" onclick="performSearch()"><i class="fa fa-search"></i></button>
+                        <button id="copyClipboardButton" onclick="copyToClipboard()"><i class="fa fa-copy"></i></button>
+                        <div class="dropdown">
+                            <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-download"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="#">Excel</a>
+                                <a class="dropdown-item" href="#">PDF</a>
+                                <a class="dropdown-item" href="#">CVS</a>
+                            </div>
+                        </div>
+                    </div>
+
+                       <script>
+                        // Your existing scripts
+                
+                        // Add any additional scripts for the new functionality
+                        function toggleAdditionalFunctionality() {
+                            const additionalFunctionality = document.getElementById('additionalFunctionality');
+                            additionalFunctionality.style.display = additionalFunctionality.style.display === 'none' ? 'block' : 'none';
+                        }
+                
+                        function performSearch() {
+                            // Add logic for search functionality
+                        }
+                
+                        function copyToClipboard() {
+                            // Add logic for copying to clipboard
+                        }
+                
+                        function runReport() {
+                            // Add logic for running the report
+                        }
+                    </script>
+
+                    <div class="table-container">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th rowspan="2" colspan="2"></th>
+                                    <th colspan="20" style="text-align:center;">Visit Type</th>
+                                </tr>
+                                <tr>
+                                <!-- Add more months as needed -->
+                                
+                                <th colspan="4" style="text-align:center;">8 (06/04/2020-12/04/2020)</th>
+                                <th colspan="4" style="text-align:center;">9 (13/04/2020-19/04/2020)</th>
+                                <th colspan="4" style="text-align:center;">10 (20/04/2020-26/04/2020)</th>
+                                <th colspan="4" style="text-align:center;">11 (27/04/2020-03/05/2020)</th>
+                                <th colspan="4" style="text-align:center;">11 (27/04/2020-03/05/2020)</th>
+                                </tr>
+                                <tr>
+                                    <th colspan="1">Firstname</th>
+                                    <th colspan="1">Lastname</th>
+                                    <th colspan="1">Pay</th>
+                                    <th colspan="1">Travel Pay</th>
+                                    <th colspan="1">Mileage</th>
+                                    <th colspan="1">Other Expenses</th>
+                                    <th colspan="1">Pay</th>
+                                    <th colspan="1">Travel Pay</th>
+                                    <th colspan="1">Mileage</th>
+                                    <th colspan="1">Other Expenses</th>
+                                    <th colspan="1">Pay</th>
+                                    <th colspan="1">Travel Pay</th>
+                                    <th colspan="1">Mileage</th>
+                                    <th colspan="1">Other Expenses</th>
+                                    <th colspan="1">Pay</th>
+                                    <th colspan="1">Travel Pay</th>
+                                    <th colspan="1">Mileage</th>
+                                    <th colspan="1">Other Expenses</th>
+                                    <th colspan="1">Pay</th>
+                                    <th colspan="1">Travel Pay</th>
+                                    <th colspan="1">Mileage</th>
+                                    <th colspan="1">Other Expenses</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr>
+                                    <td colspan="1">Landiwe`</td>
+                                    <td colspan="1">AUGUST</td>
+                                    <td colspan="1">0.00</td>
+                                    <td colspan="1">0.00</td>
+                                    <td colspan="1">0.87</td>
+                                    <td colspan="1">0.00</td>
+                                    <td colspan="1">0.00</td>
+                                    <td colspan="1">0.00</td>
+                                    <td colspan="1">4.88</td>
+                                    <td colspan="1">0.00</td>
+                                    <td colspan="1"></td>
+                                    <td colspan="1"></td>
+                                    <td colspan="1"></td>
+                                    <td colspan="1"></td>
+                                    <td colspan="1">0.00</td>
+                                    <td colspan="1">0.00</td>
+                                    <td colspan="1">0.83</td>
+                                    <td colspan="1">0.00</td>
+                                    <td colspan="1">823.50</td>
+                                    <td colspan="1">0.00</td>
+                                    <td colspan="1">33.65</td>
+                                    <td colspan="1">0.00</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1">Sara</td>
+                                    <td colspan="1">Chibante</td>
+                                    <td colspan="1">391.50</td>
+                                    <td colspan="1">0.00</td>
+                                    <td colspan="1">36.97</td>
+                                    <td colspan="1"></td>
+                                    <td colspan="1"></td>
+                                    <td colspan="1"></td>
+                                    <td colspan="1"></td>
+                                    <td colspan="1">364.50</td>
+                                    <td colspan="1">0.00</td>
+                                    <td colspan="1">23.66</td>
+                                    <td colspan="1">0.00</td>
+                                    <td colspan="1">837.00</td>
+                                    <td colspan="1">0.00</td>
+                                    <td colspan="1">45.79</td>
+                                    <td colspan="1">0.83</td>
+                                    <td colspan="1">0.00</td>
+                                    <td colspan="1">823.50</td>
+                                    <td colspan="1">0.00</td>
+                                    <td colspan="1">33.65</td>
+                                    <td colspan="1">0.00</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1">Landiwe`</td>
+                                    <td colspan="1">AUGUST</td>
+                                    <td colspan="1">0.00</td>
+                                    <td colspan="1">0.00</td>
+                                    <td colspan="1">0.87</td>
+                                    <td colspan="1">0.00</td>
+                                    <td colspan="1">0.00</td>
+                                    <td colspan="1">0.00</td>
+                                    <td colspan="1">4.88</td>
+                                    <td colspan="1">0.00</td>
+                                    <td colspan="1"></td>
+                                    <td colspan="1"></td>
+                                    <td colspan="1"></td>
+                                    <td colspan="1"></td>
+                                    <td colspan="1">0.00</td>
+                                    <td colspan="1">0.00</td>
+                                    <td colspan="1">0.83</td>
+                                    <td colspan="1">0.00</td>
+                                    <td colspan="1">823.50</td>
+                                    <td colspan="1">0.00</td>
+                                    <td colspan="1">33.65</td>
+                                    <td colspan="1">0.00</td>
+                                </tr>
+                            </tbody>
+                            
+
+                            <tfoot id="calculationRow">
+                                <!-- The footer row for displaying sums -->
+                                <tr>
+                                  <th colspan="2"></th>
+                                  <th id="PaySum">0.00</th>
+                                  <th id="TravelPaySum">0.00</th>
+                                  <th id="MileageSum">0.00</th>
+                                  <th id="ExpensesSum">0.00</th>
+                    
+                                    <th id="Pay2">0.00</th>
+                                    <th id="Travel2">0.00</th>
+                                    <th id="Mileage2">0.00</th>
+                                    <th id="Expenses2">0.00</th>
+                    
+                                    <th id="Pay3">0.00</th>
+                                    <th id="Travel3">0.00</th>
+                                    <th id="Mileage3">0.00</th>
+                                    <th id="Expenses3">0.00</th>
+                    
+                                    <th id="Pay4">0.00</th>
+                                    <th id="Travel4">0.00</th>
+                                    <th id="Mileage4">0.00</th>
+                                    <th id="Expenses4">0.00</th>
+                    
+                                    <th id="Pay5">0.00</th>
+                                    <th id="Travel5">0.00</th>
+                                    <th id="Mileage5">0.00</th>
+                                    <th id="Expenses5">0.00</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+             
+                    </div>
+                </div>
+            </div>
+            
+
+
+            <!-- Your existing HTML code -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    // Get the current date in the format "YYYY-MM-DD"
+    function getFormattedDate(date) {
+        const year = date.getFullYear();
+        let month = date.getMonth() + 1;
+        let day = date.getDate();
+
+        // Add leading zero for single-digit months and days
+        month = month < 10 ? `0${month}` : month;
+        day = day < 10 ? `0${day}` : day;
+
+        return `${year}-${month}-${day}`;
+    }
+
+    // Set the input field value to the date 10 days before the current date
+    const today = new Date();
+    const startDate = new Date(today);
+    startDate.setDate(today.getDate() - 10);
+
+    const customDateInput = document.getElementById('customDateInput');
+    customDateInput.value = getFormattedDate(startDate);
+
+   
+   
+
+
+    $(document).ready(function () {
+        // Iterate through each column
+        for (let i = 1; i <= 5; i++) { // Assuming there are 5 columns for each visit type
+            let paySum = 0;
+            let travelPaySum = 0;
+            let mileageSum = 0;
+            let expensesSum = 0;
+
+            // Iterate through each row
+            $('tbody tr').each(function () {
+                // Get the values from each corresponding cell in the current row
+                let pay = parseFloat($(this).find('td:eq(' + (4 * i - 4) + ')').text()) || 0;
+                let travelPay = parseFloat($(this).find('td:eq(' + (4 * i - 3) + ')').text()) || 0;
+                let mileage = parseFloat($(this).find('td:eq(' + (4 * i - 2) + ')').text()) || 0;
+                let expenses = parseFloat($(this).find('td:eq(' + (4 * i - 1) + ')').text()) || 0;
+
+                // Add the values to the sum
+                paySum += pay;
+                travelPaySum += travelPay;
+                mileageSum += mileage;
+                expensesSum += expenses;
+            });
+
+            // Update the footer with the sum values
+            $('#Pay' + i).text(paySum.toFixed(2));
+            $('#Travel' + i).text(travelPaySum.toFixed(2));
+            $('#Mileage' + i).text(mileageSum.toFixed(2));
+            $('#Expenses' + i).text(expensesSum.toFixed(2));
+        }
+    });
+</script>
+
+
+
+
+
+
+
+            <!-- END PAGE CONTENT-->
+
+{% endblock content %}
+

@@ -72,6 +72,15 @@ def UserCreatePage(request):
         uplead4 = BankDetails(detail_of_id=usr.id)     
         uplead4.save()
         
+        contact = ContactInformation(detail_of_id=usr.id)
+        contact.save()
+        
+        address = AddressInformation(detail_of_id=usr.id)
+        address.save()
+        
+        qualifica = Qualification(detail_of_id=usr.id)
+        qualifica.save()
+        
         messages.error(request,"Your register successfully")
         return redirect(f'/admin-panel/edit-user/{ usr.id }')
     else:
@@ -178,6 +187,24 @@ def StaffTable(request):
 
 
 
+def StaffContact(request):
+    
+    return render(request, "admin_temp/staff-contact.html")
+
+def NOK_staff(request):
+    return render(request, "admin_temp/nok.html")
+
+
+def StaffQualification(request):
+    return render(request, "admin_temp/staff-Qualification.html")
+
+
+def StaffEquipment(request):
+    return render(request, "admin_temp/staff-equpment.html")
+
+def StaffSchedule(request):
+    return render(request, "admin_temp/staff-schedule.html")
+
 
 # Plan functionality
 def Capacity(request):
@@ -204,9 +231,22 @@ def PlannedMonthlyHoursComparison(request):
 def RegularCareHours(request):
     return render(request, "admin_temp/RegularCareHours.html")
 
+# Schedule Section
+
+def ListView(request):
+    current_date = datetime.today()
+    print(current_date)
+    return render(request, "admin_temp/ListView.html", {'current_date':current_date})
+
+
+
+# Deliver
+
 def MobileUserVersion(request):
     return render(request, "admin_temp/MobileUserVersion.html")
 
+
+# Monitor
 
 def CheckInOutData(request):
     return render(request, "admin_temp/CheckInOutData.html")
@@ -224,5 +264,83 @@ def MedicationAdministration(request):
 def PlannedVsActual(request):
     return render(request, "admin_temp/PlannedVsActual.html")
 
+# Finance 
+def Funders(request):
+    return render(request, "admin_temp/funders.html")
+
+def ArchivedFunders(request):
+    return render(request, "admin_temp/ArchivedFunders.html")
 
 
+def AddFunders(request):
+    return render(request, "admin_temp/funderadd.html")
+
+
+def FunderAccount(request):
+    return render(request, "admin_temp/funderaccount.html")
+
+def FunderInvoices(request):
+    return render(request, "admin_temp/funderInvoices.html")
+
+
+def FinanceInvoices(request):
+    return render(request, "admin_temp/financeInvoices.html")
+
+def FinanceAccount(request):
+    return render(request, "admin_temp/financeaccount.html")
+
+
+def PayrollComparison(request):
+    return render(request, "admin_temp/PayrollComparison.html")
+
+def SageInvoiceExtract(request):
+    return render(request, "admin_temp/Sageinvoiceextract.html")
+
+# Finence Setting
+def SpecialDays(request):
+    return render(request, "admin_temp/SpecialDays.html")
+
+def TravelTypes(request):
+    return render(request, "admin_temp/TravelTypes.html")
+
+
+# Settings Sections
+def AppSetting(request):
+    return render(request, "admin_temp/appsetting.html")
+
+def AppSettingLandingcall(request):
+    return render(request, "admin_temp/appsettingladline.html")
+
+def AppSettingSMSMassaging(request):
+    return render(request, "admin_temp/appsettingSMSMassaging.html")
+
+def AppSettingIntegration(request):
+    return render(request, "admin_temp/appsettingIntegration.html")
+
+def JobRole(request):
+    return render(request, "admin_temp/jobrole.html")
+
+def EditJobRole(request):
+    return render(request, "admin_temp/editjobrole.html")
+
+def MasterMedication(request):
+    return render(request, "admin_temp/master-medication.html")
+
+
+def NoteCategories(request):
+    return render(request, "admin_temp/NoteCategories.html")
+
+def MasterRegions(request):
+    return render(request, "admin_temp/master-regions.html")
+
+def MasterServiceTypes(request):
+    return render(request, "admin_temp/master-ServiceTypes.html")
+
+def MasterTraingSkillQuali(request):
+    return render(request, "admin_temp/master-TraingSkillQuali.html")
+
+def MasterVisitType(request):
+    return render(request, "admin_temp/master-visittype.html")
+
+def SetAdminRates(request):
+    return render(request, "admin_temp/SetAdminRates.html")

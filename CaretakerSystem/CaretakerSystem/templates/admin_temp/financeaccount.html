@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+{% extends "admin_temp/capacity.html" %}
+{% load static %}
+{% block content %}
+
+        <!-- END SIDEBAR-->
+        <div class="content-wrapper">
+            <!-- START PAGE CONTENT-->
+            <div class="page-heading">
+                <div style="padding-top:10px;padding-bottom: 0px;">
+                    
+                    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                        <a class="navbar-brand" href="/admin-panel/index/" style="color:skyblue;">Dashboard</a>
+                        
+                        <span>/</span>
+                        <a class="nav-link" href="#" style="color:skyblue;">Finance </a>
+                        <span>/</span>
+                        <a class="nav-link" href="#" style="color:skyblue;">Funders </a>
+                        <span>/</span>
+                        <a class="nav-link" href="#" style="color:#c5c5c5;">Add Funders</a>
+                      </nav>
+                </div>
+            </div>
+
+            
+           
+            <style>
+                .button-container {
+                    display: flex;
+                    justify-content: space-between;
+                    padding: 10px;
+                    border-radius: 5px;
+                    max-width: 100%;
+                    margin: auto;
+                    background-color: #c8c8c8;
+                }
+            
+                .button-container button {
+                    padding: 10px;
+                    margin-right: 10px; /* Add margin between buttons */
+                    background-color: #337ab7;
+                    color: white;
+                    border: none;
+                    border-radius: 4px;
+                    cursor: pointer;
+                }
+            
+                .dropdown {
+                    margin-left: auto;
+                }
+            
+                .dropdown select {
+                    padding: 10px;
+                }
+
+
+
+                .datepicker-container {
+                    display: inline-block;
+                  }
+              
+                  .datepicker-container input {
+                    padding: 5px;
+                    font-size: 16px;
+                    border: 1px solid #ccc;
+                    border-radius: 3px;
+                  }
+
+
+
+                #myForm {
+                    display: none; /* Hide the form by default */
+                    max-width: 500px;
+                    position: relative;
+                    padding: 20px;
+                  }
+              
+                #customDateInput {
+                    width: 85%;
+                    padding: 5px;
+                    margin-bottom: 16px;
+                    box-sizing: border-box;
+                }
+                .page-content {
+                    padding-top: 2px !important;
+                }
+                .bor{
+                    padding: 7px;
+                    border: 2px solid #ff6600;
+                    border-right: none;
+                    border-left: none;
+                    font-weight: bold;                                          
+                }
+                .box{
+                    width: 200px;
+                    align: center;
+                    
+                }
+
+                .datepicker-container {
+                    display: inline-block;
+                }
+        
+                .datepicker-container input {
+                    padding: 10px;
+                    font-size: 14px;
+                    border: 1px solid #ccc;
+                    border-radius: 3px;
+                }
+
+                #additionalFunctionalityContainer {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                }
+        
+                #additionalFunctionality {
+                    display: none;
+                    padding: 2px;
+                    border-radius: 5px;
+                    margin-top: 0px;
+                    text-align: left;
+                }
+        
+                #searchField {
+                    padding: 0px;
+                    margin-right: 0px;
+                    text-align: left;
+                }
+        
+                #searchButton,
+                #copyClipboardButton,
+                .dropdown-toggle {
+                    padding: 0px;
+                    margin-right: 0px;
+                    cursor: pointer;
+                }
+        
+                .dropdown {
+                    display: inline-block;
+                }
+        
+                .dropdown-menu {
+                    min-width: 70%;
+                    position: absolute;
+                }   
+               
+                .table tbody tr{
+                    font-size: 12px;
+                }
+                .table tbody tr:hover {
+                    background-color: #B3FF00; /* Change this to the desired green color */                    
+                }
+                th{
+                    background-color: #686868;
+                    color: #ffffff;
+                }
+
+
+                .column {
+                    float: right;
+                    width: 410px;
+                    padding: 10px;
+                    height: auto; /* Should be removed. Only for demonstration */
+                }
+                  
+                /* Clear floats after the columns */
+                .row:after {
+                    content: "";
+                    display: table;
+                    clear: both;
+                  }
+                .searchbox{
+                    margin-left: 20px;
+                }
+                  
+            </style>
+
+
+
+
+
+
+
+            
+
+
+
+            
+            <div class="page-content fade-in-up">
+                <div class="ibox">
+                   
+                    <div class="ibox-body">
+                        <p><strong>Select Dates</strong> - use this to select the dates you wish to run the account report for</p>
+                        <form class="form-inline">
+                            <label class="sr-only" for="ex-email"></label>
+                            <input class="form-control mb-2 mr-sm-2 mb-sm-0" id="ex-email" type="date">
+                            <label class="sr-only" for="ex-pass"></label>
+                            <input class="form-control mb-2 mr-sm-2 mb-sm-0" id="ex-pass" type="date" >
+                            
+                            <button class="btn btn-info" id="getAccountsButton" type="submit">Get Accounts</button>
+
+                            <div class="form-check mb-2 mr-sm-2 mb-sm-0">
+                                <span style="padding-left: 10px;">                                    
+                                    <span class="input-span"></span><span onclick="toggleSearchbox()">Advanced Search</span></span>
+                            </div>
+                        </form>
+                    </div>
+
+
+                    <div class="searchbox" id="additionalFunctionality" style="display: none;">
+                    <div class="row">
+                        <div class="column">
+                            <p><strong>Times to charge Service User</strong> - choose whether you want to charge the Service User for the actual time or for the scheduled time</p>
+                          <div>
+                            <input type="radio" id="contactChoice1" name="contact" value="email" />
+                            <label for="contactChoice1">Actual Times</label>
+                      
+                            <input type="radio" id="contactChoice2" name="contact" value="phone" />
+                            <label for="contactChoice2">Scheduled Times</label>
+                          </div>
+                        </div>
+                        <div class="column">
+                            <p><strong>Rows</strong> - number of rows to display</p>
+                            <div class="dropdown">
+                                <select>
+                                    <option value="20">20</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                </select>    
+                                
+                            </div>
+
+                            <p><strong>Regions</strong> - filter self funded Service Users by region</p>
+                            <div class="dropdown">
+                                <select>
+                                    <option value="hidden">-Select-</option>
+                                    <option value="50">Berkshire</option>
+                                    <option value="100">Hampshire</option>
+                                    <option value="100">London, Hounslow</option>
+                                </select>    
+                                
+                            </div>
+
+                            <p><strong>Funders</strong> - filter by funder</p>
+                            <button class="btn btn-primary">Self Funded + All Funders</button> <button class="btn btn-info">All Funders Only</button>
+                            <div class="select select-multiple" style="padding:10px;">
+                                <select id="multi-select" multiple>
+                                  <option value="MIaM">Self Funded</option>
+                                  <option value="PL">BRACKNELL FOREST COUNCIL</option>
+                                  <option value="SA">Hampshire CC</option>
+                                  <option value="NQ">London Borough of Hounslow</option>
+                                  <option value="11:11">NHS HAMPSHIRE AND ISLE OF WIGHT INTEGRATED CARE BOARD</option>
+                                  <option value="UV">NHS NORTH WEST LONDON ICB</option>
+                                  <option value="TC">North West London CCG, Hammersmith and Fulham</option>
+                                </select>
+                                <span class="focus"></span>
+                        </div>
+                        <div class="column">
+                            <button class="btn btn-info" type="submit">Get Accounts</button>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+
+                    <table class="table table-striped" id="example-table" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Date</th>     
+                                <th>Time</th>
+                                <th>Visit</th>
+                                <th>Staff</th>
+                                <th>Location</th>
+                                <th>Service User</th>
+                                <th>Hours</th>
+                                <th>Charge</th>
+                                <th>Total Cost</th>
+                                <th>Invoice</th>         
+                            </tr>
+                        </thead>
+                        
+                        <tbody>
+                            <tr>
+                                <td>99,885</td>
+                                <td></td>
+                                <td>Self Funded</td>
+                                <td></td>
+                                <td></td>
+                                <td>17/02/24</td>
+                                <td>Saturday</td>
+                                <td>09:00</td>
+                                <td>09:40</td>
+                                <td>0.67</td>
+                                <td>40</td>
+                            </tr>
+                            <tr>
+                                <td>99,885</td>
+                                <td></td>
+                                <td>Self Funded</td>
+                                <td></td>
+                                <td></td>
+                                <td>17/02/24</td>
+                                <td>Saturday</td>
+                                <td>09:00</td>
+                                <td>09:40</td>
+                                <td>0.67</td>
+                                <td>40</td>
+                            </tr>
+
+                            <tr>
+                                <td>99,885</td>
+                                <td></td>
+                                <td>Self Funded</td>
+                                <td></td>
+                                <td></td>
+                                <td>17/02/24</td>
+                                <td>Saturday</td>
+                                <td>09:00</td>
+                                <td>09:40</td>
+                                <td>0.67</td>
+                                <td>40</td>
+                            </tr>
+
+                            <tr>
+                                <td>99,885</td>
+                                <td></td>
+                                <td>Self Funded</td>
+                                <td></td>
+                                <td></td>
+                                <td>17/02/24</td>
+                                <td>Saturday</td>
+                                <td>09:00</td>
+                                <td>09:40</td>
+                                <td>0.67</td>
+                                <td>40</td>
+                            </tr>
+
+                            <tr>
+                                <td>99,885</td>
+                                <td></td>
+                                <td>Self Funded</td>
+                                <td></td>
+                                <td></td>
+                                <td>17/02/24</td>
+                                <td>Saturday</td>
+                                <td>09:00</td>
+                                <td>09:40</td>
+                                <td>0.67</td>
+                                <td>40</td>
+                            </tr>
+
+                            <tr>
+                                <td>99,885</td>
+                                <td></td>
+                                <td>Self Funded</td>
+                                <td></td>
+                                <td></td>
+                                <td>17/02/24</td>
+                                <td>Saturday</td>
+                                <td>09:00</td>
+                                <td>09:40</td>
+                                <td>0.67</td>
+                                <td>40</td>
+                            </tr>
+
+                            <tr>
+                                <td>99,885</td>
+                                <td></td>
+                                <td>Self Funded</td>
+                                <td></td>
+                                <td></td>
+                                <td>17/02/24</td>
+                                <td>Saturday</td>
+                                <td>09:00</td>
+                                <td>09:40</td>
+                                <td>0.67</td>
+                                <td>40</td>
+                            </tr>
+
+                            <tr>
+                                <td>99,885</td>
+                                <td></td>
+                                <td>Self Funded</td>
+                                <td></td>
+                                <td></td>
+                                <td>17/02/24</td>
+                                <td>Saturday</td>
+                                <td>09:00</td>
+                                <td>09:40</td>
+                                <td>0.67</td>
+                                <td>40</td>
+                            </tr>
+                        </tbody>
+
+                        
+                        
+                    </table>
+                </div>
+                
+            </div>      
+                    
+
+                    
+
+
+            <!-- Your existing HTML code -->
+
+<script>
+    function toggleAdditionalFunctionality() {
+        const additionalFunctionality = document.getElementById('additionalFunctionality');
+        additionalFunctionality.style.display = additionalFunctionality.style.display === 'none' ? 'block' : 'none';
+    }
+
+
+    // Get the current date in the format "YYYY-MM-DD"
+    function getCurrentDate() {
+        const today = new Date();
+        const year = today.getFullYear();
+        let month = today.getMonth() + 1;
+        let day = today.getDate();
+
+        // Add leading zero for single-digit months and days
+        month = month < 10 ? `0${month}` : month;
+        day = day < 10 ? `0${day}` : day;
+
+        return `${year}-${month}-${day}`;
+    }
+
+    // Set the input field value to the current date
+    const customDateInput = document.getElementById('customDateInput');
+    customDateInput.value = getCurrentDate();
+
+    // Define the runReport function
+    function runReport() {
+        // Hide the date selection box
+        const dateSelectionBox = document.getElementById('dateSelectionBox');
+        dateSelectionBox.style.display = 'none';
+
+        // Show the data table container
+        const dataTableContainer = document.getElementById('dataTableContainer');
+        dataTableContainer.style.display = 'block';
+    }
+
+
+    function toggleSearchbox() {
+        var searchbox = document.querySelector('.searchbox');
+        var getAccountsButton = document.getElementById('getAccountsButton');   
+
+        // Toggle the visibility of searchbox and the "Get Accounts" button
+        searchbox.style.display = searchbox.style.display === 'none' ? 'block' : 'none';
+        getAccountsButton.style.display = 'none';
+    }
+</script>
+
+
+
+
+
+
+            <!-- END PAGE CONTENT-->
+
+{% endblock content %}
+

@@ -172,6 +172,13 @@
             
                 th {
                     background-color: #f2f2f2;
+                    position: sticky;
+                    top: 0;
+                    z-index: 2;
+                }
+                .table-container {
+                    max-height: 400px; /* Set the maximum height of the table */
+                    overflow-y: auto; /* Enable vertical scrollbar when content overflows */
                 }
             
             </style>
@@ -234,9 +241,9 @@
 
                         <div class="ibox-title" style="padding-top: 10px;">Invoiced?: 
                             <div class="datepicker-container">
-                                <input type="radio" name="All" checked>All
-                                <input type="radio" name="Invoiced">Invoiced
-                                <input type="radio" name="Not Yet Invoiced">Not Yet Invoiced
+                                <input type="radio" id="contactChoice1" name="content" value="All" />All
+                                <input type="radio" id="contactChoice1" name="content" value="Invoiced" />Invoiced
+                                <input type="radio" id="contactChoice1" name="content" value="Not Yet Invoiced" />Not Yet Invoiced
                             </div>
                         </div>
 
@@ -292,6 +299,8 @@
                             // Add logic for running the report
                         }
                     </script>
+
+                    <div class="table-container">
                     <table class="table table-striped" id="example-table" cellspacing="0" width="100%">
                         <thead>
                             <tr>
@@ -322,127 +331,224 @@
                         
                         <tbody>
                             <tr>
-                                <td>Alexander, Jean</td>
-                                <td>LAXIDO ORANGE POWDER FOR ORAL SOLUTION</td>
-                                <td>PRN</td>
-                                <td>1</td>
-                                <td>A</td>
+                                <td>99,885</td>
+                                <td></td>
+                                <td>Self Funded</td>
                                 <td></td>
                                 <td></td>
-                                <td>2024-02-27</td>
-                                <td></td>
-                                <td>154</td>
-                                <td>Nwaneri, Halimat</td>
-                                <td>09:15:11</td>
-                                <td>2024-02-27</td>
-                                <td></td>
-                                <td>154</td>
-                                <td>Nwaneri, Halimat</td>
-                                <td>09:15:11</td>
-                                
+                                <td>17/02/24</td>
+                                <td>Saturday</td>
+                                <td>09:00</td>
+                                <td>09:40</td>
+                                <td>0.67</td>
+                                <td>40</td>
+                                <td>09:00</td>
+                                <td>09:40</td>
+                                <td>0.67</td>
+                                <td>40</td>
+                                <td>Supervision</td>
+                                <td>09:00</td>
+                                <td>09:40</td>
+                                <td>0.67</td>
+                                <td>40</td>
+                                <td>0</td>
+                                <td>0</td>
                             </tr>
                             <tr>
-                                <td>Alexander, Jean</td>
-                                <td>LAXIDO ORANGE POWDER FOR ORAL SOLUTION</td>
-                                <td>PRN</td>
-                                <td>1</td>
-                                <td>A</td>
+                                <td>99,885</td>
+                                <td></td>
+                                <td>Self Funded</td>
                                 <td></td>
                                 <td></td>
-                                <td>2024-02-27</td>
-                                <td></td>
-                                <td>154</td>
-                                <td>Nwaneri, Halimat</td>
-                                <td>09:15:11</td>
+                                <td>17/02/24</td>
+                                <td>Saturday</td>
+                                <td>09:00</td>
+                                <td>09:40</td>
+                                <td>0.67</td>
+                                <td>40</td>
+                                <td>09:00</td>
+                                <td>09:40</td>
+                                <td>0.67</td>
+                                <td>40</td>
+                                <td>Supervision</td>
+                                <td>09:00</td>
+                                <td>09:40</td>
+                                <td>0.67</td>
+                                <td>40</td>
+                                <td>0</td>
+                                <td>0</td>
                             </tr>
+
                             <tr>
-                                <td>Alexander, Jean</td>
-                                <td>LAXIDO ORANGE POWDER FOR ORAL SOLUTION</td>
-                                <td>PRN</td>
-                                <td>1</td>
-                                <td>A</td>
+                                <td>99,885</td>
+                                <td></td>
+                                <td>Self Funded</td>
                                 <td></td>
                                 <td></td>
-                                <td>2024-02-27</td>
-                                <td></td>
-                                <td>154</td>
-                                <td>Nwaneri, Halimat</td>
-                                <td>09:15:11</td>
+                                <td>17/02/24</td>
+                                <td>Saturday</td>
+                                <td>09:00</td>
+                                <td>09:40</td>
+                                <td>0.67</td>
+                                <td>40</td>
+                                <td>09:00</td>
+                                <td>09:40</td>
+                                <td>0.67</td>
+                                <td>40</td>
+                                <td>Supervision</td>
+                                <td>09:00</td>
+                                <td>09:40</td>
+                                <td>0.67</td>
+                                <td>40</td>
+                                <td>0</td>
+                                <td>0</td>
                             </tr>
+
                             <tr>
-                                <td>Alexander, Jean</td>
-                                <td>LAXIDO ORANGE POWDER FOR ORAL SOLUTION</td>
-                                <td>PRN</td>
-                                <td>1</td>
-                                <td>A</td>
+                                <td>99,885</td>
+                                <td></td>
+                                <td>Self Funded</td>
                                 <td></td>
                                 <td></td>
-                                <td>2024-02-27</td>
-                                <td></td>
-                                <td>154</td>
-                                <td>Nwaneri, Halimat</td>
-                                <td>09:15:11</td>
+                                <td>17/02/24</td>
+                                <td>Saturday</td>
+                                <td>09:00</td>
+                                <td>09:40</td>
+                                <td>0.67</td>
+                                <td>40</td>
+                                <td>09:00</td>
+                                <td>09:40</td>
+                                <td>0.67</td>
+                                <td>40</td>
+                                <td>Supervision</td>
+                                <td>09:00</td>
+                                <td>09:40</td>
+                                <td>0.67</td>
+                                <td>40</td>
+                                <td>0</td>
+                                <td>0</td>
                             </tr>
+
                             <tr>
-                                <td>Alexander, Jean</td>
-                                <td>LAXIDO ORANGE POWDER FOR ORAL SOLUTION</td>
-                                <td>PRN</td>
-                                <td>1</td>
-                                <td>A</td>
+                                <td>99,885</td>
+                                <td></td>
+                                <td>Self Funded</td>
                                 <td></td>
                                 <td></td>
-                                <td>2024-02-27</td>
-                                <td></td>
-                                <td>154</td>
-                                <td>Nwaneri, Halimat</td>
-                                <td>09:15:11</td>
+                                <td>17/02/24</td>
+                                <td>Saturday</td>
+                                <td>09:00</td>
+                                <td>09:40</td>
+                                <td>0.67</td>
+                                <td>40</td>
+                                <td>09:00</td>
+                                <td>09:40</td>
+                                <td>0.67</td>
+                                <td>40</td>
+                                <td>Supervision</td>
+                                <td>09:00</td>
+                                <td>09:40</td>
+                                <td>0.67</td>
+                                <td>40</td>
+                                <td>0</td>
+                                <td>0</td>
                             </tr>
+
                             <tr>
-                                <td>Alexander, Jean</td>
-                                <td>LAXIDO ORANGE POWDER FOR ORAL SOLUTION</td>
-                                <td>PRN</td>
-                                <td>1</td>
-                                <td>A</td>
+                                <td>99,885</td>
+                                <td></td>
+                                <td>Self Funded</td>
                                 <td></td>
                                 <td></td>
-                                <td>2024-02-27</td>
-                                <td></td>
-                                <td>154</td>
-                                <td>Nwaneri, Halimat</td>
-                                <td>09:15:11</td>
+                                <td>17/02/24</td>
+                                <td>Saturday</td>
+                                <td>09:00</td>
+                                <td>09:40</td>
+                                <td>0.67</td>
+                                <td>40</td>
+                                <td>09:00</td>
+                                <td>09:40</td>
+                                <td>0.67</td>
+                                <td>40</td>
+                                <td>Supervision</td>
+                                <td>09:00</td>
+                                <td>09:40</td>
+                                <td>0.67</td>
+                                <td>40</td>
+                                <td>0</td>
+                                <td>0</td>
                             </tr>
+
                             <tr>
-                                <td>Alexander, Jean</td>
-                                <td>LAXIDO ORANGE POWDER FOR ORAL SOLUTION</td>
-                                <td>PRN</td>
-                                <td>1</td>
-                                <td>A</td>
+                                <td>99,885</td>
+                                <td></td>
+                                <td>Self Funded</td>
                                 <td></td>
                                 <td></td>
-                                <td>2024-02-27</td>
-                                <td></td>
-                                <td>154</td>
-                                <td>Nwaneri, Halimat</td>
-                                <td>09:15:11</td>
+                                <td>17/02/24</td>
+                                <td>Saturday</td>
+                                <td>09:00</td>
+                                <td>09:40</td>
+                                <td>0.67</td>
+                                <td>40</td>
+                                <td>09:00</td>
+                                <td>09:40</td>
+                                <td>0.67</td>
+                                <td>40</td>
+                                <td>Supervision</td>
+                                <td>09:00</td>
+                                <td>09:40</td>
+                                <td>0.67</td>
+                                <td>40</td>
+                                <td>0</td>
+                                <td>0</td>
                             </tr>
+
                             <tr>
-                                <td>Alexander, Jean</td>
-                                <td>LAXIDO ORANGE POWDER FOR ORAL SOLUTION</td>
-                                <td>PRN</td>
-                                <td>1</td>
-                                <td>A</td>
+                                <td>99,885</td>
+                                <td></td>
+                                <td>Self Funded</td>
                                 <td></td>
                                 <td></td>
-                                <td>2024-02-27</td>
-                                <td></td>
-                                <td>154</td>
-                                <td>Nwaneri, Halimat</td>
-                                <td>09:15:11</td>
+                                <td>17/02/24</td>
+                                <td>Saturday</td>
+                                <td>09:00</td>
+                                <td>09:40</td>
+                                <td>0.67</td>
+                                <td>40</td>
+                                <td>09:00</td>
+                                <td>09:40</td>
+                                <td>0.67</td>
+                                <td>40</td>
+                                <td>Supervision</td>
+                                <td>09:00</td>
+                                <td>09:40</td>
+                                <td>0.67</td>
+                                <td>40</td>
+                                <td>0</td>
+                                <td>0</td>
                             </tr>
                         </tbody>
 
                         
+                        <tfoot id="calculationRow">
+                            <tr>
+                                <th colspan="8"></th>
+                                <th id="Planned_Hours">0.00</th>
+                                <th id="Planned_Mins">0.00</th>
+                                <th colspan="2"></th>
+                                <th id="Scheduled_Hours">0.00</th>
+                                <th id="Scheduled_Mins">0.00</th>
+                                <th colspan="3"></th>
+                                <th id="Actual_Hours">0.00</th>
+                                <th id="Actual_Mins">0.00</th>
+                                <th id="Difference_Planned">0.00</th>
+                                <th id="Difference_Scheduled">0.00</th>
+                                <th colspan="1"></th>
+                            </tr>
+                        </tfoot>
                     </table>
+                </div>
                     
                 </div>
             </div>
@@ -507,48 +613,48 @@
         calculateAverages();
     });
 
-    function calculateAverages() {
-        // Select the table body
-        const tbody = document.querySelector("#example-table tbody");
+    document.addEventListener("DOMContentLoaded", function () {
+        // Calculate and display values for Planned_Hours, Planned_Mins, Scheduled_Hours, Scheduled_Mins,
+        // Actual_Hours, Actual_Mins, Difference(Planned), Difference(Scheduled) for each row
+        calculateValues();
+    });
 
-        // Select the rows in the table body
-        const rows = tbody.querySelectorAll("tr");
+    window.onload = function() {
+        calculateSums();
+    };
 
-        // Initialize variables to store column totals
-        let totalEarlyArrival = 0;
-        let totalLateDeparture = 0;
-        let totalCheckInDistance = 0;
-        let totalCheckOutDistance = 0;
+    function calculateSums() {
+        var table = document.getElementById('example-table');
+        var rows = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
 
-        // Iterate over each row in the table
-        rows.forEach((row) => {
-            // Get the values from the columns
-            const earlyArrival = parseInt(row.cells[7].textContent);
-            const lateDeparture = parseInt(row.cells[8].textContent);
-            const checkInDistance = parseFloat(row.cells[13].textContent);
-            const checkOutDistance = parseFloat(row.cells[15].textContent);
+        var sumPlannedHours = 0, sumPlannedMins = 0;
+        var sumScheduledHours = 0, sumScheduledMins = 0;
+        var sumActualHours = 0, sumActualMins = 0;
+        var sumDiffPlanned = 0, sumDiffScheduled = 0;
 
-            // Add the values to the totals
-            totalEarlyArrival += isNaN(earlyArrival) ? 0 : earlyArrival;
-            totalLateDeparture += isNaN(lateDeparture) ? 0 : lateDeparture;
-            totalCheckInDistance += isNaN(checkInDistance) ? 0 : checkInDistance;
-            totalCheckOutDistance += isNaN(checkOutDistance) ? 0 : checkOutDistance;
-        });
+        for (var i = 0; i < rows.length; i++) {
+            var cells = rows[i].getElementsByTagName('td');
 
-        // Calculate the averages
-        const rowCount = rows.length;
-        const averageEarlyArrival = totalEarlyArrival / rowCount;
-        const averageLateDeparture = totalLateDeparture / rowCount;
-        const averageCheckInDistance = totalCheckInDistance / rowCount;
-        const averageCheckOutDistance = totalCheckOutDistance / rowCount;
+            sumPlannedHours += parseFloat(cells[8].innerText);
+            sumPlannedMins += parseFloat(cells[9].innerText);
+            sumScheduledHours += parseFloat(cells[12].innerText);
+            sumScheduledMins += parseFloat(cells[13].innerText);
+            sumActualHours += parseFloat(cells[16].innerText);
+            sumActualMins += parseFloat(cells[17].innerText);
+            sumDiffPlanned += parseFloat(cells[20].innerText);
+            sumDiffScheduled += parseFloat(cells[21].innerText);
+        }
 
-        // Update the totals in the table footer
-        document.getElementById("totalMonth1").textContent = averageEarlyArrival.toFixed(2);
-        document.getElementById("totalMonth2").textContent = averageLateDeparture.toFixed(2);
-        document.getElementById("totalMonth4").textContent = averageCheckInDistance.toFixed(2);
-        document.getElementById("totalMonth6").textContent = averageCheckOutDistance.toFixed(2);
+        // Update the footer cells with the calculated sums
+        document.getElementById('Planned_Hours').innerText = sumPlannedHours.toFixed(2);
+        document.getElementById('Planned_Mins').innerText = sumPlannedMins.toFixed(2);
+        document.getElementById('Scheduled_Hours').innerText = sumScheduledHours.toFixed(2);
+        document.getElementById('Scheduled_Mins').innerText = sumScheduledMins.toFixed(2);
+        document.getElementById('Actual_Hours').innerText = sumActualHours.toFixed(2);
+        document.getElementById('Actual_Mins').innerText = sumActualMins.toFixed(2);
+        document.getElementById('Difference_Planned').innerText = sumDiffPlanned.toFixed(2);
+        document.getElementById('Difference_Scheduled').innerText = sumDiffScheduled.toFixed(2);
     }
-
 
 </script>
 

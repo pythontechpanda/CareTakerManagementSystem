@@ -1,6 +1,28 @@
 {% extends "admin_temp/index.html" %}
 {% load static %}
 {% block content %}
+
+<style>
+    .button-container {
+        display: flex;
+    }
+    
+    button {
+        margin-right: 10px; /* Adjust as needed */
+        padding: 10px;
+        color: #000;
+        border: none;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: #08c; /* Darker green color on hover */
+        color: #fff;
+    }
+</style>
         <div class="content-wrapper">
             <!-- START PAGE CONTENT-->
             
@@ -32,6 +54,20 @@
                                 </div>
                               </nav>
                         </div>
+
+                        <div class="button-container">
+                            <button class="btn btn-default">Personal</button>
+                            <a href="/admin-panel/staff-contact/"><button class="btn btn-default">Contact</button></a>
+                            <a href="/admin-panel/staff-nok/"><button class="btn btn-default">NOK</button></a>
+                            <a href="/admin-panel/staff-qualification/"><button class="btn btn-default">Qualifications</button></a>
+                            <a href="/admin-panel/staff-equipment/"><button class="btn btn-default">Equipment</button></a>
+                            <a href="/admin-panel/staff-schedule/"><button class="btn btn-default">Schedule</button></a>
+                            <a href="/admin-panel/staff-contact/"><button class="btn btn-default">Notes</button></a>
+                            <a href="/admin-panel/staff-contact/"><button class="btn btn-default">Avail</button></a>
+                            <a href="/admin-panel/staff-contact/"><button class="btn btn-default">Holiday</button></a>
+                            <a href="/admin-panel/staff-contact/"><button class="btn btn-default">Documents</button></a>
+                            <a href="/admin-panel/staff-contact/"><button class="btn btn-default">Settings</button></a>
+                        </div>
                         <div class="ibox">
                             <div class="ibox-head">
                                 <div class="ibox-title">Personal Information</div>
@@ -44,6 +80,10 @@
                                     </div> {% endcomment %}
                                 </div>
                             </div>
+
+                            
+
+
                             <div class="ibox-body">
                                 {% if get_usr is not None %}
                                 <form method="post" enctype="multipart/form-data">
