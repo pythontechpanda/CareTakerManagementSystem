@@ -1,0 +1,317 @@
+{% extends "admin_temp/index.html" %}
+{% load static %}
+{% block content %}
+
+<style>
+    .button-container {
+        display: flex;
+    }
+    
+    button {
+        margin-right: 10px; /* Adjust as needed */
+        padding: 10px;
+        color: #000;
+        border: none;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: #08c; /* Darker green color on hover */
+        color: #fff;
+    }
+    .vertical-lines {
+        height: 20vh; /* Adjust the height as needed */
+        width: 30vh;
+      }
+      .popup-container {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        padding: 20px;
+        border: 1px solid #ccc;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        z-index: 999;
+        width: 400px;
+    }
+    .popup-container2 {
+        display: none;
+        position: fixed;
+        top: 60%;
+        left: 60%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        padding: 20px;
+        border: 1px solid #ccc;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        z-index: 999;
+        width: 50%;
+        height:70%;
+        overflow: auto;
+        
+    }
+
+    .close-button {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+    }
+    .vertical-div {
+        width: 200px;
+        height: 30px;
+        border:1px solid #e1e1e1;
+        background-color: #ffffff;
+        float: bottom;
+        color: #3498db;
+    }
+    h5 {
+        color:#ffffff;
+        background-color: gray;
+        width:200px;
+        padding: 5px;
+    }
+
+    {
+        box-sizing: border-box;
+      }
+      
+      input[type=text], select, textarea {
+        width: 68%;
+        padding: 6px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        resize: vertical;
+      }
+      
+      label {
+        padding: 12px 12px 12px 0;
+        display: inline-block;
+      }
+      
+      input[type=submit]
+       {
+        background-color: #19b9e4;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        float: right;
+      }
+      
+      input[type=submit]:hover {
+        background-color: #19b9e4;
+      }
+      
+      .container {
+        border-radius: 5px;
+        background-color: #f2f2f2;
+        padding: 20px;
+      }
+      
+      .col-25 {
+        float: left;
+        width: 13%;
+        margin-top: 1px;
+      }
+      
+      .col-75 {
+        float: left;
+        width: 75%;
+        margin-top: 6px;
+      }
+      
+      /* Clear floats after the columns */
+      .row::after {
+        content: "";
+        display: table;
+        clear: both;
+      }
+      
+      /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+      @media screen and (max-width: 600px) {
+        .col-25, .col-75, input[type=submit] {
+          width: 100%;
+          margin-top: 0;
+        }
+      }
+
+
+   
+</style>
+        <div class="content-wrapper">
+            <!-- START PAGE CONTENT-->
+            
+            <div class="page-content fade-in-up">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div style="padding-bottom:10px;">
+                            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                            <a class="navbar-brand" href="/admin-panel/index/" style="color:skyblue;">Dashboard</a>
+                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <span>/</span>
+                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                <ul class="navbar-nav mr-auto">
+                                
+                                
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">App Settings</a>
+                                </li>
+                                
+                                </ul>
+                               
+                            </div>
+                            </nav>
+                        </div>
+
+                        <div class="button-container">
+                            <a href="/admin-panel/app-setting/"><button class="btn btn-default">Account Settings</button></a>
+                            <a href="/admin-panel/app-setting-Landing-call/"><button class="btn btn-default">Landline Call Monitoring</button></a>
+                            <a href="/admin-panel/app-setting-sms-massaging/"><button class="btn btn-default">SMS Messaging</button></a>
+                            <a href="/admin-panel/app-setting-integration/"><button class="btn btn-default">Integrations</button></a>
+                        </div>
+                        <div class="ibox">
+                            <div class="ibox-body">
+                               
+                                    <h5>Offsite Backup</h5>
+
+                                    <div class="container">
+                                        <form action="/action_page.php">
+                                        <div class="row">
+                                          <div class="col-25">
+                                            <label for="fname">SFTP Location</label>
+                                          </div>
+                                          <div class="col-75">
+                                            <input type="text" id="fname" name="firstname" placeholder="Your name..">
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col-25">
+                                            <label for="lname">SFTP Username</label>
+                                          </div>
+                                          <div class="col-75">
+                                            <input type="text" id="lname" name="lastname" placeholder="Your last name..">
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-25">
+                                              <label for="lname">SFTP Password</label>
+                                            </div>
+                                            <div class="col-75">
+                                              <input type="text" id="lname" name="lastname" placeholder="Your last name..">
+                                            </div>
+                                          </div>
+                                          <div class="row">
+                                            <div class="col-25">
+                                              <label for="lname">Protocol</label>
+                                            </div>
+                                            <div class="col-75">
+                                              <input type="text" id="lname" name="lastname" value="ftps" placeholder="Your last name..">
+                                            </div>
+                                          </div>
+                                        <br>
+                                        <div class="row">
+                                          <input type="submit" value="Save">
+                                        </div>
+                                        </form>
+                                      </div>
+
+                            </div>
+
+                            <div class="ibox-body">
+                               
+                                <h5>CM2000</h5>
+
+                                <div class="container">
+                                    <form action="/action_page.php">
+                                    <div class="row">
+                                      <div class="col-25">
+                                        <label for="fname">Server *</label>
+                                      </div>
+                                      <div class="col-75">
+                                        <input type="text" id="fname" name="firstname" placeholder="Your name..">
+                                      </div>
+                                    </div>
+                                    <div class="row">
+                                      <div class="col-25">
+                                        <label for="lname">Username *</label>
+                                      </div>
+                                      <div class="col-75">
+                                        <input type="text" id="lname" name="lastname" placeholder="Your last name..">
+                                      </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-25">
+                                          <label for="lname">Password *</label>
+                                        </div>
+                                        <div class="col-75">
+                                          <input type="text" id="lname" name="lastname" placeholder="Your last name..">
+                                        </div>
+                                      </div>
+
+                                      <div class="row">
+                                        <div class="col-25">
+                                          <label for="lname"></label>
+                                        </div>
+                                        <div class="col-75">
+                                          <input type="radio" id="lname" name="lastname" placeholder="Your last name.."> LiveIntegrate
+                                          <input type="radio" id="lname" name="lastname" placeholder="Your last name.."> CCL
+                                        </div>
+                                      </div>
+                                     
+                                      <div class="row">
+                                        <div class="col-25">
+                                          <label for="lname">Protocol</label>
+                                        </div>
+                                        <div class="col-75">
+                                          <input type="text" id="lname" name="lastname" value="ftps" placeholder="Your last name..">
+                                        </div>
+                                      </div>
+                                    <br>
+                                    <div class="row">
+                                      <input type="submit" value="Save">
+                                    </div>
+                                    </form>
+                                  </div>
+
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                
+
+               
+
+                
+
+
+
+
+
+
+                {% comment %} Equality & Diversity {% endcomment %}
+
+                   
+            </div>
+
+
+            <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+            <script>
+                function searchFunction() {
+                    // Add your search functionality here
+                    var searchTerm = document.querySelector('.search-bar').value;
+                    alert('Searching for: ' + searchTerm);
+                    // You can implement your own search logic or send the search term to a server.
+                }
+
+               
+            </script>
+{% endblock content %}
